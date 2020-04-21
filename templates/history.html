@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <title></title>
+    <style media="screen">
+        html {
+          position: static;
+        }
+        body {
+          background: lightpink !important;
+        }
+        .right {
+          position : absolute;
+          right : 10px;
+          /* top : 5px; */
+        }
+        .cities {
+          background-color: black;
+          color: white;
+          margin: 20px;
+          padding: 20px;
+        }
+        .btnlf {
+          margin-top:1%;
+        }
+        .r-btm {
+          margin-top:37%;
+          margin-right:3%;
+        }
+
+        .picture {
+          margin-left:1%;
+          margin-top:1%;
+          margin-bottom:1%;
+        }
+        table {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          border: 1px solid black;
+          /* border-collapse: collapse;
+          padding: 5px;
+          text-align: left; */
+
+        }
+
+        div.ex2 {
+          max-width:800px;
+          margin: auto;
+          border: 3px solid #73AD21;
+        }
+
+        .jumbotron {
+          /* background-image: url('http://designwoop.com/uploads/2012/03/03_free_subtle_textures_beautiful_wood_texture.jpg'); */
+            background-color: lightpink;
+            color: #000;
+         }
+
+        .container {
+          max-width: 100%;
+
+        }
+
+         span {
+          white-space: wrap;
+        text-overflow: ellipsis;
+         }
+
+        .border-top { border-top: 1px solid #e5e5e5; }
+        .border-bottom { border-bottom: 1px solid #e5e5e5; }
+        .border-top-gray { border-top-color: #adb5bd; }
+
+        .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+        .lh-condensed { line-height: 1.25; }
+
+        .editors {
+          display: flex;
+          justify-content: space-around;
+        }
+        .btn
+        {
+            font-size: 20px;
+            border-radius: 10px;
+            width: 130px;
+            height: 48px;
+        }
+        .header {
+          width: 400px;
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+          margin-bottom: 30px;
+          font-size: 1.25rem;
+          line-height: 1.5rem;
+        }
+
+        a {
+          width: 100px;
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+        }
+
+        #logo {
+          height: 65px;
+          text-align: center;
+        }
+
+        .session
+        {
+          width: 80%;
+          height: 40%
+        }
+
+        /* Styling for Title Headings */
+
+        .session {
+          background-color: #66cdaa;
+          font-family: Palatino Linotype;
+          border-radius: 50px;
+          color: #e9fffb;
+          padding: 10px;
+          margin: 10px auto;
+        }
+
+        .concept {
+          background-color: #fff277;
+          padding: 10px;
+          margin: 5px;
+          border-radius: 10px;
+          color: #142030;
+        }
+
+
+
+        .concept-description {
+          margin: 5px;
+          padding: 5px;
+          color: #142030;
+          font-family: Tahoma;
+          text-align: left;
+          border: 8px dotted #b4eeb4;
+          border-top-left-radius: 20px 20px;
+          border-bottom-right-radius: 20px 20px;
+        }
+        /* Styling for session notes */
+
+
+        p {
+          margin: 10px ;
+
+        }
+
+        .bold {
+          font-weight: bold;
+        }
+
+        .underline {
+          text-decoration: underline;
+          font-size: 120%;
+        }
+
+
+
+        .scrollbar
+        {
+
+        	float: left;
+        	background: lightpink;
+        	overflow-y: scroll;
+        	margin-bottom: 25px;
+        }
+
+
+        .scrollbar::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: lightpink;
+        border-radius: 10px; }
+
+        .scrollbar::-webkit-scrollbar {
+        width: 12px;
+        background-color: lightpink;
+        overflow: scroll;
+        }
+
+        .scrollbar::-webkit-scrollbar-button:hover {
+          background-color:black !important;
+        }
+
+        .scrollbar::-webkit-scrollbar-thumb:active {
+          border:2px dotted white;
+        }
+        .scrollbar::-webkit-scrollbar-track:hover {
+          background-color: lightgray;
+        }
+
+
+        .scrollbar::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-image: -webkit-gradient(linear, left bottom, left top, from(#30cfd0), to(#330867));
+        background-image: -webkit-linear-gradient(bottom, #30cfd0 0%, #330867 100%);
+        background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
+
+
+
+        ::-webkit-scrollbar-track
+        {
+        	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        	background-color: lightpink;
+        }
+
+        ::-webkit-scrollbar
+        {
+        	width: 6px;
+        	background-color: lightpink;
+          float: left;
+          overflow-y: scroll;
+          margin-bottom: 25px;
+        }
+
+        /* ::-webkit-scrollbar-thumb
+        {
+        	background-color: #ff1a1a;
+        } */
+        .list-group-item{
+           word-wrap: break-word;
+           border: 2.5px solid black;
+           background: lightpink;
+        }
+
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+          width: fit-content;
+        }
+
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .topnav a.active {
+          background-color: #3c48f2;
+          color: white;
+        }
+        .item-a {
+          grid-column-start: 2;
+          grid-column-end: five;
+          grid-row-start: row1-start;
+          grid-row-end: 3;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="container" align="center"> -->
+      <div class="topnav">
+        <div class="">
+            <a class="" onclick="goBack()" type="button">หน้าแรก</a>
+        </div>
+        <div class="">
+            <a class="active" onclick="welcome_lost()" id="l_btn" type="button">ของที่ฉันพบเจอ</a>
+        </div>
+        <div class="">
+          <a class="" onclick="welcome_found()" id="f_btn" type="button">ของที่ฉันทำหาย</a>
+        </div>
+        <div class="">
+          <a class="" onclick="welcome_comment()" id="c_btn" type="button">โพสต์ที่ฉันแสดงความคิดเห็น</a>
+        </div>
+
+        <div class="right">
+          <!-- <button type="button" name="button">history</button> -->
+            <input type="hidden" name="" value="" id="getEmail">
+            <input type="hidden" name="" value="" id="getId">
+            <!-- <input type="hidden" name="" value="" id="getName"> -->
+            <!-- <a href="{% url 'history' %}?id={{g_id}}" id="history">History</a> -->
+
+            <a href="{% url 'logout' %}">ออกจากระบบ</a>
+        </div>
+      </div>
+    <!-- </div> -->
+    <!-- <button type="button" class="btn btn-primary" name="button" onclick="goBack()">back</button> -->
+      <!-- <h1>History</h1> -->
+      <div class="scrollbar" schroll-bottom="messages" style="height: 450px;width: 80%; margin-left: 10%; margin-top: 3%" id="data">
+
+      </div>
+      <br>
+
+      <div class="dropup" align="right" style="margin-top:30% ; margin-right:3%">
+
+        <div class="modal fade" id="Lost" role="dialog" >
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content text-left">
+                  <div class="modal-header" style="background-color: rgb(42,138,234)">
+                    <h5>ของหาย</h5>
+                  </div>
+                    <div class="modal-body" style="background-color: rgb(136,215,241)">
+                        <!-- <form action="/post_create_lost/" method="post" style=> -->
+                              <!-- {% csrf_token %} -->
+                              <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
+                              <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
+                              <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
+                              หัวข้อ:
+                              <input type="text" name="work" lign="left" value="" id="topic" required><br>
+                              ประเภท:
+                                <select name="item" id="type" required>
+                                  <option value="" disabled selected hidden>เลือกประเภท</option>
+                                  <option value="โทรศัพท์">โทรศัพท์</option>
+                                  <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                  <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
+                                  <option value="นาฬิกา">นาฬิกา</option>
+                                  <option value="อื่นๆ">อื่นๆ</option>
+                                </select><br>
+                              รายละเอียด:
+                              <br><textarea rows="5" cols="40" maxlength="300" name="progress" id="desc" required></textarea>
+                              <br><br>
+                              อัพโหลดรูป:
+                              <input type="file" name="file[]" id="files_l" value="https://goodwillretail.co.th/wp-content/uploads/2016/01/nopic.png">
+                              <!-- <label for="file">Choose file</label> -->
+                              <input type="hidden" name="url" id="url">
+                              <input type="hidden" name="email" id="email" value="{{g_email}}">
+                              <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br>
+
+                              <div align="right">
+                                  <!-- <input type="submit" value="ยืนยันแก้ไข" class="btn btn-primary" id="submitEdit" required> -->
+                                  <button type="button" name="button" class="btn btn-primary" onclick="submitEdit()">ยืนยันแก้ไข</button>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ปิด</button>
+                              </div>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="Confirm" role="dialog" >
+          <div class="modal-dialog modal-lg" >
+              <div class="modal-content text-left">
+                <div class="modal-header" style="background-color: rgb(42,138,234)">
+                  <h5>ยืนยันการลบ</h5>
+                </div>
+                  <div class="modal-body" style="background-color: rgb(136,215,241)">
+                      <h5>คุณต้องการจะลบหรือไม่</h5>
+                      <div align="right">
+                          <!-- <input type="submit" value="ยืนยันแก้ไข" class="btn btn-primary" id="submitEdit" required> -->
+                          <button type="button" name="button" class="btn btn-primary" id="Confirmed">ยืนยัน</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ยกเลิก</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- {{re}}
+      {{sta}} -->
+
+      <!-- uid : -->
+      <!-- <h5 id="getId" value=""></h5> -->
+      <!-- {{id}} -->
+      <!-- <input type="text" name="" value="" id="getId"> -->
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-database.js"></script>
+  <script>
+
+  var config = {
+      apiKey: "AIzaSyBPIHPOE2LWIPCDMU8STeMcm8G5CEKyjOA",
+      authDomain: "landf-d7d76.firebaseapp.com",
+      databaseURL: "https://landf-d7d76.firebaseio.com",
+      projectId: "landf-d7d76",
+      storageBucket: "landf-d7d76.appspot.com",
+      messagingSenderId: "664909858615",
+      appId: "1:664909858615:web:2959130b838ad023b0bcb2",
+      measurementId: "G-LK1FPK8MVG"
+  };
+  firebase.initializeApp(config);
+  var g_email,e;
+  var g_id;
+  var desc,email,topic,type,url,s_id,Ref_gb;
+  // var g_name;
+  // var en_email , en_name , de_email , de_name;
+  var b;
+  var tmp_e;
+  var num = 1;
+  var result = "{{re}}";
+  var status = "{{sta}}";
+
+  now_url = window.location.href;
+  url = new URL(now_url);
+  try {
+    var id = url.searchParams.get("id");
+    var email = url.searchParams.get("e");
+    var b = url.searchParams.get("b");
+    // var name = url.searchParams.get("n");
+    // console.log("b is " + b);
+    // console.log(555555555555555555555555);
+  } catch (e) {
+      // console.log("not url");
+  }
+
+  window.onload = function() {
+      console.log("result " + result.split("#")[0]);
+
+      // console.log(window.location.href);
+      // console.log("id " + id);
+      g_id = id;
+      // g_name = atob(name);
+      // g_email = atob(email);
+      // console.log("g_id " + g_id);
+      if (result.split("#")[0] == "X") {
+          if(status == "0"){
+              match_With_Found()
+          }
+          else if (status == "1" ) {
+              match_With_Lost()
+          }
+
+          now_url = window.location.href;
+          url = new URL(now_url);
+          var id = url.searchParams.get("id");
+          g_id = id;
+          document.getElementById("getId").value = g_id;
+          console.log(3);
+
+      }
+      else if (num == 1 && b == null) {
+              welcome_lost();
+              num = 2;
+              // document.getElementById("getEmail").value = g_email;
+              document.getElementById("getId").value = g_id;
+              // document.getElementById("getName").value = g_name;
+              // g_id = id;
+              // console.log(g_id);
+              // var email = "{{e}}";
+              // localStorage.setItem("g_email", email);
+              // g_email = localStorage.getItem("g_email");
+              // var id = "{{g_id}}";
+              // localStorage.setItem("g_id", id);
+              // g_id = localStorage.getItem("g_id");
+              // document.getElementById("getEmail").value = g_email;
+              // document.getElementById("getId").value = g_id;
+              console.log(1);
+      }
+
+      else if(b == 1){
+          num = 1
+          welcome_lost();
+          now_url = window.location.href;
+          url = new URL(now_url);
+          var id = url.searchParams.get("id");
+          // var email = url.searchParams.get("email");
+
+          g_id = id;
+          // g_email = email;
+          // document.getElementById("getEmail").value = g_email;
+          document.getElementById("getId").value = g_id;
+          // document.getElementById("getName").value = g_name;
+          // document.getElementById("history").href="{% url 'history' %}?id=" + g_id;
+          console.log(2);
+
+          // console.log("2 ", g_id);
+          // console.log("2 ", g_email);
+          // console.log("2 ", b);
+      }
+
+      // now_url = window.location.href;
+      // url = new URL(now_url);
+      // var id = url.searchParams.get("id")
+      // console.log(id);
+      // g_id = id;
+      // g_email = "{{e}}";
+      // document.getElementById("getEmail").value = g_email;
+      // document.getElementById("getId").value = g_id;
+      var firebaseRef2 = new firebase.database().ref("users").child(g_id);
+      firebaseRef2.once('value').then(function(dataSnapshot) {
+          var childData = dataSnapshot.val()
+          var now_name = childData.name;
+          var now_email = childData.email;
+          // document.getElementById("name").value = now_name;
+          // document.getElementById("email").value = now_email;
+          document.getElementById("getEmail").value = now_email;
+          var e = document.getElementById("getEmail").value
+          g_email = now_email
+          // console.log(now_name);
+          // console.log(now_email);
+          console.log("now_e " + now_email);
+          console.log("id " + g_id);
+          console.log("email " + g_email);
+        });
+        // console.log("id " + g_id);
+      // console.log(name);
+      // de_name = atob(name);
+      // console.log(de_name);
+      // en_name = btoa(g_name);
+      // console.log(email);
+      // de_email = atob(email);
+      // console.log(de_email);
+
+      // en_email = btoa(g_email);
+      // console.log(id);
+      // console.log(g_email);
+
+
+  }
+  function submitEdit() {
+      console.log(url);
+      // var Ref_f = firebase.database().ref("Found/" + s_id);
+      var tp = document.getElementById("topic").value;
+      var dc = document.getElementById("desc").value;
+      var ty = document.getElementById("type").value;
+      var ur;
+      if (url == "") {
+          ur = document.getElementById("url").value;
+      }
+      else {
+          ur = url;
+      }
+
+      console.log(tp);
+      console.log(dc);
+      console.log(ty);
+      console.log(ur);
+      Ref_gb.update({
+          description: dc,
+          topic: tp,
+          type: ty,
+          url: ur,
+      });
+      window.location.reload();
+  }
+
+  function EditData($this,type) {
+      var thisid = $this.previousElementSibling.previousElementSibling.value;
+      if (type == 1) {
+          console.log(thisid);
+          Ref_gb = firebase.database().ref("Found/" + thisid);
+          Ref_gb.once('value').then(function(dataSnapshot){
+                  var data = dataSnapshot.val();
+                  desc = data.description;
+                  email = data.email
+                  topic = data.topic;
+                  type = data.type;
+                  url = data.url;
+                  s_id = thisid;
+                  // console.log(desc);
+                  // console.log(email);
+                  // console.log(topic);
+                  // console.log(type);
+                  console.log("ur " + url);
+                  var modal = document.getElementById("Lost");
+                  var btn = document.getElementById("editLost");
+                  var set;
+                  if (type == "โทรศัพท์") {set = 1;}
+                  else if(type == "กระเป๋าสะพาย"){set = 2;}
+                  else if(type == "กระเป๋าเงิน"){set = 3;}
+                  else if(type == "นาฬิกา"){set = 4;}
+                  else if(type == "อื่นๆ"){set = 5;}
+                  s_topic = document.getElementById("topic")
+                  document.getElementById("topic").value = topic;
+                  document.getElementById("desc").value = desc;
+                  // document.getElementById("files_f").value = url;
+                  document.getElementById("type").selectedIndex = set;
+                  s_topic = document.getElementById("topic")
+                  s_desc = document.getElementById("desc")
+                  s_type = document.getElementById("type")
+                  s_url = document.getElementById("files_l")
+
+                  btn.onclick = function() {
+                    modal.style.display = "block";
+                  }
+                  window.onclick = function(event) {
+                    if (event.target == modal) {
+                      modal.style.display = "none";
+                    }
+                  }
+                  // edit.onclick = function() {
+                  //     console.log(Ref_f);
+                  //
+                  //     var data = {
+                  //         description : s_desc,
+                  //         topic: s_topic,
+                  //         type: s_type,
+                  //         url: s_url,
+                  //     };
+                  //     Ref_f.push(data)
+                  // }
+          });
+      }
+      else if (type == 2) {
+          console.log(thisid);
+          Ref_gb = firebase.database().ref("Lost/" + thisid);
+          Ref_gb.once('value').then(function(dataSnapshot){
+                  var data = dataSnapshot.val();
+                  desc = data.description;
+                  email = data.email
+                  topic = data.topic;
+                  type = data.type;
+                  url = data.url;
+                  console.log(desc);
+                  console.log(email);
+                  console.log(topic);
+                  console.log(type);
+                  console.log(url);
+                  var modal = document.getElementById("Lost");
+                  var btn = document.getElementById("editLost");
+                  var set;
+                  if (type == "โทรศัพท์") {set = 1;}
+                  else if(type == "กระเป๋าสะพาย"){set = 2;}
+                  else if(type == "กระเป๋าเงิน"){set = 3;}
+                  else if(type == "นาฬิกา"){set = 4;}
+                  else if(type == "อื่นๆ"){set = 5;}
+                  document.getElementById("topic").value = topic;
+                  document.getElementById("desc").value = desc;
+                  // document.getElementById("files_f").value = url;
+                  document.getElementById("type").selectedIndex = set;
+
+                  btn.onclick = function() {
+                    modal.style.display = "block";
+                  }
+                  window.onclick = function(event) {
+                    if (event.target == modal) {
+                      modal.style.display = "none";
+                    }
+                  }
+          });
+      }
+  }
+
+  var btn_confirmed;
+  var btn;
+      function deleteData($this,type) {
+        var thisid = $this.nextSibling.value;
+        btn_confirmed = document.getElementById("Confirmed");
+        btn = document.getElementById("confirmDel");
+          if (type == 1) {
+              var Ref_f = firebase.database().ref("Found/" + thisid);
+              var modal = document.getElementById("Confirm");
+              console.log(Ref_f);
+              console.log(thisid);
+              btn.onclick = function() {
+                modal.style.display = "block";
+              }
+              btn_confirmed.onclick = function() {
+                 // console.log(1);
+                 Ref_f.remove()
+                 window.location.reload();
+              }
+              window.onclick = function(event) {
+                if (event.target == modal) {
+                  modal.style.display = "none";
+                }
+              }
+              // Ref_f.remove()
+              // window.location.reload();
+          }
+          else if (type == 2) {
+              var Ref_l = firebase.database().ref("Lost/" + thisid);
+              var modal = document.getElementById("Confirm");
+              console.log(Ref_l);
+              console.log(thisid);
+              btn.onclick = function() {
+                modal.style.display = "block";
+              }
+              btn_confirmed.onclick = function() {
+                 // console.log(1);
+                 Ref_l.remove()
+                 window.location.reload();
+              }
+              window.onclick = function(event) {
+                if (event.target == modal) {
+                  modal.style.display = "none";
+                }
+              }
+              // Ref_l.remove()
+              // window.location.reload();
+          }
+      }
+
+    function goBack() {
+        window.location = "/postsignin/?id=" + id + "&b=" + 1;
+        // window.location = "/postsignin/?id=" + id + "&b=" + 1 + "&n=" + name + "&e=" + email;
+        // window.history.back();
+    }
+
+    // function showid($this,type) {
+    //   var thisid = $this.previousElementSibling.value;
+    //   console.log(thisid);
+    //   matchPost(thisid,type)
+    // }
+    // function matchPost(key,type) {
+    //     if (type == 1) {
+    //         location.href = "/match_post_L/?key=" + key + "&id=" + g_id;
+    //     }
+    //     else if(type == 2){
+    //         location.href = "/match_post_F/?key=" + key + "&id=" + g_id;
+    //     }
+    // }
+
+    function print($this,type) {
+    console.log("print"+$this);
+    var val = $this.previousElementSibling.value;
+    console.log(val);
+    if(val == ''){
+        console.log('no input');
+    }else{
+       // console.log(val);
+       // console.log(type);
+       check_post(val,type)
+    }
+  }
+  function check_post(idKey,type) {
+     // console.log(g_id);
+     if (type == 1) {
+         var firebaseRef = firebase.database().ref("Found").orderByChild("work");
+         firebaseRef.once('value').then(function(dataSnapshot) {
+           dataSnapshot.forEach(function(childSnapshot){
+             var childKey = childSnapshot.key;
+             // var pic = isPic;
+             // console.log(pic);
+             // var childData = childSnapshot.val();
+             // var c_topic = childData.topic;
+             // var c_desc = childData.description;
+             // var c_url = childData.url;
+
+             if (idKey == childKey) {
+                 // console.log(c_topic);
+                 // console.log(c_desc);
+                 // console.log(c_url);
+                 location.href = "/post_check_L/?key=" + childKey + "&id=" + g_id;
+             }
+
+         });
+         // console.log("not found");
+       });
+     }
+     else if(type == 2) {
+         var firebaseRef = firebase.database().ref("Lost").orderByChild("work");
+         firebaseRef.once('value').then(function(dataSnapshot) {
+           dataSnapshot.forEach(function(childSnapshot){
+             var childKey = childSnapshot.key;
+             // var pic = isPic;
+             // console.log(pic);
+             // var childData = childSnapshot.val();
+             // var c_topic = childData.topic;
+             // var c_desc = childData.description;
+             // var c_url = childData.url;
+
+             if (idKey == childKey) {
+                 // console.log(c_topic);
+                 // console.log(c_desc);
+                 // console.log(c_url);
+                 location.href = "/post_check_F/?key=" + childKey + "&id=" + g_id;
+             }
+
+         });
+         // console.log("not found");
+       });
+     }
+  }
+  function print2($this,type) {
+  console.log("print"+$this);
+  var val = $this.previousElementSibling.value;
+  console.log(val);
+  if(val == ''){
+      console.log('no input');
+  }else{
+     // console.log(val);
+     // console.log(type);
+     check_post2(val,type)
+  }
+}
+  function check_post2(idKey,type) {
+    // console.log(g_id);
+    if (type == 1) {
+        var firebaseRef = firebase.database().ref("Lost").orderByChild("work");
+        firebaseRef.once('value').then(function(dataSnapshot) {
+          dataSnapshot.forEach(function(childSnapshot){
+            var childKey = childSnapshot.key;
+            // var pic = isPic;
+            // console.log(pic);
+            // var childData = childSnapshot.val();
+            // var c_topic = childData.topic;
+            // var c_desc = childData.description;
+            // var c_url = childData.url;
+            // console.log(1);
+            console.log(idKey + " " + childKey);
+            // if (idKey == childKey) {
+                // console.log(c_topic);
+                // console.log(c_desc);
+                // console.log(c_url);
+                console.log(1);
+                location.href = "/post_check_on_F/?key=" + idKey + "&id=" + g_id;
+
+
+            // }
+
+        });
+        // console.log("not found");
+      });
+    }
+    else if(type == 2) {
+        var firebaseRef = firebase.database().ref("Found").orderByChild("work");
+        firebaseRef.once('value').then(function(dataSnapshot) {
+          dataSnapshot.forEach(function(childSnapshot){
+            var childKey = childSnapshot.key;
+            // var pic = isPic;
+            // console.log(pic);
+            // var childData = childSnapshot.val();
+            // var c_topic = childData.topic;
+            // var c_desc = childData.description;
+            // var c_url = childData.url;
+            // console.log(2);
+
+            console.log(idKey + " " + childKey);
+
+            // if (idKey == childKey) {
+                // console.log(c_topic);
+                // console.log(c_desc);
+                // console.log(c_url);
+                console.log(2);
+                location.href = "/post_check_on_L/?key=" + idKey + "&id=" + g_id;
+
+            // }
+
+        });
+        // console.log("not found");
+      });
+    }
+  }
+
+
+    function match_With_Found() {
+        $("#data").empty()
+        g_id = id;
+
+        tmp = "";
+        tmp = result.split("#");
+        console.log(tmp.length);
+        var i = 1;
+        var j = 1;
+        tmp_new = tmp.sort();
+
+        var firebaseRef = firebase.database().ref("Lost").orderByChild("work");
+        firebaseRef.once('value').then(function(dataSnapshot) {
+          dataSnapshot.forEach(function(childSnapshot){
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            var c_email = childData.email;
+            var c_topic = childData.topic;
+            var c_desc = childData.description;
+            var c_url = childData.url;
+            var $mainContainer = $("#mainContainer");
+            var content = "";
+            var temp = childKey;
+            var l_btn = document.getElementById("l_btn");
+            var f_btn = document.getElementById("f_btn");
+
+            l_btn.classList.add("active");
+            f_btn.classList.remove("active");
+            // console.log(dataSnapshot);
+            // console.log(childSnapshot);
+
+            // console.log("F_childkey " + childKey);
+
+            // console.log("url: " + c_url);
+
+            // var num = 1;
+            // $("#topic").html(c_topic)
+            // $("#desc").html(c_desc.slice(0,50) + "...")
+            // document.getElementById("myPic").src = c_url;
+            // console.log(c_desc.slice(0,50));
+            // console.log(c_topic);
+            // console.log(c_email);
+
+            if (childSnapshot.exists()) {   //check data exist
+                // console.log("result " + tmp[i] + " " + childKey);
+                // console.log(i);
+                if (tmp[i] == childKey) {
+                  console.log("result " + tmp[i] + " " + childKey);
+                  // console.log("OK");
+                  console.log("topic " + c_topic);
+                  console.log(i);
+                  // content += "<a href='https://www.w3schools.com'>"
+                  content += "<ul class='list-group' ng-repeat='data in messages' >";
+                  content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                  // content += "<span class='badge' id='noti'>1</span>"
+                  content += "<div class='row'>";
+                  content += "<div class='col-3' style='background:#ffe6d8'>";
+                  content += "<div class='picture'>";
+                  content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                  content += "</div>";
+                  content += "</div>";
+                  content += "<div class='col-9' style='background:#ffe6d8'>";
+                  content += "<div class='' style='text-align:left'>";
+                  content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                  content += "<br>";
+                  content += "<b>รายละเอียด :</b>";
+                  content += "<br>";
+                  content += "<em>" + c_desc + "</em>";
+                  content += "</div>";
+                  content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                    content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
+                    content += "</div>";
+                  content += "</div>";
+                  content += "</div>";
+                  content += "</ul>";
+                  // content += "</a>"
+                  i = i+j;
+                }
+
+                // console.log("Found have");
+                // console.log(num);
+                // num=num+1;
+                // $("#topic").html(c_topic)
+                // $("#desc").html(c_desc.slice(0,50) + "...")
+                // document.getElementById("myPic").src = c_url;
+                // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
+                $("#topic").html(c_topic)
+                // $("#desc").html(c_desc.slice(0,50) + "...")
+                $("#desc").html(c_desc)
+                // document.getElementById("myPic").src = c_url;
+                // $mainContainer.append(newDiv);
+            }
+            $('#data').append(content)
+
+            // document.getElementById("myPic").src = c_url;;
+            // $('#ex-table').append(content);
+            // else {
+            //   console.log("null");
+            // }
+            // console.log(c_topic);
+            // console.log(c_desc);
+          });
+        });
+    }
+
+    function match_With_Lost() {
+        $("#data").empty()
+        g_id = id;
+
+        tmp = "";
+        tmp = result.split("#");
+        console.log(tmp.length);
+        tmp_new = tmp.sort();
+        var i = 1;
+        var j = 1;
+
+        var firebaseRef = firebase.database().ref("Found").orderByChild("work");
+        firebaseRef.once('value').then(function(dataSnapshot) {
+          dataSnapshot.forEach(function(childSnapshot){
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            var c_email = childData.email;
+            var c_topic = childData.topic;
+            var c_desc = childData.description;
+            var c_url = childData.url;
+            var $mainContainer = $("#mainContainer");
+            var content = "";
+            var temp = childKey;
+            var l_btn = document.getElementById("l_btn");
+            var f_btn = document.getElementById("f_btn");
+
+            l_btn.classList.add("active");
+            f_btn.classList.remove("active");
+            // console.log(dataSnapshot);
+            // console.log(childSnapshot);
+
+            // console.log("F_childkey " + childKey);
+
+            // console.log("url: " + c_url);
+
+            // var num = 1;
+            // $("#topic").html(c_topic)
+            // $("#desc").html(c_desc.slice(0,50) + "...")
+            // document.getElementById("myPic").src = c_url;
+            // console.log(c_desc.slice(0,50));
+            // console.log(c_topic);
+            // console.log(c_email);
+
+            if (childSnapshot.exists()) {   //check data exist
+                // console.log("result " + tmp[i] + " " + childKey);
+                // console.log(i);
+                if (tmp[i] == childKey) {
+                  console.log("result " + tmp[i] + " " + childKey);
+                  // console.log("OK");
+                  console.log("topic " + c_topic);
+                  console.log(i);
+                  // content += "<a href='https://www.w3schools.com'>"
+                  content += "<ul class='list-group' ng-repeat='data in messages' >";
+                  content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                  // content += "<span class='badge' id='noti'>1</span>"
+                  content += "<div class='row'>";
+                  content += "<div class='col-3' style='background:#ffe6d8'>";
+                  content += "<div class='picture'>";
+                  content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                  content += "</div>";
+                  content += "</div>";
+                  content += "<div class='col-9' style='background:#ffe6d8'>";
+                  content += "<div class='' style='text-align:left'>";
+                  content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                  content += "<br>";
+                  content += "<b>รายละเอียด :</b>";
+                  content += "<br>";
+                  content += "<em>" + c_desc + "</em>";
+                  content += "</div>";
+                  content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                    content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
+                    content += "</div>";
+                  content += "</div>";
+                  content += "</div>";
+                  content += "</ul>";
+                  // content += "</a>"
+                  i = i+j;
+                }
+
+                // console.log("Found have");
+                // console.log(num);
+                // num=num+1;
+                // $("#topic").html(c_topic)
+                // $("#desc").html(c_desc.slice(0,50) + "...")
+                // document.getElementById("myPic").src = c_url;
+                // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
+                $("#topic").html(c_topic)
+                // $("#desc").html(c_desc.slice(0,50) + "...")
+                $("#desc").html(c_desc)
+                // document.getElementById("myPic").src = c_url;
+                // $mainContainer.append(newDiv);
+            }
+            $('#data').append(content)
+
+            // document.getElementById("myPic").src = c_url;;
+            // $('#ex-table').append(content);
+            // else {
+            //   console.log("null");
+            // }
+            // console.log(c_topic);
+            // console.log(c_desc);
+          });
+        });
+    }
+
+    function welcome_lost() {
+            $("#data").empty()
+            g_id = id;
+            // console.log("g_id" + g_id);
+            // console.log("id " + id);
+            // g_email = document.getElementById("getEmail");
+            // g_id = document.getElementById("getId")
+            // console.log(g_email.value);
+            // console.log(g_id.value);
+            var firebaseid = firebase.database().ref("users")
+            firebaseid.once('value').then(function(dataSnapshot) {
+              dataSnapshot.forEach(function(childSnapshot){
+                var Key = childSnapshot.key;
+                var Data = childSnapshot.val();
+                // console.log(childSnapshot.email);
+                if(id == Key){
+                    tmp_id = Key;
+                    // console.log(tmp_id);
+                    tmp_e = Data.email;
+                    // console.log(tmp_e);
+                }
+              });
+            });
+            var firebaseRef = firebase.database().ref("Found").orderByChild("work");
+            firebaseRef.once('value').then(function(dataSnapshot) {
+              dataSnapshot.forEach(function(childSnapshot){
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                var c_email = childData.email;
+                var c_topic = childData.topic;
+                var c_desc = childData.description;
+                var c_url = childData.url;
+                var $mainContainer = $("#mainContainer");
+                var content = "";
+                var temp = childKey;
+                var l_btn = document.getElementById("l_btn");
+                var f_btn = document.getElementById("f_btn");
+                var c_btn = document.getElementById("c_btn");
+
+                l_btn.classList.add("active");
+                f_btn.classList.remove("active");
+                c_btn.classList.remove("active");
+
+                // console.log(dataSnapshot);
+                // console.log(childSnapshot);
+
+                // console.log("F_childkey " + childKey);
+
+                // console.log("url: " + c_url);
+
+                // var num = 1;
+                // $("#topic").html(c_topic)
+                // $("#desc").html(c_desc.slice(0,50) + "...")
+                // document.getElementById("myPic").src = c_url;
+                // console.log(c_desc.slice(0,50));
+                // console.log(c_topic);
+                // console.log(c_email);
+                    if (childSnapshot.exists()) {
+                      var count = 1;   //check data exist
+                        if (tmp_e == c_email) {
+                        // if (c_url != "") {
+                          // content += "<a href='https://www.w3schools.com'>"
+                          content += "<ul class='list-group' ng-repeat='data in messages' >";
+                          content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                          content += "<div class='row'>";
+                          content += "<div class='col-3' style='background:#ffe6d8'>";
+                          content += "<div class='picture'>";
+                          content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                          content += "</div>";
+                          content += "</div>";
+                          content += "<div class='col-9' style='background:#ffe6d8'>";
+                          content += "<div class='' style='text-align:left'>";
+                          content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                          content += "<br>";
+                          content += "<b>รายละเอียด :</b>";
+                          content += "<br>";
+                          content += "<em>" + c_desc + "</em>";
+                          content += "</div>";
+                          content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                          content += "<button data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
+                          // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
+                          content += "<div class='dropdown-menu'>"
+                          content += "<a type='button' class='dropdown-item' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,1)' id='confirmDel'>&#128465;ลบ</a>"
+                          content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                          content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='print(this,1)'>&#128214;ดูเพิ่ม</a>"
+                          content += "<a onclick='EditData(this,1)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000;แก้ไข</a>"
+                          content += "</div>"
+                            // content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                            // content += "<button type='button' onclick='showid(this,1)'>จับคู่</button>"
+                            // content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
+                            // content += "<button type='button' name='button' style='margin-bottom:0%' onclick='Delete()'> Delete </button>"
+                            content += "</div>";
+                          content += "</div>";
+                          content += "</div>";
+                          content += "</ul>";
+                          // content += "</a>"
+                        // }
+
+                        // console.log("Found have");
+                        // console.log(num);
+                        // num=num+1;
+                        // $("#topic").html(c_topic)
+                        // $("#desc").html(c_desc.slice(0,50) + "...")
+                        // document.getElementById("myPic").src = c_url;
+                        // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
+                        $("#topic").html(c_topic)
+                        $("#desc").html(c_desc)
+                        // $("#desc").html(c_desc.slice(0,50) + "...")
+                        // document.getElementById("myPic").src = c_url;
+                        // $mainContainer.append(newDiv);
+                        // console.log(count);
+                        count = count + 1;
+                        }
+                    }
+                $('#data').append(content)
+                // document.getElementById("myPic").src = c_url;;
+                // $('#ex-table').append(content);
+                // else {
+                //   console.log("null");
+                // }
+              });
+            });
+            var getInput = "{{e}}";
+            localStorage.setItem("tmp",getInput);
+
+        }
+
+        // function Delete() {
+        //   var firebaseRef = firebase.database().ref("Found").orderByChild("topic");
+        //   firebaseRef.once('value').then(function(dataSnapshot) {
+        //     dataSnapshot.forEach(function(childSnapshot){
+        //            console.log(childSnapshot.key);
+        //       });
+        //     });
+        //   }
+
+
+    function welcome_found() {
+          $("#data").empty()
+          g_id = id;
+          // g_email = document.getElementById("getEmail");
+          // g_id = document.getElementById("getId")
+          // console.log(g_email.value);
+          // console.log(g_id.value);
+          var firebaseid = firebase.database().ref("users")
+          firebaseid.once('value').then(function(dataSnapshot) {
+            dataSnapshot.forEach(function(childSnapshot){
+              var Key = childSnapshot.key;
+              var Data = childSnapshot.val();
+              // console.log(childSnapshot.email);
+              if(id == Key){
+                  tmp_id = Key;
+                  // console.log(tmp_id);
+                  tmp_e = Data.email;
+                  // console.log(tmp_e);
+              }
+            });
+          });
+          var firebaseRef = firebase.database().ref("Lost").orderByChild("work");
+          firebaseRef.once('value').then(function(dataSnapshot) {
+            dataSnapshot.forEach(function(childSnapshot){
+              var childKey = childSnapshot.key;
+              var childData = childSnapshot.val();
+              var c_email = childData.email;
+              var c_topic = childData.topic;
+              var c_desc = childData.description;
+              var c_url = childData.url;
+              var $mainContainer = $("#mainContainer");
+              var content = "";
+              var temp = childKey;
+              var l_btn = document.getElementById("l_btn");
+              var f_btn = document.getElementById("f_btn");
+              var c_btn = document.getElementById("c_btn");
+
+              l_btn.classList.remove("active");
+              f_btn.classList.add("active");
+              c_btn.classList.remove("active");
+              // console.log(dataSnapshot);
+              // console.log(childSnapshot);
+
+              // console.log("L_childkey " + childKey);
+
+              // console.log("url: " + c_url);
+
+              // var num = 1;
+              // $("#topic").html(c_topic)
+              // $("#desc").html(c_desc.slice(0,50) + "...")
+              // document.getElementById("myPic").src = c_url;
+              // console.log(c_desc.slice(0,50));
+              // console.log(c_topic);
+              // console.log(c_email);
+              if (childSnapshot.exists()) {
+                  var count = 1;   //check data exist
+                    if (tmp_e == c_email) {
+                  // if (c_url != "") {
+                    // content += "<a href='https://www.w3schools.com'>"
+                    content += "<ul class='list-group' ng-repeat='data in messages'>";
+                    content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                    content += "<div class='row'>";
+                    content += "<div class='col-3' style='background:#ffe6d8'>";
+                    content += "<div class='picture'>";
+                    content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "<div class='col-9' style='background:#ffe6d8'>";
+                    content += "<div class='' style='text-align:left'>";
+                    content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                    content += "<br>";
+                    content += "<b>รายละเอียด :</b>";
+                    content += "<br>";
+                    content += "<em>" + c_desc + "</em>";
+                    content += "</div>";
+                    content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                    // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
+                    content += "<button data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
+                    content += "<div class='dropdown-menu'>"
+                    content += "<a class='dropdown-item' type='button' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,2)' id='confirmDel'>&#128465;ลบ</a>"
+                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                    content += "<a class='dropdown-item' type='button' data-toggle='modal' onclick='print(this,2)'>&#128214;ดูเพิ่ม</a>"
+                    content += "<a onclick='EditData(this,2)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000;แก้ไข</a>"
+                    content += "</div>"
+                      // content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                      // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
+                      // content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,2)'> ดูเพิ่ม </button>"
+                      // content += "<button type='button' name='button' style='margin-bottom:0%' onclick='delete()'> Delete </button>"
+                      content += "</div>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "</ul>";
+                    // content += "</a>"
+                  // }
+
+                  // console.log("Found have");
+                  // console.log(num);
+                  // num=num+1;
+                  // $("#topic").html(c_topic)
+                  // $("#desc").html(c_desc.slice(0,50) + "...")
+                  // document.getElementById("myPic").src = c_url;
+                  // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
+                  $("#topic").html(c_topic)
+                  $("#desc").html(c_desc)
+                  // $("#desc").html(c_desc.slice(0,50) + "...")
+                  // document.getElementById("myPic").src = c_url;
+                  // $mainContainer.append(newDiv);
+                }
+              }
+              $('#data').append(content)
+              // document.getElementById("myPic").src = c_url;;
+              // $('#ex-table').append(content);
+              // else {
+              //   console.log("null");
+              // }
+            });
+          });
+          var getInput = "{{e}}";
+          localStorage.setItem("tmp",getInput);
+
+      }
+      function welcome_comment() {
+        $("#data").empty()
+        g_id = id;
+
+        var firebaseid = firebase.database().ref("users").child(g_id);
+        firebaseid.once('value').then(function(dataSnapshot) {
+            var childData = dataSnapshot.val()
+            var now_email = childData.email;
+            var firebaseCom = firebase.database().ref("Comment");
+
+            firebaseCom.once('value').then(function(dataSnap)
+            {
+                var comments = dataSnap.val()
+                // console.log(comments);
+                for(key in comments)
+                {
+                  console.log(key);
+                  for(k1 in comments[key])
+                  {
+                    if(comments[key][k1]['email'] == now_email)
+                    {
+                      var comment_dat = comments[key][k1]
+
+                      firebase.database().ref("Lost").child(key).once("value").then( (dataSnap) =>
+                      {
+                        // console.log(key);
+                        if(dataSnap.val() != null)
+                        {
+                            var content = "";
+                            let c_url = dataSnap.val()['url']
+                            let c_topic = dataSnap.val()['topic']
+                            let c_desc = dataSnap.val()['description']
+                            let c_key =  dataSnap.key
+
+                            content += "<ul class='list-group' ng-repeat='data in messages'>";
+                            content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                            content += "<div class='row'>";
+                            content += "<div class='col-3' style='background:#ffe6d8'>";
+                            content += "<div class='picture'>";
+                            content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                            content += "</div>";
+                            content += "</div>";
+                            content += "<div class='col-9' style='background:#ffe6d8'>";
+                            content += "<div class='' style='text-align:left'>";
+                            content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                            content += "<br>";
+                            content += "<b>รายละเอียด :</b>";
+                            content += "<br>";
+                            content += "<em>" + c_desc + "</em>";
+                            content += "</div>";
+                            content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                            content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
+                            content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print2(this,2)'> &#128214;ดูเพิ่ม </button>"
+                            content += "</div>";
+                            content += "</div>";
+                            content += "</div>";
+                            content += "</ul>";
+
+                            $("#topic").html(c_topic)
+                            $("#desc").html(c_desc)
+                            $('#data').append(content)
+                            // console.log(key);
+                        }
+                      });
+                      firebase.database().ref("Found").child(key).once("value").then( (dataSnap) =>
+                      {
+                        // console.log(key);
+                        if(dataSnap.val() != null)
+                        {
+                            var content = "";
+                            let c_url = dataSnap.val()['url']
+                            let c_topic = dataSnap.val()['topic']
+                            let c_desc = dataSnap.val()['description']
+                            let c_key =  dataSnap.key
+
+                            content += "<ul class='list-group' ng-repeat='data in messages'>";
+                            content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                            content += "<div class='row'>";
+                            content += "<div class='col-3' style='background:#ffe6d8'>";
+                            content += "<div class='picture'>";
+                            content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                            content += "</div>";
+                            content += "</div>";
+                            content += "<div class='col-9' style='background:#ffe6d8'>";
+                            content += "<div class='' style='text-align:left'>";
+                            content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                            content += "<br>";
+                            content += "<b>รายละเอียด :</b>";
+                            content += "<br>";
+                            content += "<em>" + c_desc + "</em>";
+                            content += "</div>";
+                            content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                            content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
+                            content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print2(this,1)'> &#128214;ดูเพิ่ม </button>"
+                            content += "</div>";
+                            content += "</div>";
+                            content += "</div>";
+                            content += "</ul>";
+
+                            $("#topic").html(c_topic)
+                            $("#desc").html(c_desc)
+                            $('#data').append(content)
+                            // console.log(key);
+                        }
+                      });
+
+                    break;
+                    }
+                  }
+
+                }
+
+            })
+      });
+      var l_btn = document.getElementById("l_btn");
+      var f_btn = document.getElementById("f_btn");
+      var c_btn = document.getElementById("c_btn");
+
+      l_btn.classList.remove("active");
+      f_btn.classList.remove("active");
+      c_btn.classList.add("active");
+    }
+    function uploadImage_lost() {
+            var storage = firebase.storage();
+            var file = document.getElementById("files_l").files[0];
+            var storageRef = storage.ref();
+            var thisRef = storageRef.child(file.name).put(file);
+            thisRef.on('state_changed',function(snapshot){
+            console.log("file uplaoded succesfully");
+            },
+            function(error) {
+
+            },
+            function() {
+                thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                  document.getElementById("url").value = downloadURL;
+            });
+        })
+      }
+  </script>
+</html>

@@ -1,0 +1,1016 @@
+{% if messg %}
+<script>
+    alert('{{ messg }}');
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+
+    <!-- <script src="js\moment.js"></script>
+  	<script src="js\angular.min.js"></script> -->
+
+    <title>Title</title>
+    <style>
+      html {
+        position: static;
+      }
+      body {
+        background: lightblue !important;
+      }
+      .right {
+        position : absolute;
+        right : 10px;
+        /* top : 5px; */
+      }
+      .cities {
+        background-color: black;
+        color: white;
+        margin: 20px;
+        padding: 20px;
+      }
+      .btnlf {
+        margin-top:1%;
+      }
+      .r-btm {
+        margin-top:37%;
+        margin-right:3%;
+      }
+
+      .picture {
+        margin-left:1%;
+        margin-top:1%;
+        margin-bottom:1%;
+      }
+      table {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid black;
+        /* border-collapse: collapse;
+        padding: 5px;
+        text-align: left; */
+
+      }
+
+      div.ex2 {
+        max-width:800px;
+        margin: auto;
+        border: 3px solid #73AD21;
+      }
+
+      .jumbotron {
+        /* background-image: url('http://designwoop.com/uploads/2012/03/03_free_subtle_textures_beautiful_wood_texture.jpg'); */
+          background-color: lightblue;
+          color: #000;
+       }
+
+      .container {
+        max-width: 100%;
+
+      }
+
+       span {
+        white-space: wrap;
+      text-overflow: ellipsis;
+       }
+
+      .border-top { border-top: 1px solid #e5e5e5; }
+      .border-bottom { border-bottom: 1px solid #e5e5e5; }
+      .border-top-gray { border-top-color: #adb5bd; }
+
+      .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+      .lh-condensed { line-height: 1.25; }
+
+      .editors {
+        display: flex;
+        justify-content: space-around;
+      }
+      .btn
+      {
+          font-size: 20px;
+          border-radius: 10px;
+          width: 130px;
+          height: 48px;
+      }
+      .header {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-bottom: 30px;
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+      }
+
+      a {
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+      }
+
+      #logo {
+        height: 65px;
+        text-align: center;
+      }
+
+      .session
+      {
+        width: 80%;
+        height: 40%
+      }
+
+      /* Styling for Title Headings */
+
+      .session {
+        background-color: #66cdaa;
+        font-family: Palatino Linotype;
+        border-radius: 50px;
+        color: #e9fffb;
+        padding: 10px;
+        margin: 10px auto;
+      }
+
+      .concept {
+        background-color: #fff277;
+        padding: 10px;
+        margin: 5px;
+        border-radius: 10px;
+        color: #142030;
+      }
+
+
+
+      .concept-description {
+        margin: 5px;
+        padding: 5px;
+        color: #142030;
+        font-family: Tahoma;
+        text-align: left;
+        border: 8px dotted #b4eeb4;
+        border-top-left-radius: 20px 20px;
+        border-bottom-right-radius: 20px 20px;
+      }
+      /* Styling for session notes */
+
+
+      p {
+        margin: 10px ;
+
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .underline {
+        text-decoration: underline;
+        font-size: 120%;
+      }
+
+
+
+      .scrollbar
+      {
+
+      	float: left;
+      	background: lightblue;
+      	overflow-y: scroll;
+      	margin-bottom: 25px;
+      }
+
+
+      .scrollbar::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+      background-color: lightblue;
+      border-radius: 10px; }
+
+      .scrollbar::-webkit-scrollbar {
+      width: 12px;
+      background-color: lightblue;
+      overflow: scroll;
+      }
+
+      .scrollbar::-webkit-scrollbar-button:hover {
+        background-color:black !important;
+      }
+
+      .scrollbar::-webkit-scrollbar-thumb:active {
+        border:2px dotted white;
+      }
+      .scrollbar::-webkit-scrollbar-track:hover {
+        background-color: lightgray;
+      }
+
+
+      .scrollbar::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+      background-image: -webkit-gradient(linear, left bottom, left top, from(#30cfd0), to(#330867));
+      background-image: -webkit-linear-gradient(bottom, #30cfd0 0%, #330867 100%);
+      background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
+
+
+
+      ::-webkit-scrollbar-track
+      {
+      	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      	background-color: lightblue;
+      }
+
+      ::-webkit-scrollbar
+      {
+      	width: 6px;
+      	background-color: lightblue;
+        float: left;
+        overflow-y: scroll;
+        margin-bottom: 25px;
+      }
+
+      /* ::-webkit-scrollbar-thumb
+      {
+      	background-color: #ff1a1a;
+      } */
+      .list-group-item{
+         word-wrap: break-word;
+         border: 2.5px solid black;
+         background: lightblue;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        width: fit-content;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: #3c48f2;
+        color: white;
+      }
+      .item-a {
+        grid-column-start: 2;
+        grid-column-end: five;
+        grid-row-start: row1-start;
+        grid-row-end: 3;
+      }
+
+      .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+      }
+
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+        width: 100%;
+        text-align: left;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        font-size: 25px;
+        margin-right: 20px;
+        text-align: right;
+      }
+
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+      .notification {
+        background-color: #333;
+        color: white;
+        text-decoration: none;
+        padding: 15px 26px;
+        position: relative;
+        display: inline-block;
+        border-radius: 2px;
+      }
+
+      .notification:hover {
+        background: red;
+      }
+
+      .notification .badge {
+        margin-top: 8%;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+      }
+      .list-group-item .badge {
+        margin-top: 2%;
+        margin-right: 3%;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+        z-index: 1;
+      }
+    </style>
+  <!-- </head> -->
+  <body>
+      <!-- {{e}}
+      {{id}} -->
+      <!-- <div class="container" align="center"> -->
+        <div class="topnav">
+
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" style="width:fit-content; text-align:right;"class="closebtn" onclick="closeNav()">&#9776;</a>
+            <a onclick="checknum( tp , 'All')" id="bt1">ทั้งหมด</a>
+            <a onclick="checknum( tp , 'โทรศัพท์')" id="bt2">โทรศัพท์</a>
+            <a onclick="checknum( tp , 'กระเป๋าสะพาย')" id="bt3">กระเป๋าสะพาย</a>
+            <a onclick="checknum( tp , 'กระเป๋าเงิน')" id="bt4">กระเป๋าเงิน</a>
+            <a onclick="checknum( tp , 'นาฬิกา')" id="bt5">นาฬิกา</a>
+            <a onclick="checknum( tp , 'อื่นๆ')" id="bt6">อื่นๆ</a>
+            <input type="hidden" name="" value="1" id="typePage">
+          </div>
+          <a style="font-size:18px;cursor:pointer" onclick="openNav()">&#9776</a>
+
+          <div class="">
+              <a class="active" onclick="welcome_lost('All')" id="l_btn" type="button">รวมของที่เจอ</a>
+          </div>
+          <div class="">
+            <a class="" onclick="welcome_found('All')" id="f_btn" type="button">รวมของที่ทำหาย</a>
+          </div>
+
+          <div class="right">
+            <!-- <button type="button" name="button">history</button> -->
+              <input type="hidden" name="" value="" id="getEmail">
+              <input type="hidden" name="" value="" id="getId">
+              <!-- <input type="hidden" name="" value="" id="getName"> -->
+              <a href="{% url 'history' %}?id={{g_id}}" id="history" class="notification">โพสต์ของฉัน
+                  <!-- <span class="badge" id="noti"></span> -->
+              </a>
+              <a href="{% url 'logout' %}">ออกจากระบบ</a>
+          </div>
+        </div>
+      	<!-- <h1>Test</h1> -->
+      	<!-- <div ng-app="app">
+      		<div ng-controller="chatCtrl" > -->
+      			<div class="scrollbar" schroll-bottom="messages" style="height: 450px;width: 80%; margin-left: 10%; margin-top: 3%" id="data">
+      				<!-- <ul class="list-group" ng-repeat="data in messages">
+                <li class="list-group-item" style="height: 150px;">
+                  <div class="row">
+                      <div class="col-md-3">
+                        <div class="picture">
+                            <img height="120" width="120" id="myPic">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="" style="text-align:left">
+                            <b>Topic : </b><em id="topic"></em>
+                            <br>
+                            <b>Description :</b>
+                            <br>
+                            <em id="desc"></em>
+                          </div>
+                      </div>
+
+                  </div>
+      				</ul> -->
+      			</div>
+      		<!-- </div>
+      	</div> -->
+        <br>
+          <div class="dropup" align="right" style="margin-top:30% ; margin-right:3%">
+            <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              Post
+            </button> -->
+            <img class="btn dropdown-toggle" data-toggle="dropdown" src="https://cdn.onlinewebfonts.com/svg/img_24506.png" style="width:80px; height:80px">
+
+            <div class="dropdown-menu">
+
+              <a href="#Lost" class="dropdown-item" data-toggle="modal" data-target="#Lost"">ของหาย</a>
+              <a href="#Found" class="dropdown-item" data-toggle="modal" data-target="#Found"">ของเจอ</a>
+
+              <!-- <a class="dropdown-item" href="{% url 'create_lost' %}">Lost</a>
+              <a class="dropdown-item" href="{% url 'create_found' %}">Found</a> -->
+            </div>
+
+            <div class="modal fade" id="Lost" role="dialog" >
+                <div class="modal-dialog modal-lg" >
+                    <div class="modal-content text-left">
+                      <div class="modal-header" style="background-color: rgb(42,138,234)">
+                        <h5>ของหาย</h5>
+                      </div>
+                        <div class="modal-body" style="background-color: rgb(136,215,241)">
+                            <form action="/post_create_lost/" method="post" style=>
+                                  {% csrf_token %}
+                                  <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
+                                  <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
+                                  <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
+                                  หัวข้อ:
+                                  <input type="text" name="work" lign="left" required><br>
+                                  ประเภท:
+                                    <select name="item" required>
+                                      <option value="" disabled selected hidden>เลือกประเภท</option>
+                                      <option value="โทรศัพท์">โทรศัพท์</option>
+                                      <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                      <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
+                                      <option value="นาฬิกา">นาฬิกา</option>
+                                      <option value="อื่นๆ">อื่นๆ</option>
+                                    </select><br>
+                                  รายละเอียด:
+                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
+                                  <br><br>
+                                  อัพโหลดรูป:
+                                  <input type="file" name="file[]" id="files_l" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
+                                  <!-- <label for="file">Choose file</label> -->
+                                  <input type="hidden" name="url" id="url">
+                                  <input type="hidden" name="email" id="email" value="{{g_email}}">
+                                  <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br>
+
+                                  <div align="right">
+                                      <input type="submit" value="ยืนยัน" class="btn btn-primary" required>
+                                      <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ปิด</button>
+                                  </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="Found" role="dialog" >
+                <div class="modal-dialog modal-lg" >
+                    <div class="modal-content text-left">
+                      <div class="modal-header" style="background-color: rgb(42,138,234)">
+                        <h5>ของเจอ</h5>
+                      </div>
+                        <div class="modal-body" style="background-color: rgb(136,215,241)">
+                            <form action="/post_create_found/" method="post" style=>
+                                {% csrf_token %}
+                                  <input type="hidden" name="now_id" id="now_id2" value="{{g_id}}">
+                                  <!-- <input type="hidden" name="now_name" id="now_name2" value="{{g_name}}">
+                                  <input type="hidden" name="now_email" id="now_email2" value="{{g_email}}"> -->
+                                  หัวข้อ:
+                                  <input type="text" name="work" lign="left" required><br>
+                                  ประเภท:
+                                    <select name="item" id="item" require>
+                                      <option value="" disabled selected hidden>เลือกประเภท</option>
+                                      <option value="โทรศัพท์">โทรศัพท์</option>
+                                      <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                      <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
+                                      <option value="นาฬิกา">นาฬิกา</option>
+                                      <option value="อื่นๆ">อื่นๆ</option>
+                                    </select><br>
+                                  รายละเอียด:
+                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
+                                  <br><br>
+                                  อัพโหลดรูป:
+                                  <input type="file" name="file[]" id="files_f" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
+                                  <!-- <label for="file">Choose file</label> -->
+                                  <input type="hidden" name="url" id="url_f">
+                                  <input type="hidden" name="email" id="email2" value="{{g_email}}">
+                                  <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br>
+
+                                  <div align="right">
+                                      <input type="submit" value="ยืนยัน" class="btn btn-primary" required>
+                                      <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ยกเลิก</button>
+                                  </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+      <!-- </div> -->
+
+
+
+        <!-- <button type="button" name="button" onclick="print()"> click</button> -->
+
+        <!-- <table style="width:100%" id="ex-table">
+          <tr id="tr">
+            <th>Topic:</th>
+            <th>Description:</th>
+            <th>Url:</th>
+         </table> -->
+
+      <!-- <button type="button" onclick="location.href='{% url 'check' %}'">See your post</button> -->
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-database.js"></script>
+  <script>
+
+    var config = {
+        apiKey: "AIzaSyBPIHPOE2LWIPCDMU8STeMcm8G5CEKyjOA",
+        authDomain: "landf-d7d76.firebaseapp.com",
+        databaseURL: "https://landf-d7d76.firebaseio.com",
+        projectId: "landf-d7d76",
+        storageBucket: "landf-d7d76.appspot.com",
+        messagingSenderId: "664909858615",
+        appId: "1:664909858615:web:2959130b838ad023b0bcb2",
+        measurementId: "G-LK1FPK8MVG"
+    };
+    firebase.initializeApp(config);
+
+    var g_email,e;
+    var g_id;
+    var tp = 1;
+    // var g_name;
+    // var en_email , en_name , de_email , de_name;
+    var b;
+    var num = 1;
+    now_url = window.location.href;
+    url = new URL(now_url);
+    try {
+      // var id = url.searchParams.get("id");
+      var email = url.searchParams.get("e");
+      // var b = url.searchParams.get("b");
+      // console.log("b is " + b);
+      // console.log(555555555555555555555555);
+    } catch (e) {
+        // console.log("not url");
+    }
+
+
+    window.onload = function() {
+      console.log("{{g_name}}");
+      tp = document.getElementById("typePage").value;
+      // firebase.auth().onAuthStateChanged(function(user) {
+      //   if (user) {
+      //     console.log(user);
+      //     // User is signed in.
+      //   } else {
+      //     console.log("noo");
+      //     // No user is signed in.
+      //   }
+      // });
+      // console.log(user);
+        // $("#noti").text("3");
+        if (num == 1 && b == null) {
+                welcome_lost("All");
+                now_url = window.location.href;
+                url = new URL(now_url);
+                b = url.searchParams.get("b");
+                if (b==null) {
+                  console.log("null");
+                  // var email = "{{g_email}}";
+                  // localStorage.setItem("g_email", email);
+                  // g_email = localStorage.getItem("g_email");
+
+
+                  var id = "{{g_id}}";
+                  // setWithExpiry("g_id", id, 60)
+                  localStorage.setItem("g_id", id);
+                  // g_id = getWithExpiry('g_id')
+                  g_id = localStorage.getItem("g_id");
+                  // console.log();
+                  num = 2
+                }
+
+                else {
+                  var id = url.searchParams.get("id");
+                  // var name = url.searchParams.get("n");
+                  g_id = id;
+                  // document.getElementById("getEmail").value = g_email;
+                  document.getElementById("getId").value = g_id;
+                  // document.getElementById("getName").value = g_name;
+                  document.getElementById("now_id1").value = g_id;
+                  document.getElementById("now_id2").value = g_id;
+                  console.log("b=1");
+                }
+
+
+
+
+                // document.getElementById("getEmail").value = g_email;
+                document.getElementById("getId").value = g_id;
+                // document.getElementById("getName").value = g_name;
+                console.log(1);
+                // en_email = btoa(g_email)
+                // console.log("en " + en_email);
+                // de_email = atob(en_email)
+                // console.log("de " + de_email);
+                //
+                // console.log(g_id);
+                //
+                // en_name = btoa(g_name)
+                // console.log("en " + en_name);
+                // de_name = atob(en_name)
+                // console.log("de " + de_name);
+                var firebaseRef2 = new firebase.database().ref("users").child(g_id);
+                firebaseRef2.once('value').then(function(dataSnapshot) {
+                    var childData = dataSnapshot.val()
+                    var now_name = childData.name;
+                    var now_email = childData.email;
+                    document.getElementById("getEmail").value = now_email;
+                    document.getElementById("email").value = now_email
+                    document.getElementById("email2").value = now_email
+                    var e = document.getElementById("getEmail").value
+                    g_email = now_email
+                    // {{g_email}} = now_email
+                    // console.log(now_name);
+                    // console.log(now_email);
+                    console.log("now_e " + now_email);
+                    console.log("id " + g_id);
+                    console.log("email " + g_email);
+                  });
+        }
+
+        //
+        // en_name = btoa(g_name)
+        // console.log("en " + en_name);
+        // de_name = atob(en_name)
+        // console.log("de " + de_name);
+        document.getElementById("history").href="{% url 'history' %}?id=" + g_id;
+    }
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+function setWithExpiry(key, value, ttl) {
+    var now = new Date()
+
+    var item = {
+        value: value,
+        expiry: now.getTime() + ttl
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+}
+
+function getWithExpiry(key) {
+    var itemSt = localStorage.getItem(key);
+
+    if(!itemSt){
+        return null;
+    }
+
+    var item =  JSON.parse(itemSt);
+    var now = new Date();
+
+    if (now.getTime() > item.expiry) {
+        localStorage.removeItem(key);
+        return null;
+    }
+    return item.value;
+}
+
+  // function showid($this) {
+  //   var thisid = $this.previousElementSibling.value;
+  //   console.log(thisid);
+  // }
+    function print($this,type) {
+    var val = $this.previousElementSibling.value;
+    if(val == ''){
+        console.log('no input');
+    }else{
+       // console.log(val);
+       // console.log(type);
+       check_post(val,type)
+    }
+  }
+
+
+
+
+   function check_post(idKey,type) {
+      // console.log(g_id);
+      if (type == 1) {
+          var firebaseRef = firebase.database().ref("Found").orderByChild("work");
+          firebaseRef.once('value').then(function(dataSnapshot) {
+            dataSnapshot.forEach(function(childSnapshot){
+              var childKey = childSnapshot.key;
+              // var pic = isPic;
+              // console.log(pic);
+              // var childData = childSnapshot.val();
+              // var c_topic = childData.topic;
+              // var c_desc = childData.description;
+              // var c_url = childData.url;
+
+              if (idKey == childKey) {
+                  // console.log(c_topic);
+                  // console.log(c_desc);
+                  // console.log(c_url);
+                  location.href = "/post_check_on_we_L/?key=" + childKey + "&id=" + g_id;
+                  // location.href = "/post_check_L/?key=" + childKey + "&id=" + g_id + "&n=" + en_name + "&e=" + en_email;
+              }
+
+          });
+          // console.log("not found");
+        });
+      }
+      else if(type == 2) {
+          var firebaseRef = firebase.database().ref("Lost").orderByChild("work");
+          firebaseRef.once('value').then(function(dataSnapshot) {
+            dataSnapshot.forEach(function(childSnapshot){
+              var childKey = childSnapshot.key;
+              // var pic = isPic;
+              // console.log(pic);
+              // var childData = childSnapshot.val();
+              // var c_topic = childData.topic;
+              // var c_desc = childData.description;
+              // var c_url = childData.url;
+
+              if (idKey == childKey) {
+                  // console.log(c_topic);
+                  // console.log(c_desc);
+                  // console.log(c_url);
+                  location.href = "/post_check_on_we_F/?key=" + childKey + "&id=" + g_id;
+                  // location.href = "/post_check_L/?key=" + childKey + "&id=" + g_id + "&n=" + en_name + "&e=" + en_email;
+              }
+
+          });
+        });
+      }
+   }
+   function checknum(num,typeItem) {
+      console.log("num " + num + " tp " + typeItem);
+      if (num == 1) {
+        closeNav()
+        welcome_lost(typeItem)
+      }
+      else if (num == 2) {
+        closeNav()
+        welcome_found(typeItem)
+      }
+   }
+
+    function welcome_lost(t) {
+            $("#data").empty()
+            document.getElementById("typePage").value = 1;
+            tp = document.getElementById("typePage").value;
+            console.log("tp "+ tp);
+
+            var firebaseRef = firebase.database().ref("Found").orderByChild("work");
+            firebaseRef.once('value').then(function(dataSnapshot) {
+              dataSnapshot.forEach(function(childSnapshot){
+                // console.log(childSnapshot);
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                var c_type = childData.type;
+                var c_email = childData.email;
+                var c_topic = childData.topic;
+                var c_desc = childData.description;
+                var c_url = childData.url;
+                var $mainContainer = $("#mainContainer");
+                var content = "";
+                var temp = childKey;
+                var l_btn = document.getElementById("l_btn");
+                var f_btn = document.getElementById("f_btn");
+
+                l_btn.classList.add("active");
+                f_btn.classList.remove("active");
+                if (childSnapshot.exists()) {   //check data exist
+                    if (t == "All") {
+                      // content += "<a href='https://www.w3schools.com'>"
+                      content += "<ul class='list-group' ng-repeat='data in messages' >";
+                      content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                      // content += "<span class='badge' id='noti'>1</span>"
+                      content += "<div class='row'>";
+                      content += "<div class='col-3' style='background:#9999FF'>";
+                      content += "<div class='picture'>";
+                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "<div class='col-9' style='background:#9999FF'>";
+                      content += "<div class='' style='text-align:left'>";
+                      content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                      content += "<br>";
+                      content += "<b>รายละเอียด :</b>";
+                      content += "<br>";
+                      content += "<em>" + c_desc + "</em>";
+                      content += "</div>";
+                      content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                        content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                        // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
+                        content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
+                        content += "</div>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "</ul>";
+                      // content += "</a>"
+                    }
+                    else if(t == c_type){
+                      // content += "<a href='https://www.w3schools.com'>"
+                      content += "<ul class='list-group' ng-repeat='data in messages' >";
+                      content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                      // content += "<span class='badge' id='noti'>1</span>"
+                      content += "<div class='row'>";
+                      content += "<div class='col-3' style='background:#9999FF'>";
+                      content += "<div class='picture'>";
+                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "<div class='col-9' style='background:#9999FF'>";
+                      content += "<div class='' style='text-align:left'>";
+                      content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                      content += "<br>";
+                      content += "<b>รายละเอียด :</b>";
+                      content += "<br>";
+                      content += "<em>" + c_desc + "</em>";
+                      content += "</div>";
+                      content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                        content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                        // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
+                        content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
+                        content += "</div>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "</ul>";
+                      // content += "</a>"
+                    }
+                    $("#topic").html(c_topic)
+                    $("#desc").html(c_desc)
+                }
+                $('#data').append(content)
+              });
+
+            });
+
+            var getInput = "{{g_email}}";
+            localStorage.setItem("tmp",getInput);
+
+        }
+
+
+    function welcome_found(t) {
+          $("#data").empty()
+          document.getElementById("typePage").value = 2;
+          tp = document.getElementById("typePage").value;
+          console.log("tp "+ tp);
+
+          var firebaseRef = firebase.database().ref("Lost").orderByChild("work");
+          firebaseRef.once('value').then(function(dataSnapshot) {
+            dataSnapshot.forEach(function(childSnapshot){
+              var childKey = childSnapshot.key;
+              var childData = childSnapshot.val();
+              var c_type = childData.type;
+              var c_email = childData.email;
+              var c_topic = childData.topic;
+              var c_desc = childData.description;
+              var c_url = childData.url;
+              var $mainContainer = $("#mainContainer");
+              var content = "";
+              var temp = childKey;
+              var l_btn = document.getElementById("l_btn");
+              var f_btn = document.getElementById("f_btn");
+
+              l_btn.classList.remove("active");
+              f_btn.classList.add("active");
+              // console.log(c_email);
+              if (childSnapshot.exists()) {   //check data exist
+                  if (t == "All") {
+                    // content += "<a href='https://www.w3schools.com'>"
+                    content += "<ul class='list-group' ng-repeat='data in messages' >";
+                    content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                    // content += "<span class='badge' id='noti'>1</span>"
+                    content += "<div class='row'>";
+                    content += "<div class='col-3' style='background:#9999FF'>";
+                    content += "<div class='picture'>";
+                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "<div class='col-9' style='background:#9999FF'>";
+                    content += "<div class='' style='text-align:left'>";
+                    content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                    content += "<br>";
+                    content += "<b>รายละเอียด :</b>";
+                    content += "<br>";
+                    content += "<em>" + c_desc + "</em>";
+                    content += "</div>";
+                    content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                      // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
+                      content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
+                      content += "</div>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "</ul>";
+                    // content += "</a>"
+                  }
+                  else if(t == c_type){
+                    // content += "<a href='https://www.w3schools.com'>"
+                    content += "<ul class='list-group' ng-repeat='data in messages' >";
+                    content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                    // content += "<span class='badge' id='noti'>1</span>"
+                    content += "<div class='row'>";
+                    content += "<div class='col-3' style='background:#9999FF'>";
+                    content += "<div class='picture'>";
+                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "<div class='col-9' style='background:#9999FF'>";
+                    content += "<div class='' style='text-align:left'>";
+                    content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                    content += "<br>";
+                    content += "<b>รายละเอียด :</b>";
+                    content += "<br>";
+                    content += "<em>" + c_desc + "</em>";
+                    content += "</div>";
+                    content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                      // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
+                      content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
+                      content += "</div>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "</ul>";
+                  }
+                  $("#topic").html(c_topic)
+                  $("#desc").html(c_desc)
+              }
+              $('#data').append(content)
+            });
+          });
+          var getInput = "{{g_email}}";
+          localStorage.setItem("tmp",getInput);
+
+      }
+
+    function uploadImage_lost() {
+            var storage = firebase.storage();
+            var file = document.getElementById("files_l").files[0];
+            var storageRef = storage.ref();
+            var thisRef = storageRef.child(file.name).put(file);
+            thisRef.on('state_changed',function(snapshot){
+            console.log("file uplaoded succesfully");
+            },
+            function(error) {
+
+            },
+            function() {
+                thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                  document.getElementById("url").value = downloadURL;
+            });
+        })
+      }
+      function uploadImage_found() {
+              var storage = firebase.storage();
+              var file = document.getElementById("files_f").files[0];
+              var storageRef = storage.ref();
+              var thisRef = storageRef.child(file.name).put(file);
+              thisRef.on('state_changed',function(snapshot){
+              console.log("file uplaoded succesfully");
+              },
+              function(error) {
+
+              },
+              function() {
+                  thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    document.getElementById("url_f").value = downloadURL;
+              });
+          })
+        }
+
+  </script>
+</html>

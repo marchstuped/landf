@@ -1,0 +1,45 @@
+{% if messg %}
+<script>
+    alert('{{ messg }}');
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="background : lightblue no-repeat fixed center;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign</title>
+    <style media="screen">
+      .container {
+          margin-top:10%;
+          margin-right:auto;
+          margin-bottom:auto;
+          margin-left:auto;
+
+          background:#99CCFF;
+          border: 2.5px solid black;
+          max-width:50%;
+          max-height:30%;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="" style="margin-top:15%"> -->
+      <div class="container">
+        <div align="center" style="margin-top:15%">
+          <form action="/postsignup/" method="post">
+                {% csrf_token %}
+                ชื่อผู้ใช้:
+                <input type="text" name="name" style="margin-left:2%"><br><br>
+                อีเมล:
+                <input type="email" name="email" style="margin-left:2%"><br><br>
+                รหัสผ่าน:
+                <input type="password" name="pass"><br><br>
+                <input type="submit" value="ยืนยัน">
+                <input type="button" value="ย้อนกลับ" onclick="history.back()">
+          </form>
+        </div>
+      </div>
+    <!-- </div> -->
+  </body>
+</html>

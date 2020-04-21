@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="background : lightblue no-repeat fixed center;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign</title>
+    <style>
+      div {
+        position : absolute;
+        right : 10px;
+        top : 5px;
+      }
+    </style>
+
+  </head>
+  <body>
+  <div>
+    {{e}}
+      <button type="button" onclick="location.href='{% url 'logout' %}'">Logout</button>
+  </div>
+  <input type="button" value="Go back!" onclick="history.back()">
+  <h2>Create Post</h2>
+      <form action="/post_create_lost/" method="post">
+            {% csrf_token %}
+            Topic:
+            <input type="text" name="work" required><br><br>
+            Description:
+            <br><textarea rows="5" cols="40" maxlength="300" name="progress"></textarea>
+            <br><br>
+            Upload:
+            <input type="file" name="file[]" id="files">
+            <input type="hidden" name="url" id="url">
+            <input type="hidden" name="email" id="email">
+            <button type="button" onclick="uploadImage()">Upload</button><br><br>
+            <input type="submit" value="Submit" required>
+      </form>
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-database.js"></script>
+  <script>
+
+    var config = {
+        apiKey: "AIzaSyBPIHPOE2LWIPCDMU8STeMcm8G5CEKyjOA",
+        authDomain: "landf-d7d76.firebaseapp.com",
+        databaseURL: "https://landf-d7d76.firebaseio.com",
+        projectId: "landf-d7d76",
+        storageBucket: "landf-d7d76.appspot.com",
+        messagingSenderId: "664909858615",
+        appId: "1:664909858615:web:2959130b838ad023b0bcb2",
+        measurementId: "G-LK1FPK8MVG"
+    };
+    firebase.initializeApp(config);
+
+    window.onload = function() {
+        email = localStorage.getItem("tmp");
+        document.getElementById('email').value = email;
+      }
+
+
+    function uploadImage() {
+        var storage = firebase.storage();
+        var file = document.getElementById("files").files[0];
+        var storageRef = storage.ref();
+        var thisRef = storageRef.child(file.name).put(file);
+        thisRef.on('state_changed',function(snapshot){
+        console.log("file uplaoded succesfully");
+        },
+        function(error) {
+
+        },
+        function() {
+            thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+              document.getElementById("url").value = downloadURL;
+        });
+    })
+  }
+
+  </script>
+</html>
