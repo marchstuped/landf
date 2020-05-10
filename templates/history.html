@@ -862,7 +862,7 @@ function finish($this,type) {
 
         console.log(st);
         Ref_st.update({
-            status: st
+            statusPost: st
         });
         window.location.reload();
     }
@@ -874,7 +874,7 @@ function finish($this,type) {
 
           console.log(st);
           Ref_st.update({
-              status: st
+              statusPost: st
           });
           window.location.reload();
     }
@@ -899,7 +899,7 @@ function finish($this,type) {
             var c_topic = childData.topic;
             var c_desc = childData.description;
             var c_url = childData.url;
-            // var c_status = childData.status;
+            // var c_status = childData.statusPost;
             var $mainContainer = $("#mainContainer");
             var content = "";
             var temp = childKey;
@@ -1009,7 +1009,7 @@ function finish($this,type) {
             var c_topic = childData.topic;
             var c_desc = childData.description;
             var c_url = childData.url;
-            // var c_status = childData.status;
+            // var c_status = childData.statusPost;
             var $mainContainer = $("#mainContainer");
             var content = "";
             var temp = childKey;
@@ -1131,7 +1131,7 @@ function finish($this,type) {
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
-                // var c_status = childData.status;
+                // var c_status = childData.statusPost;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -1273,7 +1273,7 @@ function finish($this,type) {
               var c_topic = childData.topic;
               var c_desc = childData.description;
               var c_url = childData.url;
-              // var c_status = childData.status;
+              // var c_status = childData.statusPost;
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -1401,7 +1401,7 @@ function finish($this,type) {
                             let c_url = dataSnap.val()['url']
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
-                            // let c_status = dataSnap.val()['status']
+                            // let c_status = dataSnap.val()['statusPost']
                             let c_key =  dataSnap.key
 
                             content += "<ul class='list-group' ng-repeat='data in messages'>";
@@ -1446,7 +1446,7 @@ function finish($this,type) {
                             let c_url = dataSnap.val()['url']
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
-                            // let c_status = dataSnap.val()['status']
+                            // let c_status = dataSnap.val()['statusPost']
                             let c_key =  dataSnap.key
 
                             content += "<ul class='list-group' ng-repeat='data in messages'>";
