@@ -294,8 +294,10 @@
             <input type="hidden" name="" value="" id="getId">
             <!-- <input type="hidden" name="" value="" id="getName"> -->
             <!-- <a href="{% url 'history' %}?id={{g_id}}" id="history">History</a> -->
-
-            <a href="{% url 'logout' %}">ออกจากระบบ</a>
+            <div class="row">
+              <p style="text-align:center;color:white;margin:14px" value="" id="NameUser"></p>
+              <a href="{% url 'logout' %}">ออกจากระบบ</a>
+            </div>
         </div>
       </div>
     <!-- </div> -->
@@ -499,6 +501,7 @@
           var now_email = childData.email;
           // document.getElementById("name").value = now_name;
           // document.getElementById("email").value = now_email;
+          document.getElementById('NameUser').innerText = now_name;
           document.getElementById("getEmail").value = now_email;
           var e = document.getElementById("getEmail").value
           g_email = now_email
@@ -849,7 +852,33 @@
     }
   }
 
+function finish($this,type) {
+    var thisid = $this.nextElementSibling.value;
+    if (type == 1)
+    {
+        console.log(thisid);
+        let Ref_st = firebase.database().ref("Found/" + thisid);
+        let st = "พบเรียบร้อยแล้ว";
 
+        console.log(st);
+        Ref_st.update({
+            statusPost: st
+        });
+        window.location.reload();
+    }
+   else if (type == 2)
+   {
+          console.log(thisid);
+          let Ref_st = firebase.database().ref("Lost/" + thisid);
+          let st = "พบเรียบร้อยแล้ว";
+
+          console.log(st);
+          Ref_st.update({
+              statusPost: st
+          });
+          window.location.reload();
+    }
+}
     function match_With_Found() {
         $("#data").empty()
         g_id = id;
@@ -870,6 +899,7 @@
             var c_topic = childData.topic;
             var c_desc = childData.description;
             var c_url = childData.url;
+            // var c_status = childData.statusPost;
             var $mainContainer = $("#mainContainer");
             var content = "";
             var temp = childKey;
@@ -919,6 +949,9 @@
                   content += "<br>";
                   content += "<em>" + c_desc + "</em>";
                   content += "</div>";
+                  // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                  //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                  // content += "</div>";
                   content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                     content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
@@ -976,6 +1009,7 @@
             var c_topic = childData.topic;
             var c_desc = childData.description;
             var c_url = childData.url;
+            // var c_status = childData.statusPost;
             var $mainContainer = $("#mainContainer");
             var content = "";
             var temp = childKey;
@@ -1025,6 +1059,9 @@
                   content += "<br>";
                   content += "<em>" + c_desc + "</em>";
                   content += "</div>";
+                  // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                  //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                  // content += "</div>";
                   content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                     content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
@@ -1094,6 +1131,7 @@
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
+                // var c_status = childData.statusPost;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -1140,6 +1178,11 @@
                           content += "<br>";
                           content += "<em>" + c_desc + "</em>";
                           content += "</div>";
+                          content += "<div class='row'>"
+                          content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                          // //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                          content += "<button type='button' name='button' style='margin-bottom:50%' onclick='finish(this.childKey,1)'> พบแล้ว </button>"
+                          content += "</div>";
                           content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                           content += "<button data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
                           // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
@@ -1148,6 +1191,7 @@
                           content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                           content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='print(this,1)'>&#128214;ดูเพิ่ม</a>"
                           content += "<a onclick='EditData(this,1)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000;แก้ไข</a>"
+                          content += "</div>"
                           content += "</div>"
                             // content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                             // content += "<button type='button' onclick='showid(this,1)'>จับคู่</button>"
@@ -1229,6 +1273,7 @@
               var c_topic = childData.topic;
               var c_desc = childData.description;
               var c_url = childData.url;
+              // var c_status = childData.statusPost;
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -1273,6 +1318,10 @@
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
+                    content += "</div>";
+                    content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                      // content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                    content += "<button type='button' name='button' style='margin-bottom:50%' onclick='finish(this,2)'> พบแล้ว </button>"
                     content += "</div>";
                     content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                     // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
@@ -1352,6 +1401,7 @@
                             let c_url = dataSnap.val()['url']
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
+                            // let c_status = dataSnap.val()['statusPost']
                             let c_key =  dataSnap.key
 
                             content += "<ul class='list-group' ng-repeat='data in messages'>";
@@ -1370,6 +1420,9 @@
                             content += "<br>";
                             content += "<em>" + c_desc + "</em>";
                             content += "</div>";
+                            // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                            //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                            // content += "</div>";
                             content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                             content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
                             content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print2(this,2)'> &#128214;ดูเพิ่ม </button>"
@@ -1393,6 +1446,7 @@
                             let c_url = dataSnap.val()['url']
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
+                            // let c_status = dataSnap.val()['statusPost']
                             let c_key =  dataSnap.key
 
                             content += "<ul class='list-group' ng-repeat='data in messages'>";
@@ -1411,6 +1465,9 @@
                             content += "<br>";
                             content += "<em>" + c_desc + "</em>";
                             content += "</div>";
+                            // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                            //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                            // content += "</div>";
                             content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                             content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
                             content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print2(this,1)'> &#128214;ดูเพิ่ม </button>"

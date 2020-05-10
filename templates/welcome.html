@@ -165,12 +165,6 @@
       }
       /* Styling for session notes */
 
-
-      p {
-        margin: 10px ;
-
-      }
-
       .bold {
         font-weight: bold;
       }
@@ -389,11 +383,14 @@
             <!-- <button type="button" name="button">history</button> -->
               <input type="hidden" name="" value="" id="getEmail">
               <input type="hidden" name="" value="" id="getId">
-              <!-- <input type="hidden" name="" value="" id="getName"> -->
-              <a href="{% url 'history' %}?id={{g_id}}" id="history" class="notification">โพสต์ของฉัน
-                  <!-- <span class="badge" id="noti"></span> -->
-              </a>
-              <a href="{% url 'logout' %}">ออกจากระบบ</a>
+              <div class="row">
+                <p style="text-align:center;color:white;margin:14px" value="" id="NameUser"></p>
+                <a href="{% url 'history' %}?id={{g_id}}" id="history" class="notification">โพสต์ของฉัน
+                    <!-- <span class="badge" id="noti"></span> -->
+                </a>
+                <a href="{% url 'logout' %}">ออกจากระบบ</a>
+              </div>
+
           </div>
         </div>
       	<!-- <h1>Test</h1> -->
@@ -468,8 +465,10 @@
                                   อัพโหลดรูป:
                                   <input type="file" name="file[]" id="files_l" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
                                   <!-- <label for="file">Choose file</label> -->
+                                  <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบของ">
                                   <input type="hidden" name="url" id="url">
                                   <input type="hidden" name="email" id="email" value="{{g_email}}">
+
                                   <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br>
 
                                   <div align="right">
@@ -511,6 +510,7 @@
                                   อัพโหลดรูป:
                                   <input type="file" name="file[]" id="files_f" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
                                   <!-- <label for="file">Choose file</label> -->
+                                  <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบเจ้าของ">
                                   <input type="hidden" name="url" id="url_f">
                                   <input type="hidden" name="email" id="email2" value="{{g_email}}">
                                   <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br>
@@ -580,7 +580,6 @@
 
 
     window.onload = function() {
-      console.log("{{g_name}}");
       tp = document.getElementById("typePage").value;
       // firebase.auth().onAuthStateChanged(function(user) {
       //   if (user) {
@@ -652,6 +651,7 @@
                     document.getElementById("getEmail").value = now_email;
                     document.getElementById("email").value = now_email
                     document.getElementById("email2").value = now_email
+                    document.getElementById('NameUser').innerText = now_name;
                     var e = document.getElementById("getEmail").value
                     g_email = now_email
                     // {{g_email}} = now_email
@@ -802,6 +802,7 @@ function getWithExpiry(key) {
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
+                // var c_status = childData.statusPost;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -830,6 +831,9 @@ function getWithExpiry(key) {
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
+                      // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                      //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                      // content += "</div>";
                       content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                         content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                         // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
@@ -859,6 +863,9 @@ function getWithExpiry(key) {
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
+                      // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                      //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                      // content += "</div>";
                       content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                         content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                         // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
@@ -899,6 +906,7 @@ function getWithExpiry(key) {
               var c_topic = childData.topic;
               var c_desc = childData.description;
               var c_url = childData.url;
+              // var c_status = childData.statusPost;
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -928,6 +936,9 @@ function getWithExpiry(key) {
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
+                    // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                    //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                    // content += "</div>";
                     content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                       // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
@@ -957,6 +968,9 @@ function getWithExpiry(key) {
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
+                    // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                    //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                    // content += "</div>";
                     content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                       // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"

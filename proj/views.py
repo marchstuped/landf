@@ -145,10 +145,11 @@ def post_create_lost(request):
     progress = request.POST.get('progress')
     url = request.POST.get('url')
     type = request.POST.get('item')
+    statusPost = request.POST.get("statusPost")
     # print(type)
 
     if(url==""):
-        url = "https://goodwillretail.co.th/wp-content/uploads/2016/01/nopic.png"
+        url = "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"
 
 
     idtoken = request.session['uid']
@@ -165,6 +166,7 @@ def post_create_lost(request):
             'description':progress,
             'url':url,
             'type':type,
+            'statusPost':statusPost
     }
     # database.child('users').child(a).child('reports').child(millis).set(data)
     database.child('Lost').child(millis).set(data)
@@ -186,10 +188,11 @@ def post_create_found(request):
     progress = request.POST.get('progress')
     url = request.POST.get('url')
     type = request.POST.get('item')
+    statusPost = request.POST.get("statusPost")
     save = 0
 
     if(url==""):
-        url = "https://goodwillretail.co.th/wp-content/uploads/2016/01/nopic.png"
+        url = "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"
 
     idtoken = request.session['uid']
     a = authen.get_account_info(idtoken)
@@ -205,6 +208,7 @@ def post_create_found(request):
             'description':progress,
             'url':url,
             'type':type,
+            'statusPost':statusPost
     }
     # database.child('users').child(a).child('reports').child(millis).set(data)
     if(save == 0):

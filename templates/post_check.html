@@ -231,8 +231,9 @@ textarea
           <a class="" onclick="goBack()" type="button">หน้าแรก</a>
       </div>
       <!-- <button type="button" class="btn btn-primary" name="button" onclick="goBack()">back</button> -->
-      <div class="right">
-        <a href="{% url 'logout' %}">ออกจากระบบ</a>
+      <div class="right row">
+          <p style="text-align:center;color:white;margin:14px" value="" id="NameUser"></p>
+          <a href="{% url 'logout' %}">ออกจากระบบ</a>
       </div>
         <!-- <input type="text" name="" value="{{e}}"> -->
     </div>
@@ -370,6 +371,7 @@ textarea
               document.getElementById("name").value = now_name;
               document.getElementById("email").value = now_email;
               document.getElementById("getEmail").value = now_email;
+              document.getElementById('NameUser').innerText = now_name;
               var e = document.getElementById("getEmail").value
               g_email = now_email
               // console.log(now_name);
