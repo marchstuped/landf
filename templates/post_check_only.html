@@ -214,6 +214,21 @@ textarea
         grid-row-start: row1-start;
         grid-row-end: 3;
       }
+      .column-img{
+        float: left;
+        width: 23%;
+        padding-left: 6px;
+      }
+      .column-desc{
+        float: left;
+        width: 50%;
+        padding-left: 10px;
+      }
+      .column-but{
+        float: left;
+        width: 25%;
+        padding-left: 60px;
+      }
     </style>
   </head>
   <body>
@@ -233,7 +248,7 @@ textarea
       <!-- <button type="button" class="btn btn-primary" name="button" onclick="goBack()">back</button> -->
       <div class="right row">
           <p style="text-align:center;color:white;margin:14px" value="" id="NameUser"></p>
-          <a href="{% url 'logout' %}">ออกจากระบบ</a>      
+          <a href="{% url 'logout' %}">ออกจากระบบ</a>
       </div>
         <!-- <input type="text" name="" value="{{e}}"> -->
     </div>
@@ -264,7 +279,7 @@ textarea
              <div>
                <textarea id="comment" rows="3" cols="30" placeholder="ความคิดเห็น"></textarea>
              </div>
-             <button type="submit">ยืนยัน</button>
+             <button style='border-radius: 8px;' type="submit">ยืนยัน</button>
            </form>
          </div>
          <br>
@@ -506,33 +521,29 @@ textarea
                     // console.log("OK");
                     console.log("topic " + c_topic);
                     console.log(i);
-                    // content += "<a href='https://www.w3schools.com'>"
                     content += "<ul class='list-group' ng-repeat='data in messages' >";
                     content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                    // content += "<span class='badge' id='noti'>1</span>"
                     content += "<div class='row'>";
-                    content += "<div class='col-3' style='background:#9999FF'>";
+                    content += "<div class='column-img' style='background:#9999FF'>";
                     content += "<div class='picture'>";
-                    content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
-                    content += "<div class='col-9' style='background:#9999FF'>";
-                    content += "<div class='' style='text-align:left'>";
+                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
                     content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                     content += "<br>";
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
-                    content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
-                      content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
-                      content += "</div>";
+                    content += "<div class='column-but' style='background:#9999FF'>";
+                    content += "<div class='row' style='background:#9999FF;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
+                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                    content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,1)'> ดูเพิ่ม </button>"
+                    content += "</div>";
                     content += "</div>";
                     content += "</div>";
                     content += "</ul>";
-                    // content += "</a>"
                     i = i+j;
                   }
 
@@ -613,33 +624,29 @@ textarea
                     // console.log("OK");
                     console.log("topic " + c_topic);
                     console.log(i);
-                    // content += "<a href='https://www.w3schools.com'>"
                     content += "<ul class='list-group' ng-repeat='data in messages' >";
                     content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                    // content += "<span class='badge' id='noti'>1</span>"
                     content += "<div class='row'>";
-                    content += "<div class='col-3' style='background:#9999FF'>";
+                    content += "<div class='column-img' style='background:#9999FF'>";
                     content += "<div class='picture'>";
-                    content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
-                    content += "<div class='col-9' style='background:#9999FF'>";
-                    content += "<div class='' style='text-align:left'>";
+                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
                     content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                     content += "<br>";
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
-                    content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
-                      content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
-                      content += "</div>";
+                    content += "<div class='column-but' style='background:#9999FF'>";
+                    content += "<div class='row' style='background:#9999FF;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
+                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                    content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,2)'> ดูเพิ่ม </button>"
+                    content += "</div>";
                     content += "</div>";
                     content += "</div>";
                     content += "</ul>";
-                    // content += "</a>"
                     i = i+j;
                   }
 
@@ -684,6 +691,12 @@ textarea
             name: name,
             email: email,
             comment: comment
+          });
+          let Ref_st = firebase.database().ref("Found/" + key);
+          let stNoti = "unseen";
+
+          Ref_st.update({
+              statusNoti: stNoti
           });
         }
         document.getElementById("name").value = '';

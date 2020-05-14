@@ -270,6 +270,20 @@
           grid-row-start: row1-start;
           grid-row-end: 3;
         }
+        .column-img{
+          float: left;
+          width: 20%;
+          padding-left: 15px;
+        }
+        .column-desc{
+          float: left;
+          width: 55%;
+        }
+        .column-but{
+          float: left;
+          width: 25%;
+          padding: 10px;
+        }
     </style>
   </head>
   <body>
@@ -329,8 +343,10 @@
                                   <option value="" disabled selected hidden>เลือกประเภท</option>
                                   <option value="โทรศัพท์">โทรศัพท์</option>
                                   <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                  <option value="กระเป๋าถือ">กระเป๋าถือ</option>
                                   <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
                                   <option value="นาฬิกา">นาฬิกา</option>
+                                  <option value="ปากกา">ปากกา</option>
                                   <option value="อื่นๆ">อื่นๆ</option>
                                 </select><br>
                               รายละเอียด:
@@ -750,6 +766,13 @@
                  // console.log(c_topic);
                  // console.log(c_desc);
                  // console.log(c_url);
+                 let Ref_st = firebase.database().ref("Found/" + childKey);
+                 let stNoti = "seen";
+
+                 Ref_st.update({
+                     statusNoti: stNoti
+                 });
+
                  location.href = "/post_check_L/?key=" + childKey + "&id=" + g_id;
              }
 
@@ -773,6 +796,12 @@
                  // console.log(c_topic);
                  // console.log(c_desc);
                  // console.log(c_url);
+                 let Ref_st = firebase.database().ref("Lost/" + childKey);
+                 let stNoti = "seen";
+
+                 Ref_st.update({
+                     statusNoti: stNoti
+                 });
                  location.href = "/post_check_F/?key=" + childKey + "&id=" + g_id;
              }
 
@@ -853,7 +882,7 @@
   }
 
 function finish($this,type) {
-    var thisid = $this.nextElementSibling.value;
+    var thisid = $this.previousElementSibling.previousElementSibling.previousElementSibling.value;
     if (type == 1)
     {
         console.log(thisid);
@@ -938,7 +967,7 @@ function finish($this,type) {
                   content += "<div class='row'>";
                   content += "<div class='col-3' style='background:#ffe6d8'>";
                   content += "<div class='picture'>";
-                  content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                  content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                   content += "</div>";
                   content += "</div>";
                   content += "<div class='col-9' style='background:#ffe6d8'>";
@@ -952,7 +981,7 @@ function finish($this,type) {
                   // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                   //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
                   // content += "</div>";
-                  content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                  content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%'>";
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                     content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
                     content += "</div>";
@@ -1048,7 +1077,7 @@ function finish($this,type) {
                   content += "<div class='row'>";
                   content += "<div class='col-3' style='background:#ffe6d8'>";
                   content += "<div class='picture'>";
-                  content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                  content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                   content += "</div>";
                   content += "</div>";
                   content += "<div class='col-9' style='background:#ffe6d8'>";
@@ -1062,7 +1091,7 @@ function finish($this,type) {
                   // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                   //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
                   // content += "</div>";
-                  content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                  content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%'>";
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                     content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
                     content += "</div>";
@@ -1131,7 +1160,8 @@ function finish($this,type) {
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
-                // var c_status = childData.statusPost;
+                var c_status = childData.statusPost;
+                var c_statusNoti = childData.statusNoti;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -1165,39 +1195,45 @@ function finish($this,type) {
                           content += "<ul class='list-group' ng-repeat='data in messages' >";
                           content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
                           content += "<div class='row'>";
-                          content += "<div class='col-3' style='background:#ffe6d8'>";
+                          content += "<div class='column-img' style='background:#ffe6d8'>";
                           content += "<div class='picture'>";
-                          content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                          content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                           content += "</div>";
                           content += "</div>";
-                          content += "<div class='col-9' style='background:#ffe6d8'>";
-                          content += "<div class='' style='text-align:left'>";
+                          content += "<div class='column-desc' style='text-align:left'>";
                           content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                           content += "<br>";
                           content += "<b>รายละเอียด :</b>";
                           content += "<br>";
                           content += "<em>" + c_desc + "</em>";
                           content += "</div>";
+                          content += "<div class='column-but' style='background:#ffe6d8'>";
                           content += "<div class='row'>"
-                          content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                          // //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                          content += "<button type='button' name='button' style='margin-bottom:50%' onclick='finish(this.childKey,1)'> พบแล้ว </button>"
+                          if(c_statusNoti=="seen")
+                          {
+                            content += "<img style='margin-right:10px' height='45px' width='45px' src='https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/black-notification.png?alt=media&token=95ab2f86-665b-4c45-b296-a23e9170fd8c'>"
+                          }
+                          else if (c_statusNoti=="unseen")
+                          {
+                            content += "<img style='margin-right:10px' height='45px' width='45px' src='https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/red-notification.png?alt=media&token=711f6cbd-93c6-4bad-bad0-0906ea566588'>"
+                          }
+                          content += "<b>สถานะ : </b><em>" + c_status + "</em>";
                           content += "</div>";
-                          content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                          content += "<button data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
-                          // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
+                          content += "<div class='row' style='background:#ffe6d8; position:absolute; bottom:0; padding-left:200px; margin-bottom:1%; margin-right:2%'>";
+                          content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
                           content += "<div class='dropdown-menu'>"
-                          content += "<a type='button' class='dropdown-item' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,1)' id='confirmDel'>&#128465;ลบ</a>"
+                          content += "<a type='button' class='dropdown-item' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,1)' id='confirmDel'>&#128465; ลบ</a>"
                           content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                          content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='print(this,1)'>&#128214;ดูเพิ่ม</a>"
-                          content += "<a onclick='EditData(this,1)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000;แก้ไข</a>"
+                          content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='print(this,1)'>&#128214; ดูเพิ่ม</a>"
+                          content += "<a onclick='EditData(this,1)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000; แก้ไข</a>"
+                          content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,1)'>&#9745; พบแล้ว</a>"
+                          content += "</div>"
                           content += "</div>"
                           content += "</div>"
                             // content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                             // content += "<button type='button' onclick='showid(this,1)'>จับคู่</button>"
                             // content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,1)'> ดูเพิ่ม </button>"
                             // content += "<button type='button' name='button' style='margin-bottom:0%' onclick='Delete()'> Delete </button>"
-                            content += "</div>";
                           content += "</div>";
                           content += "</div>";
                           content += "</ul>";
@@ -1273,7 +1309,8 @@ function finish($this,type) {
               var c_topic = childData.topic;
               var c_desc = childData.description;
               var c_url = childData.url;
-              // var c_status = childData.statusPost;
+              var c_status = childData.statusPost;
+              var c_statusNoti = childData.statusNoti;
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -1303,40 +1340,48 @@ function finish($this,type) {
                     if (tmp_e == c_email) {
                   // if (c_url != "") {
                     // content += "<a href='https://www.w3schools.com'>"
-                    content += "<ul class='list-group' ng-repeat='data in messages'>";
+                    content += "<ul class='list-group' ng-repeat='data in messages' >";
                     content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
                     content += "<div class='row'>";
-                    content += "<div class='col-3' style='background:#ffe6d8'>";
+                    content += "<div class='column-img' style='background:#ffe6d8'>";
                     content += "<div class='picture'>";
-                    content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
-                    content += "<div class='col-9' style='background:#ffe6d8'>";
-                    content += "<div class='' style='text-align:left'>";
+                    content += "<div class='column-desc' style='text-align:left'>";
                     content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                     content += "<br>";
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
-                    content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                      // content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                    content += "<button type='button' name='button' style='margin-bottom:50%' onclick='finish(this,2)'> พบแล้ว </button>"
+                    content += "<div class='column-but' style='background:#ffe6d8'>";
+                    content += "<div class='row'>"
+                    if(c_statusNoti=="seen")
+                    {
+                      content += "<img style='margin-right:10px' height='45px' width='45px' src='https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/black-notification.png?alt=media&token=95ab2f86-665b-4c45-b296-a23e9170fd8c'>"
+                    }
+                    else if (c_statusNoti=="unseen")
+                    {
+                      content += "<img style='margin-right:10px' height='45px' width='45px' src='https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/red-notification.png?alt=media&token=711f6cbd-93c6-4bad-bad0-0906ea566588'>"
+                    }
+                    content += "<b>สถานะ : </b><em>" + c_status + "</em>";
                     content += "</div>";
-                    content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                    // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
-                    content += "<button data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
+                    content += "<div class='row' style='background:#ffe6d8; position:absolute; bottom:0; padding-left:200px; margin-bottom:1%; margin-right:2%'>";
+                    content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
                     content += "<div class='dropdown-menu'>"
                     content += "<a class='dropdown-item' type='button' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,2)' id='confirmDel'>&#128465;ลบ</a>"
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                     content += "<a class='dropdown-item' type='button' data-toggle='modal' onclick='print(this,2)'>&#128214;ดูเพิ่ม</a>"
                     content += "<a onclick='EditData(this,2)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000;แก้ไข</a>"
+                    content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,2)'>&#9745; พบแล้ว</a>"
                     content += "</div>"
+                    content += "</div>";
                       // content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                       // content += "<button type='button' onclick='showid(this,2)'>จับคู่</button>"
                       // content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print(this,2)'> ดูเพิ่ม </button>"
                       // content += "<button type='button' name='button' style='margin-bottom:0%' onclick='delete()'> Delete </button>"
-                      content += "</div>";
+
                     content += "</div>";
                     content += "</div>";
                     content += "</ul>";
@@ -1401,31 +1446,31 @@ function finish($this,type) {
                             let c_url = dataSnap.val()['url']
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
-                            // let c_status = dataSnap.val()['statusPost']
+                            let c_status = dataSnap.val()['statusPost']
                             let c_key =  dataSnap.key
 
-                            content += "<ul class='list-group' ng-repeat='data in messages'>";
+                            content += "<ul class='list-group' ng-repeat='data in messages' >";
                             content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
                             content += "<div class='row'>";
-                            content += "<div class='col-3' style='background:#ffe6d8'>";
+                            content += "<div class='column-img' style='background:#ffe6d8'>";
                             content += "<div class='picture'>";
-                            content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                            content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                             content += "</div>";
                             content += "</div>";
-                            content += "<div class='col-9' style='background:#ffe6d8'>";
-                            content += "<div class='' style='text-align:left'>";
+                            content += "<div class='column-desc' style='text-align:left'>";
                             content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                             content += "<br>";
                             content += "<b>รายละเอียด :</b>";
                             content += "<br>";
                             content += "<em>" + c_desc + "</em>";
                             content += "</div>";
-                            // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                            //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                            // content += "</div>";
-                            content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                            content += "<div class='column-but' style='background:#ffe6d8'>";
+                            content += "<div class='row' style='padding-left:50px'>"
+                            content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                            content += "</div>";
+                            content += "<div class='row' style='background:#ffe6d8;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
                             content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
-                            content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print2(this,2)'> &#128214;ดูเพิ่ม </button>"
+                            content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print2(this,2)'> &#128214;ดูเพิ่ม </button>"
                             content += "</div>";
                             content += "</div>";
                             content += "</div>";
@@ -1446,31 +1491,31 @@ function finish($this,type) {
                             let c_url = dataSnap.val()['url']
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
-                            // let c_status = dataSnap.val()['statusPost']
+                            let c_status = dataSnap.val()['statusPost']
                             let c_key =  dataSnap.key
 
-                            content += "<ul class='list-group' ng-repeat='data in messages'>";
+                            content += "<ul class='list-group' ng-repeat='data in messages' >";
                             content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
                             content += "<div class='row'>";
-                            content += "<div class='col-3' style='background:#ffe6d8'>";
+                            content += "<div class='column-img' style='background:#ffe6d8'>";
                             content += "<div class='picture'>";
-                            content += "<img height='120' width='120' id='myPic' src='" + c_url + "'>";
+                            content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                             content += "</div>";
                             content += "</div>";
-                            content += "<div class='col-9' style='background:#ffe6d8'>";
-                            content += "<div class='' style='text-align:left'>";
+                            content += "<div class='column-desc' style='text-align:left'>";
                             content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                             content += "<br>";
                             content += "<b>รายละเอียด :</b>";
                             content += "<br>";
                             content += "<em>" + c_desc + "</em>";
                             content += "</div>";
-                            // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                            //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                            // content += "</div>";
-                            content += "<div class='col-2' style='background:#ffe6d8; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                            content += "<div class='column-but' style='background:#ffe6d8'>";
+                            content += "<div class='row' style='padding-left:50px'>"
+                            content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                            content += "</div>";
+                            content += "<div class='row' style='background:#ffe6d8;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
                             content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
-                            content += "<button type='button' name='button' style='margin-bottom:50%' onclick='print2(this,1)'> &#128214;ดูเพิ่ม </button>"
+                            content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print2(this,1)'> &#128214;ดูเพิ่ม </button>"
                             content += "</div>";
                             content += "</div>";
                             content += "</div>";

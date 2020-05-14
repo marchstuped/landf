@@ -55,7 +55,7 @@ authen = firebase.auth()
 database = firebase.database()
 status = 0
 id = ""
-model = load_model('../project_lostandfound/proj/test2.h5')
+model = load_model('../project_lostandfound/proj/model3.h5')
 
 
 img_width, img_height = 224, 224
@@ -512,6 +512,9 @@ def pdPic(dd):
         2: "iphone",
         3: "huawei",
         4: "samsung",
+        5: "clashbag",
+        6: "pen",
+        7: "watch",
     }
     return switcher.get(dd,"?")
 
