@@ -352,6 +352,20 @@
         color: white;
         z-index: 1;
       }
+      .column-img{
+        float: left;
+        width: 20%;
+        padding-left: 15px;
+      }
+      .column-desc{
+        float: left;
+        width: 55%;
+      }
+      .column-but{
+        float: left;
+        width: 25%;
+        padding: 10px;
+      }
     </style>
   <!-- </head> -->
   <body>
@@ -365,9 +379,11 @@
             <a onclick="checknum( tp , 'All')" id="bt1">ทั้งหมด</a>
             <a onclick="checknum( tp , 'โทรศัพท์')" id="bt2">โทรศัพท์</a>
             <a onclick="checknum( tp , 'กระเป๋าสะพาย')" id="bt3">กระเป๋าสะพาย</a>
-            <a onclick="checknum( tp , 'กระเป๋าเงิน')" id="bt4">กระเป๋าเงิน</a>
-            <a onclick="checknum( tp , 'นาฬิกา')" id="bt5">นาฬิกา</a>
-            <a onclick="checknum( tp , 'อื่นๆ')" id="bt6">อื่นๆ</a>
+            <a onclick="checknum( tp , 'กระเป๋าถือ')" id="bt4">กระเป๋าถือ</a>
+            <a onclick="checknum( tp , 'กระเป๋าเงิน')" id="bt5">กระเป๋าเงิน</a>
+            <a onclick="checknum( tp , 'นาฬิกา')" id="bt6">นาฬิกา</a>
+            <a onclick="checknum( tp , 'ปากกา')" id="bt6">ปากกา</a>
+            <a onclick="checknum( tp , 'อื่นๆ')" id="bt7">อื่นๆ</a>
             <input type="hidden" name="" value="1" id="typePage">
           </div>
           <a style="font-size:18px;cursor:pointer" onclick="openNav()">&#9776</a>
@@ -425,7 +441,7 @@
             <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Post
             </button> -->
-            <img class="btn dropdown-toggle" data-toggle="dropdown" src="https://cdn.onlinewebfonts.com/svg/img_24506.png" style="width:80px; height:80px">
+            <img class="btn dropdown-toggle" data-toggle="dropdown" src="https://cdn.onlinewebfonts.com/svg/img_24506.png" style="width:72px; height:72px">
 
             <div class="dropdown-menu">
 
@@ -455,8 +471,10 @@
                                       <option value="" disabled selected hidden>เลือกประเภท</option>
                                       <option value="โทรศัพท์">โทรศัพท์</option>
                                       <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                      <option value="กระเป๋าถือ">กระเป๋าถือ</option>
                                       <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
                                       <option value="นาฬิกา">นาฬิกา</option>
+                                      <option value="ปากกา">ปากกา</option>
                                       <option value="อื่นๆ">อื่นๆ</option>
                                     </select><br>
                                   รายละเอียด:
@@ -500,8 +518,10 @@
                                       <option value="" disabled selected hidden>เลือกประเภท</option>
                                       <option value="โทรศัพท์">โทรศัพท์</option>
                                       <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                      <option value="กระเป๋าถือ">กระเป๋าถือ</option>
                                       <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
                                       <option value="นาฬิกา">นาฬิกา</option>
+                                      <option value="ปากกา">ปากกา</option>
                                       <option value="อื่นๆ">อื่นๆ</option>
                                     </select><br>
                                   รายละเอียด:
@@ -592,6 +612,7 @@
       // });
       // console.log(user);
         // $("#noti").text("3");
+        console.log("b",b);
         if (num == 1 && b == null) {
                 welcome_lost("All");
                 now_url = window.location.href;
@@ -802,7 +823,8 @@ function getWithExpiry(key) {
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
-                // var c_status = childData.statusPost;
+                var c_status = childData.statusPost;
+
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -813,68 +835,60 @@ function getWithExpiry(key) {
                 f_btn.classList.remove("active");
                 if (childSnapshot.exists()) {   //check data exist
                     if (t == "All") {
-                      // content += "<a href='https://www.w3schools.com'>"
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
                       content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                      // content += "<span class='badge' id='noti'>1</span>"
                       content += "<div class='row'>";
-                      content += "<div class='col-3' style='background:#9999FF'>";
+                      content += "<div class='column-img' style='background:#9999FF'>";
                       content += "<div class='picture'>";
                       content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                       content += "</div>";
                       content += "</div>";
-                      content += "<div class='col-9' style='background:#9999FF'>";
-                      content += "<div class='' style='text-align:left'>";
+                      content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
                       content += "<b>รายละเอียด :</b>";
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
-                      // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                      //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                      // content += "</div>";
-                      content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                        content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                        // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
-                        content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
-                        content += "</div>";
+                      content += "<div class='column-but' style='background:#9999FF'>";
+                      content += "<div class='row' style='padding-left:50px'>"
+                      content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                      content += "</div>";
+                      content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                      content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
+                      content += "</div>";
                       content += "</div>";
                       content += "</div>";
                       content += "</ul>";
-                      // content += "</a>"
                     }
                     else if(t == c_type){
-                      // content += "<a href='https://www.w3schools.com'>"
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
                       content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                      // content += "<span class='badge' id='noti'>1</span>"
                       content += "<div class='row'>";
-                      content += "<div class='col-3' style='background:#9999FF'>";
+                      content += "<div class='column-img' style='background:#9999FF'>";
                       content += "<div class='picture'>";
                       content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                       content += "</div>";
                       content += "</div>";
-                      content += "<div class='col-9' style='background:#9999FF'>";
-                      content += "<div class='' style='text-align:left'>";
+                      content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
                       content += "<b>รายละเอียด :</b>";
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
-                      // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                      //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                      // content += "</div>";
-                      content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                        content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                        // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
-                        content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
-                        content += "</div>";
+                      content += "<div class='column-but' style='background:#9999FF'>";
+                      content += "<div class='row' style='padding-left:50px'>"
+                      content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                      content += "</div>";
+                      content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                      content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
+                      content += "</div>";
                       content += "</div>";
                       content += "</div>";
                       content += "</ul>";
-                      // content += "</a>"
                     }
                     $("#topic").html(c_topic)
                     $("#desc").html(c_desc)
@@ -906,7 +920,8 @@ function getWithExpiry(key) {
               var c_topic = childData.topic;
               var c_desc = childData.description;
               var c_url = childData.url;
-              // var c_status = childData.statusPost;
+              var c_status = childData.statusPost;
+
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -918,64 +933,57 @@ function getWithExpiry(key) {
               // console.log(c_email);
               if (childSnapshot.exists()) {   //check data exist
                   if (t == "All") {
-                    // content += "<a href='https://www.w3schools.com'>"
                     content += "<ul class='list-group' ng-repeat='data in messages' >";
                     content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                    // content += "<span class='badge' id='noti'>1</span>"
                     content += "<div class='row'>";
-                    content += "<div class='col-3' style='background:#9999FF'>";
+                    content += "<div class='column-img' style='background:#9999FF'>";
                     content += "<div class='picture'>";
                     content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
-                    content += "<div class='col-9' style='background:#9999FF'>";
-                    content += "<div class='' style='text-align:left'>";
+                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
                     content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                     content += "<br>";
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
-                    // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                    //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                    // content += "</div>";
-                    content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
-                      content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
-                      content += "</div>";
+                    content += "<div class='column-but' style='background:#9999FF'>";
+                    content += "<div class='row' style='padding-left:50px'>"
+                    content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                    content += "</div>";
+                    content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                    content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
+                    content += "</div>";
                     content += "</div>";
                     content += "</div>";
                     content += "</ul>";
-                    // content += "</a>"
                   }
                   else if(t == c_type){
-                    // content += "<a href='https://www.w3schools.com'>"
                     content += "<ul class='list-group' ng-repeat='data in messages' >";
                     content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                    // content += "<span class='badge' id='noti'>1</span>"
                     content += "<div class='row'>";
-                    content += "<div class='col-3' style='background:#9999FF'>";
+                    content += "<div class='column-img' style='background:#9999FF'>";
                     content += "<div class='picture'>";
                     content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
-                    content += "<div class='col-9' style='background:#9999FF'>";
-                    content += "<div class='' style='text-align:left'>";
+                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
                     content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                     content += "<br>";
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
-                    // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                    //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                    // content += "</div>";
-                    content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
-                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
-                      content += "<button type='button' name='button' style='margin-bottom:0%' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
-                      content += "</div>";
+                    content += "<div class='column-but' style='background:#9999FF'>";
+                    content += "<div class='row' style='padding-left:50px'>"
+                    content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                    content += "</div>";
+                    content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                    content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
+                    content += "</div>";
                     content += "</div>";
                     content += "</div>";
                     content += "</ul>";
