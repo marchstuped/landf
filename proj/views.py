@@ -54,6 +54,7 @@ firebase = pyrebase.initialize_app(config)
 authen = firebase.auth()
 database = firebase.database()
 status = 0
+id = ""
 model = load_model('../project_lostandfound/proj/test2.h5')
 
 
@@ -67,6 +68,7 @@ def signIn(request):
 
 def postsignin(request):
     global status
+    global id
     email = request.POST.get('email')
     passw = request.POST.get('pass')
     # database.child("users").child(uid)
@@ -86,15 +88,16 @@ def postsignin(request):
         # print("id " , user['localId'])
         #print(user)
         id = user['localId']
+        # print(user)
         print ("id ", user['localId'])
         name = database.child('users').child(id).child("name").get().val()
         session_id = user['idToken']
         print(name)
         request.session['uid'] = str(session_id)
 
-        return render(request,"welcome.html", {"g_email":email , "g_id":id , "g_name":name}) #by email
+        return render(request,"welcome.html", {"g_email":email , "g_id":id}) #by email
     elif(status == 1):
-        return render(request,"welcome.html", {"g_email":email})
+        return render(request,"welcome.html", {"g_email":email , "g_id":id})
 
 def logout(request):
     global status
@@ -145,10 +148,11 @@ def post_create_lost(request):
     progress = request.POST.get('progress')
     url = request.POST.get('url')
     type = request.POST.get('item')
+    statusPost = request.POST.get("statusPost")
     # print(type)
 
     if(url==""):
-        url = "https://goodwillretail.co.th/wp-content/uploads/2016/01/nopic.png"
+        url = "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"
 
 
     idtoken = request.session['uid']
@@ -165,6 +169,7 @@ def post_create_lost(request):
             'description':progress,
             'url':url,
             'type':type,
+            'statusPost':statusPost
     }
     # database.child('users').child(a).child('reports').child(millis).set(data)
     database.child('Lost').child(millis).set(data)
@@ -186,10 +191,11 @@ def post_create_found(request):
     progress = request.POST.get('progress')
     url = request.POST.get('url')
     type = request.POST.get('item')
+    statusPost = request.POST.get("statusPost")
     save = 0
 
     if(url==""):
-        url = "https://goodwillretail.co.th/wp-content/uploads/2016/01/nopic.png"
+        url = "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"
 
     idtoken = request.session['uid']
     a = authen.get_account_info(idtoken)
@@ -205,6 +211,7 @@ def post_create_found(request):
             'description':progress,
             'url':url,
             'type':type,
+            'statusPost':statusPost
     }
     # database.child('users').child(a).child('reports').child(millis).set(data)
     if(save == 0):

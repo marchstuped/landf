@@ -165,12 +165,6 @@
       }
       /* Styling for session notes */
 
-
-      p {
-        margin: 10px ;
-
-      }
-
       .bold {
         font-weight: bold;
       }
@@ -358,6 +352,17 @@
         color: white;
         z-index: 1;
       }
+      .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 300px;
+      }
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
     </style>
   <!-- </head> -->
   <body>
@@ -389,11 +394,15 @@
             <!-- <button type="button" name="button">history</button> -->
               <input type="hidden" name="" value="" id="getEmail">
               <input type="hidden" name="" value="" id="getId">
-              <!-- <input type="hidden" name="" value="" id="getName"> -->
-              <a href="{% url 'history' %}?id={{g_id}}" id="history" class="notification">โพสต์ของฉัน
-                  <!-- <span class="badge" id="noti"></span> -->
-              </a>
-              <a href="{% url 'logout' %}">ออกจากระบบ</a>
+              <div class="row">
+                <p style="text-align:center;color:white;margin:14px" value="" id="NameUser"></p>
+                <a href="{% url 'history' %}?id={{g_id}}" id="history" class="notification">โพสต์ของฉัน
+                    <!-- <span class="badge" id="noti"></span> -->
+                </a>
+                <a href="{% url 'logout' %}">ออกจากระบบ</a>
+              </div>
+
+
           </div>
         </div>
       	<!-- <h1>Test</h1> -->
@@ -446,37 +455,49 @@
                         <h5>ของหาย</h5>
                       </div>
                         <div class="modal-body" style="background-color: rgb(136,215,241)">
-                            <form action="/post_create_lost/" method="post" style=>
-                                  {% csrf_token %}
-                                  <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
-                                  <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
-                                  <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
-                                  หัวข้อ:
-                                  <input type="text" name="work" lign="left" required><br>
-                                  ประเภท:
-                                    <select name="item" required>
-                                      <option value="" disabled selected hidden>เลือกประเภท</option>
-                                      <option value="โทรศัพท์">โทรศัพท์</option>
-                                      <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
-                                      <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
-                                      <option value="นาฬิกา">นาฬิกา</option>
-                                      <option value="อื่นๆ">อื่นๆ</option>
-                                    </select><br>
-                                  รายละเอียด:
-                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
-                                  <br><br>
-                                  อัพโหลดรูป:
-                                  <input type="file" name="file[]" id="files_l" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
-                                  <!-- <label for="file">Choose file</label> -->
-                                  <input type="hidden" name="url" id="url">
-                                  <input type="hidden" name="email" id="email" value="{{g_email}}">
-                                  <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br>
+                          <div class="row">
+                            <div class="column">
+                              <form action="/post_create_lost/" method="post" runat="server" id="lost-form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
+                                    <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
+                                    <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
+                                    หัวข้อ:
+                                    <input type="text" name="work" lign="left" required><br>
+                                    ประเภท:
+                                      <select name="item" required>
+                                        <option value="" disabled selected hidden>เลือกประเภท</option>
+                                        <option value="โทรศัพท์">โทรศัพท์</option>
+                                        <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                        <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
+                                        <option value="นาฬิกา">นาฬิกา</option>
+                                        <option value="อื่นๆ">อื่นๆ</option>
+                                      </select><br>
+                                    รายละเอียด:
+                                    <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
+                                    <br><br>
+                                    อัพโหลดรูป:
+                                    <input type="file" name="file[]" id="files_l" onchange="uploadImage_lost()" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
+                                    <!-- <label for="file">Choose file</label> -->
+                                    <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบของ">
+                                    <input type="hidden" name="url" id="url">
+                                    <input type="hidden" name="email" id="email" value="{{g_email}}">
 
-                                  <div align="right">
-                                      <input type="submit" value="ยืนยัน" class="btn btn-primary" required>
-                                      <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ปิด</button>
-                                  </div>
-                            </form>
+                                    <!-- <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br> -->
+
+                              </form>
+                            </div>
+
+                            <div class="column">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e" id="img_l" alt=""width="60%" height="60%" style="margin-left:20%">
+                                <div align="right" style="margin-left:15%; margin-top:20%">
+                                    <!-- <input type="submit" value="ยืนยัน" class="btn btn-primary" required> -->
+                                    <button name="button" form="lost-form" class="btn btn-primary" required>ยืนยัน</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ยกเลิก</button>
+                                </div>
+                            </div>
+                          </div>
+
                         </div>
                     </div>
                 </div>
@@ -489,43 +510,57 @@
                         <h5>ของเจอ</h5>
                       </div>
                         <div class="modal-body" style="background-color: rgb(136,215,241)">
-                            <form action="/post_create_found/" method="post" style=>
-                                {% csrf_token %}
-                                  <input type="hidden" name="now_id" id="now_id2" value="{{g_id}}">
-                                  <!-- <input type="hidden" name="now_name" id="now_name2" value="{{g_name}}">
-                                  <input type="hidden" name="now_email" id="now_email2" value="{{g_email}}"> -->
-                                  หัวข้อ:
-                                  <input type="text" name="work" lign="left" required><br>
-                                  ประเภท:
-                                    <select name="item" id="item" require>
-                                      <option value="" disabled selected hidden>เลือกประเภท</option>
-                                      <option value="โทรศัพท์">โทรศัพท์</option>
-                                      <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
-                                      <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
-                                      <option value="นาฬิกา">นาฬิกา</option>
-                                      <option value="อื่นๆ">อื่นๆ</option>
-                                    </select><br>
-                                  รายละเอียด:
-                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
-                                  <br><br>
-                                  อัพโหลดรูป:
-                                  <input type="file" name="file[]" id="files_f" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
-                                  <!-- <label for="file">Choose file</label> -->
-                                  <input type="hidden" name="url" id="url_f">
-                                  <input type="hidden" name="email" id="email2" value="{{g_email}}">
-                                  <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br>
+                            <div class="row">
+                              <div class="column">
+                                <form action="/post_create_found/" method="post" runat="server" id="found-form">
+                                    {% csrf_token %}
+                                      <input type="hidden" name="now_id" id="now_id2" value="{{g_id}}">
+                                      <!-- <input type="hidden" name="now_name" id="now_name2" value="{{g_name}}">
+                                      <input type="hidden" name="now_email" id="now_email2" value="{{g_email}}"> -->
+                                      หัวข้อ:
+                                      <input type="text" name="work" lign="left" required><br>
+                                      ประเภท:
+                                        <select name="item" id="item" require>
+                                          <option value="" disabled selected hidden>เลือกประเภท</option>
+                                          <option value="โทรศัพท์">โทรศัพท์</option>
+                                          <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                          <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
+                                          <option value="นาฬิกา">นาฬิกา</option>
+                                          <option value="อื่นๆ">อื่นๆ</option>
+                                        </select><br>
+                                      รายละเอียด:
+                                      <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
+                                      <br><br>
+                                      อัพโหลดรูป:
+                                      <input type="file" name="file[]" id="files_f" onchange="uploadImage_found()" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
+                                      <!-- <label for="file">Choose file</label> -->
+                                      <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบเจ้าของ">
+                                      <input type="hidden" name="url" id="url_f">
+                                      <input type="hidden" name="email" id="email2" value="{{g_email}}">
 
-                                  <div align="right">
-                                      <input type="submit" value="ยืนยัน" class="btn btn-primary" required>
+                                      <!-- <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br> -->
+
+
+
+                                    </form>
+                              </div>
+                              <div class="column">
+                                  <img src="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e" id="img_f" alt=""width="60%" height="60%" style="margin-left:20%">
+                                  <div align="right" style="margin-left:15%; margin-top:20%">
+                                      <!-- <input type="submit" value="ยืนยัน" class="btn btn-primary" required> -->
+                                      <button name="button" form="found-form" class="btn btn-primary" required>ยืนยัน</button>
                                       <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ยกเลิก</button>
                                   </div>
+                              </div>
+                            </div>
 
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+
           </div>
+
       <!-- </div> -->
 
 
@@ -580,8 +615,9 @@
 
 
     window.onload = function() {
-      console.log("{{g_name}}");
       tp = document.getElementById("typePage").value;
+
+
       // firebase.auth().onAuthStateChanged(function(user) {
       //   if (user) {
       //     console.log(user);
@@ -600,14 +636,15 @@
                 b = url.searchParams.get("b");
                 if (b==null) {
                   console.log("null");
-                  // var email = "{{g_email}}";
-                  // localStorage.setItem("g_email", email);
-                  // g_email = localStorage.getItem("g_email");
+
+                  var email = "{{g_email}}";
+                  localStorage.setItem("g_email", email);
+                  g_email = localStorage.getItem("g_email");
 
 
                   var id = "{{g_id}}";
                   // setWithExpiry("g_id", id, 60)
-                  localStorage.setItem("g_id", id);
+                  localStorage.setItem("g_id", "{{g_id}}");
                   // g_id = getWithExpiry('g_id')
                   g_id = localStorage.getItem("g_id");
                   // console.log();
@@ -652,13 +689,15 @@
                     document.getElementById("getEmail").value = now_email;
                     document.getElementById("email").value = now_email
                     document.getElementById("email2").value = now_email
+                    document.getElementById('NameUser').innerText = now_name;
                     var e = document.getElementById("getEmail").value
                     g_email = now_email
                     // {{g_email}} = now_email
                     // console.log(now_name);
                     // console.log(now_email);
-                    console.log("now_e " + now_email);
+                    // console.log("now_e " + now_email);
                     console.log("id " + g_id);
+                    // console.log("email " + "{{g_email}}");
                     console.log("email " + g_email);
                   });
         }
@@ -802,6 +841,7 @@ function getWithExpiry(key) {
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
+                // var c_status = childData.statusPost;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -830,6 +870,9 @@ function getWithExpiry(key) {
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
+                      // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                      //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                      // content += "</div>";
                       content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                         content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                         // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
@@ -859,6 +902,9 @@ function getWithExpiry(key) {
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
+                      // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                      //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                      // content += "</div>";
                       content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                         content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                         // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
@@ -899,6 +945,7 @@ function getWithExpiry(key) {
               var c_topic = childData.topic;
               var c_desc = childData.description;
               var c_url = childData.url;
+              // var c_status = childData.statusPost;
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -928,6 +975,9 @@ function getWithExpiry(key) {
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
+                    // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                    //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                    // content += "</div>";
                     content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                       // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
@@ -957,6 +1007,9 @@ function getWithExpiry(key) {
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
                     content += "</div>";
+                    // content += "<div class='col-2' style='text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
+                    //   content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                    // content += "</div>";
                     content += "<div class='col-2' style='background:#9999FF; text-align:right; position:absolute; bottom:0; right:0; margin-bottom:1%; margin-right:2%''>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                       // content += "<button type='button' onclick='showid(this)'>จับคู่</button>"
@@ -982,35 +1035,80 @@ function getWithExpiry(key) {
             var file = document.getElementById("files_l").files[0];
             var storageRef = storage.ref();
             var thisRef = storageRef.child(file.name).put(file);
-            thisRef.on('state_changed',function(snapshot){
-            console.log("file uplaoded succesfully");
-            },
-            function(error) {
-
-            },
-            function() {
-                thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                  document.getElementById("url").value = downloadURL;
-            });
-        })
+            $('#files_l').change(function(){
+                thisRef.on('state_changed',function(snapshot){
+                //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                //     document.getElementById("url").value = downloadURL;
+                // });
+                console.log("file uplaoded succesfully");
+                },
+                function(error) {
+                    console.log("error");
+                },
+                function() {
+                    thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                      document.getElementById("url").value = downloadURL;
+                });
+            })
+            return true;
+        });
       }
+      function readURL_L(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+            $('#img_l').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+      }
+
+      $("#files_l").change(function() {
+        readURL_L(this);
+      });
       function uploadImage_found() {
               var storage = firebase.storage();
               var file = document.getElementById("files_f").files[0];
               var storageRef = storage.ref();
               var thisRef = storageRef.child(file.name).put(file);
-              thisRef.on('state_changed',function(snapshot){
-              console.log("file uplaoded succesfully");
-              },
-              function(error) {
+              $('#files_f').change(function(){
 
-              },
-              function() {
-                  thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    document.getElementById("url_f").value = downloadURL;
+                thisRef.on('state_changed',function(snapshot){
+                  //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    //     document.getElementById("url_f").value = downloadURL;
+                    // });
+                    console.log("file uplaoded succesfully");
+                  },
+                  function(error) {
+                    console.log("error");
+                  },
+                  function() {
+                    thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                      document.getElementById("url_f").value = downloadURL;
+                    });
+                  })
+                  return true;
               });
-          })
+
         }
+
+        function readURL_F(input) {
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+              $('#img_f').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+          }
+        }
+
+        $("#files_f").change(function() {
+          readURL_F(this);
+        });
 
   </script>
 </html>

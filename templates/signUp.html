@@ -11,7 +11,7 @@
     <title>Sign</title>
     <style media="screen">
       .container {
-          margin-top:10%;
+          margin-top:7%;
           margin-right:auto;
           margin-bottom:auto;
           margin-left:auto;
@@ -21,22 +21,56 @@
           max-width:50%;
           max-height:30%;
         }
+      .inputField {
+        width: 40%;
+        height: 25px;
+        margin: 0 auto;
+        border: none;
+        border:solid 1px #ccc;
+        border-radius: 10px;
+      }
+      .myButton {
+    	box-shadow:inset 0px 1px 0px 0px #1974e3;
+    	background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+    	background-color:#3d94f6;
+    	border-radius:7px;
+    	border:1px solid #337fed;
+    	display:inline-block;
+    	cursor:pointer;
+    	color:#ffffff;
+    	font-family:Arial;
+    	font-size:15px;
+    	font-weight:bold;
+    	padding:7px 24px;
+    	text-decoration:none;
+    	text-shadow:0px 1px 0px #1570cd;
+    }
+    .myButton:hover {
+    	background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+    	background-color:#1e62d0;
+    }
+    .myButton:active {
+    	position:relative;
+    	top:1px;
+    }
     </style>
   </head>
   <body>
     <!-- <div class="" style="margin-top:15%"> -->
       <div class="container">
-        <div align="center" style="margin-top:15%">
-          <form action="/postsignup/" method="post">
+        <div align="center" style="margin-top:5%">
+          <img src="https://s3-ap-southeast-1.amazonaws.com/img-in-th/29222c36637e91673442fb4433ce68af.png" alt="" height="30%" width="50%">
+          <form action="/postsignup/" method="post" style="margin-top:10%">
                 {% csrf_token %}
                 ชื่อผู้ใช้:
-                <input type="text" name="name" style="margin-left:2%"><br><br>
+                <input type="text" name="name" style="margin-left:2%" class="inputField"><br><br>
                 อีเมล:
-                <input type="email" name="email" style="margin-left:2%"><br><br>
+                <input type="email" name="email" style="margin-left:4%" class="inputField"><br><br>
                 รหัสผ่าน:
-                <input type="password" name="pass"><br><br>
-                <input type="submit" value="ยืนยัน">
-                <input type="button" value="ย้อนกลับ" onclick="history.back()">
+                <input type="password" name="pass" style="margin-left:1%" class="inputField"><br><br>
+                <input type="submit" value="ยืนยัน" style="margin-top:2%" class="myButton">
+                <input type="button" value="ย้อนกลับ" onclick="history.back()" style="margin-top:2%" class="myButton">
+                <br><br>
           </form>
         </div>
       </div>
