@@ -25,7 +25,11 @@
         position: static;
       }
       body {
-        background: lightblue !important;
+        /* background: lightblue !important; */
+        background-image: url('https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-9-full.jpg');
+        overflow-x: hidden;
+        /* background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 30%, rgba(0,212,255,1) 100%); */
       }
       .right {
         position : absolute;
@@ -178,9 +182,8 @@
 
       .scrollbar
       {
-
       	float: left;
-      	background: lightblue;
+      	background: none;
       	overflow-y: scroll;
       	margin-bottom: 25px;
       }
@@ -188,12 +191,12 @@
 
       .scrollbar::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-      background-color: lightblue;
+      background-color: transparent;
       border-radius: 10px; }
 
       .scrollbar::-webkit-scrollbar {
       width: 12px;
-      background-color: lightblue;
+      background-color: transparent;
       overflow: scroll;
       }
 
@@ -218,11 +221,11 @@
 
 
 
-      ::-webkit-scrollbar-track
+      /* ::-webkit-scrollbar-track
       {
       	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
       	background-color: lightblue;
-      }
+      } */
 
       ::-webkit-scrollbar
       {
@@ -239,8 +242,11 @@
       } */
       .list-group-item{
          word-wrap: break-word;
-         border: 2.5px solid black;
-         background: lightblue;
+         border: 2px solid black;
+         background-image : url('https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-12-full.jpg');
+         background-repeat: no-repeat;
+
+         /* background: lightblue; */
       }
 
       .topnav {
@@ -378,6 +384,9 @@
         padding: 10px;
 
       }
+      .img-bg{
+
+      }
     </style>
   <!-- </head> -->
   <body>
@@ -453,7 +462,7 @@
             <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Post
             </button> -->
-            <img class="btn dropdown-toggle" data-toggle="dropdown" src="https://cdn.onlinewebfonts.com/svg/img_24506.png" style="width:72px; height:72px">
+            <img class="btn dropdown-toggle" data-toggle="dropdown" src="https://cdn.onlinewebfonts.com/svg/img_24506.png" style="width:72px; height:72px; margin-top:5%">
 
             <div class="dropdown-menu">
 
@@ -479,8 +488,8 @@
                                   <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
                                   <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
                                   หัวข้อ:
-                                  <input type="text" name="work" lign="left" required><br>
-                                  ประเภท:
+                                  <input type="text" name="work" lign="left" required placeholder="ระบุสิ่งของ / รุ่น" maxlength="200"><br>
+                                  <!-- ประเภท:
                                     <select name="item" required>
                                       <option value="" disabled selected hidden>เลือกประเภท</option>
                                       <option value="โทรศัพท์">โทรศัพท์</option>
@@ -490,9 +499,9 @@
                                       <option value="นาฬิกา">นาฬิกา</option>
                                       <option value="ปากกา">ปากกา</option>
                                       <option value="อื่นๆ">อื่นๆ</option>
-                                    </select><br>
+                                    </select><br> -->
                                   รายละเอียด:
-                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
+                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required placeholder="ระบุรายละเอียด / สถานที่หาย ของสิ่งของ"></textarea>
                                   <br><br>
                                   อัพโหลดรูป:
                                   <input type="file" name="file[]" id="files_l" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
@@ -534,8 +543,8 @@
                                     <!-- <input type="hidden" name="now_name" id="now_name2" value="{{g_name}}">
                                     <input type="hidden" name="now_email" id="now_email2" value="{{g_email}}"> -->
                                     หัวข้อ:
-                                    <input type="text" name="work" lign="left" required><br>
-                                    ประเภท:
+                                    <input type="text" name="work" lign="left" required placeholder="ระบุสิ่งของ / รุ่น"><br>
+                                    <!-- ประเภท:
                                       <select name="item" id="item" require>
                                         <option value="" disabled selected hidden>เลือกประเภท</option>
                                         <option value="โทรศัพท์">โทรศัพท์</option>
@@ -545,9 +554,9 @@
                                         <option value="นาฬิกา">นาฬิกา</option>
                                         <option value="ปากกา">ปากกา</option>
                                         <option value="อื่นๆ">อื่นๆ</option>
-                                      </select><br>
+                                      </select><br> -->
                                     รายละเอียด:
-                                    <br><textarea rows="5" cols="40" maxlength="300" name="progress" required></textarea>
+                                    <br><textarea rows="5" cols="40" maxlength="300" name="progress" required placeholder="ระบุรายละเอียด / สถานที่เจอ ของสิ่งของ"></textarea>
                                     <br><br>
                                     อัพโหลดรูป:
                                     <input type="file" name="file[]" id="files_f" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
@@ -556,7 +565,7 @@
                                     <input type="hidden" name="url" id="url_f">
                                     <input type="hidden" name="email" id="email2" value="{{g_email}}">
 
-                                    <!-- <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br> -->
+                                    <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br>
 
                               </form>
                           </div>
@@ -564,7 +573,7 @@
                               <img src="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e" id="img_f" alt=""width="60%" height="60%" style="margin-left:20%">
                               <div align="right" style="margin-left:15%; margin-top:20%">
                                   <!-- <input type="submit" value="ยืนยัน" class="btn btn-primary" required> -->
-                                  <button name="button" form="found-form" class="btn btn-primary" required>ยืนยัน</button>
+                                  <button name="button" form="found-form" class="btn btn-primary" required >ยืนยัน</button>
                                   <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ยกเลิก</button>
                               </div>
                           </div>
@@ -869,25 +878,25 @@ function getWithExpiry(key) {
                 if (childSnapshot.exists()) {   //check data exist
                     if (t == "All") {
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
-                      content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                      content += "<li class='list-group-item' style='height: 150px; background:#9999FF;'>";
                       content += "<div class='row'>";
-                      content += "<div class='column-img' style='background:#9999FF'>";
+                      content += "<div class='column-img' style=''>";
                       content += "<div class='picture'>";
                       content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
                       content += "</div>";
                       content += "</div>";
-                      content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
+                      content += "<div class='column-desc' style='text-align:left;'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
                       content += "<b>รายละเอียด :</b>";
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
-                      content += "<div class='column-but' style='background:#9999FF'>";
+                      content += "<div class='column-but' style=''>";
                       content += "<div class='row' style='padding-left:50px'>"
                       content += "<b>สถานะ : </b><em>" + c_status + "</em>";
                       content += "</div>";
-                      content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<div class='row' style='position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                       content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
                       content += "</div>";
@@ -915,7 +924,7 @@ function getWithExpiry(key) {
                       content += "<div class='row' style='padding-left:50px'>"
                       content += "<b>สถานะ : </b><em>" + c_status + "</em>";
                       content += "</div>";
-                      content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<div class='row' style='background:#9999FF;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                       content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
                       content += "</div>";
@@ -965,7 +974,7 @@ function getWithExpiry(key) {
               // console.log(c_email);
               if (childSnapshot.exists()) {   //check data exist
                   if (t == "All") {
-                    content += "<ul class='list-group' ng-repeat='data in messages' >";
+                    content += "<ul class='list-group' ng-repeat='data in messages'>";
                     content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
                     content += "<div class='row'>";
                     content += "<div class='column-img' style='background:#9999FF'>";
@@ -1031,29 +1040,52 @@ function getWithExpiry(key) {
 
       }
 
-    function uploadImage_lost() {
-            var storage = firebase.storage();
-            var file = document.getElementById("files_l").files[0];
-            var storageRef = storage.ref();
-            var thisRef = storageRef.child(file.name).put(file);
-            $('#files_l').change(function(){
-                thisRef.on('state_changed',function(snapshot){
-                //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                //     document.getElementById("url").value = downloadURL;
-                // });
-                console.log("file uplaoded succesfully");
-                },
-                function(error) {
-                    console.log("error");
-                },
-                function() {
-                    thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                      document.getElementById("url").value = downloadURL;
-                });
-            })
-            return true;
-        });
-      }
+  $('#files_l').change(function(){
+      readURL_L(this);
+      var storage = firebase.storage();
+      var file = document.getElementById("files_l").files[0];
+      var storageRef = storage.ref();
+      var thisRef = storageRef.child(file.name).put(file);
+      thisRef.on('state_changed',function(snapshot){
+      //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      //     document.getElementById("url").value = downloadURL;
+      // });
+      console.log("file uplaoded succesfully");
+      },
+      function(error) {
+          console.log("error");
+      },
+      function() {
+          thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            document.getElementById("url").value = downloadURL;
+      });
+  })
+  return true;
+});
+
+    // function uploadImage_lost() {
+    //         var storage = firebase.storage();
+    //         var file = document.getElementById("files_l").files[0];
+    //         var storageRef = storage.ref();
+    //         var thisRef = storageRef.child(file.name).put(file);
+    //         $('#files_l').change(function(){
+    //             thisRef.on('state_changed',function(snapshot){
+    //             //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    //             //     document.getElementById("url").value = downloadURL;
+    //             // });
+    //             console.log("file uplaoded succesfully");
+    //             },
+    //             function(error) {
+    //                 console.log("error");
+    //             },
+    //             function() {
+    //                 thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    //                   document.getElementById("url").value = downloadURL;
+    //             });
+    //         })
+    //         return true;
+    //     });
+    //   }
       function readURL_L(input) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
@@ -1066,34 +1098,61 @@ function getWithExpiry(key) {
         }
       }
 
-      $("#files_l").change(function() {
-        readURL_L(this);
+      // $("#files_l").change(function() {
+      //   readURL_L(this);
+      // });
+
+      $('#files_f').change(function(){
+        readURL_F(this);
+        var storage = firebase.storage();
+        var file = document.getElementById("files_f").files[0];
+        var storageRef = storage.ref();
+        var thisRef = storageRef.child(file.name).put(file);
+
+        thisRef.on('state_changed',function(snapshot){
+          //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            //     document.getElementById("url_f").value = downloadURL;
+            // });
+            console.log("file uplaoded succesfully");
+          },
+          function(error) {
+            console.log("error");
+          },
+          function() {
+            thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+              document.getElementById("url_f").value = downloadURL;
+            });
+          })
+          return true;
       });
-      function uploadImage_found() {
-              var storage = firebase.storage();
-              var file = document.getElementById("files_f").files[0];
-              var storageRef = storage.ref();
-              var thisRef = storageRef.child(file.name).put(file);
-              $('#files_f').change(function(){
-
-                thisRef.on('state_changed',function(snapshot){
-                  //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    //     document.getElementById("url_f").value = downloadURL;
-                    // });
-                    console.log("file uplaoded succesfully");
-                  },
-                  function(error) {
-                    console.log("error");
-                  },
-                  function() {
-                    thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                      document.getElementById("url_f").value = downloadURL;
-                    });
-                  })
-                  return true;
-              });
-
-        }
+      // function uploadImage_found() {
+      //         console.log("HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+      //         var storage = firebase.storage();
+      //         var file = document.getElementById("files_f").files[0];
+      //         var storageRef = storage.ref();
+      //         var thisRef = storageRef.child(file.name).put(file);
+      //         $('#files_f').change(function(){
+      //
+      //           thisRef.on('state_changed',function(snapshot){
+      //             //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      //               //     document.getElementById("url_f").value = downloadURL;
+      //               // });
+      //               console.log("file uplaoded succesfully");
+      //               alert("wow")
+      //             },
+      //             function(error) {
+      //               console.log("error");
+      //             },
+      //             function() {
+      //               thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      //                 document.getElementById("url_f").value = downloadURL;
+      //                 alert("HAHAHA")
+      //               });
+      //             })
+      //             return true;
+      //         });
+      //
+      //   }
 
         function readURL_F(input) {
           if (input.files && input.files[0]) {
@@ -1107,9 +1166,9 @@ function getWithExpiry(key) {
           }
         }
 
-        $("#files_f").change(function() {
-          readURL_F(this);
-        });
+        // $("#files_f").change(function() {
+        //   readURL_F(this);
+        // });
 
   </script>
 </html>

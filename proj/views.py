@@ -7,6 +7,7 @@ from fuzzywuzzy import process,utils
 from pythainlp import word_tokenize, Tokenizer, sent_tokenize
 from pythainlp.spell import spell, correct
 from pythainlp.corpus import thai_stopwords
+from flashtext import KeywordProcessor
 from difflib import SequenceMatcher
 from googletrans import Translator
 from keras.preprocessing import image
@@ -18,6 +19,8 @@ from io import StringIO
 from skimage.io import imread, imshow
 from skimage.transform import resize
 from skimage.util import img_as_ubyte
+from collections import Counter
+import numpy as np
 import pyrebase
 import time
 import pytz
@@ -50,12 +53,23 @@ config = {
     'measurementId': "G-LK1FPK8MVG"
 }
 
+keyword_processor = KeywordProcessor()
+keyword_dict = {
+    "โทรศัพท์": ["iphone","phone","i-phone","huawei","samsung","iphonex","โทรศัพท์","มือถือ","mobile"],
+    "กระเป๋าสะพาย": ["backpack","กระเป๋าสะพาย","กระเป๋าเป้","เป้","anello","adidas","nike","kanken","herschel","troopers","longchamp","david jones","puma"],
+    "กระเป๋าถือ": ["bag","กระเป๋าถือ","coach","prada","gucci","chanel","fendi","dior","louis vuitton","ysl"],
+    "กระเป๋าเงิน": ["wallet","กระเป๋าเงิน","กระเป๋าตัง","jacob","guy laroach","playboy","lacoste","supreme"],
+    "นาฬิกา": ["watch","นาฬิกา","g-shock","gshock","baby-g","citizen","seiko","casio","rolex","hamilton"],
+    "ปากกา": ["pen","ปากกา","lamy","ม้า","quantum","parker","sailor","montblanc","horse","faber castel","pentel"]
+}
+keyword_processor.add_keywords_from_dict(keyword_dict)
+
 firebase = pyrebase.initialize_app(config)
 authen = firebase.auth()
 database = firebase.database()
 status = 0
 id = ""
-model = load_model('../project_lostandfound/proj/model3.h5')
+model = load_model('../project_lostandfound/proj/model4.h5')
 
 
 img_width, img_height = 224, 224
@@ -147,7 +161,7 @@ def post_create_lost(request):
     work = request.POST.get('work')
     progress = request.POST.get('progress')
     url = request.POST.get('url')
-    type = request.POST.get('item')
+    # type = request.POST.get('item')
     statusPost = request.POST.get("statusPost")
     # print(type)
 
@@ -162,7 +176,7 @@ def post_create_lost(request):
     a = a['localId']
 
     #print("info" + str(a))
-
+    type = find_keyword(work)
     data = {
             'email':email,
             'topic':work,
@@ -190,7 +204,7 @@ def post_create_found(request):
     work = request.POST.get('work')
     progress = request.POST.get('progress')
     url = request.POST.get('url')
-    type = request.POST.get('item')
+    # type = request.POST.get('item')
     statusPost = request.POST.get("statusPost")
     save = 0
 
@@ -204,7 +218,7 @@ def post_create_found(request):
     a = a['localId']
 
     #print("info" + str(a))
-
+    type = find_keyword(work)
     data = {
             'email':email,
             'topic':work,
@@ -220,6 +234,29 @@ def post_create_found(request):
     # name = database.child('users').child(a).child('details').child('name').get().val()
 
     return render(request,"welcome.html",{'e':email, 'g_id':id , 'g_name':name , 'g_email':now_em})
+
+def get_key(val):
+    global cnt
+    for key, value in cnt.items():
+         if val == value:
+             return key
+
+def find_keyword(text):
+    global cnt
+    proc = word_tokenize(text.lower() , keep_whitespace=False)
+    listToStr = ' '.join(map(str, proc))
+    keywords = keyword_processor.extract_keywords(listToStr)
+    cnt = Counter(keywords)
+    if(cnt.get("โทรศัพท์") != None or cnt.get("กระเป๋าสะพาย") != None or cnt.get("กระเป๋าถือ") != None or cnt.get("กระเป๋าเงิน") != None or cnt.get("นาฬิกา") != None or cnt.get("ปากกา") != None):
+        mylist = [cnt.get("โทรศัพท์"), cnt.get("กระเป๋าสะพาย"), cnt.get("กระเป๋าถือ"), cnt.get("กระเป๋าเงิน"), cnt.get("นาฬิกา"), cnt.get("ปากกา")]
+        x = np.array(mylist, dtype=np.float64)
+        mykey = get_key(int(np.nanmax(x)))
+    else:
+        mykey = "อื่นๆ"
+
+    print("keyword is ", mykey)
+    return mykey
+
 
 def check(request):
     if request.method == 'GET' and 'csrfmiddlewaretoken' in request.GET:
@@ -291,27 +328,6 @@ def check(request):
 
         return render(request,'check.html', {'comb_lis':comb_lis, 'e':email, 'uid':a})
 
-# def post_check(request):
-#     time = request.GET.get('z')
-#
-#     idtoken = request.session['uid']
-#     a = authen.get_account_info(idtoken)
-#     a = a['users']
-#     a = a[0]
-#     a = a['localId']
-#
-#     work = database.child('users').child(a).child('reports').child(time).child('work').get().val()
-#     progress = database.child('users').child(a).child('reports').child(time).child('progress').get().val()
-#     img_url = database.child('users').child(a).child('reports').child(time).child('url').get().val()
-#
-#     work = database.child('Found').child(time).child('topic').get().val()
-#     progress = database.child('Found').child(time).child('progress').get().val()
-#     img_url = database.child('Found').child(time).child('url').get().val()
-#
-#     date_list = datetime.fromtimestamp(float(time)).strftime('%H:%M %d-%m-%Y')
-#     email = database.child('Found').child(a).child('details').child('email').get().val()
-#
-#     return render(request,'post_check.html', {'w':work, 'p':progress , 'e':email, 'i':img_url})
 def topfive(inputma , listRatios):
     # print("top5")
     listRatios = [v for k, v in sorted(listRatios.items(), key=lambda item: item[1]["per"],reverse=True)]
@@ -512,15 +528,16 @@ def pdPic(dd):
         2: "iphone",
         3: "huawei",
         4: "samsung",
-        5: "clashbag",
+        5: "wallet",
         6: "pen",
         7: "watch",
+        8: "other",
     }
     return switcher.get(dd,"?")
 
 def visualize_predictions(classifier,img_path):
 
-        # Get picture
+    # Get picture
     img1 = imread(img_path)
     img2 = resize(img1,(224,224))
     img3 = img_as_ubyte(img2)
@@ -531,7 +548,6 @@ def visualize_predictions(classifier,img_path):
 
     # Extract features
     features = conv_base.predict(img_tensor.reshape(1, 224, 224 , 3))
-
     # Make prediction
     try:
         prediction = classifier.predict(features)
@@ -580,6 +596,7 @@ def match_post_L(id):
             topic_lost = data.val()['topic']
             desc_lost = data.val()['description']
             url_lost = data.val()['url']
+            print(topic_lost, " ", desc_lost, " ", url_lost)
             # img4 = imread(url_lost, as_gray=True)
             # img5 = resize(img4, (224, 224))
             # img6 = img_as_ubyte(img5)
@@ -630,6 +647,7 @@ def match_post_F(id):
             topic_found = data.val()['topic']
             desc_found = data.val()['description']
             url_found =data.val()['url']
+            print(topic_found, " ", desc_found, " ", url_found)
             # img4 = imread(url_found, as_gray=True)
             # img5 = resize(img4, (224, 224))
             # img6 = img_as_ubyte(img5)
