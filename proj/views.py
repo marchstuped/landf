@@ -163,6 +163,7 @@ def post_create_lost(request):
     url = request.POST.get('url')
     # type = request.POST.get('item')
     statusPost = request.POST.get("statusPost")
+    statusNoti = request.POST.get("statusNoti")
     # print(type)
 
     if(url==""):
@@ -183,7 +184,8 @@ def post_create_lost(request):
             'description':progress,
             'url':url,
             'type':type,
-            'statusPost':statusPost
+            'statusPost':statusPost,
+            'statusNoti':statusNoti,
     }
     # database.child('users').child(a).child('reports').child(millis).set(data)
     database.child('Lost').child(millis).set(data)
@@ -206,6 +208,7 @@ def post_create_found(request):
     url = request.POST.get('url')
     # type = request.POST.get('item')
     statusPost = request.POST.get("statusPost")
+    statusNoti = request.POST.get("statusNoti")
     save = 0
 
     if(url==""):
@@ -225,7 +228,8 @@ def post_create_found(request):
             'description':progress,
             'url':url,
             'type':type,
-            'statusPost':statusPost
+            'statusPost':statusPost,
+            'statusNoti':statusNoti,
     }
     # database.child('users').child(a).child('reports').child(millis).set(data)
     if(save == 0):
@@ -582,8 +586,8 @@ def match_post_L(id):
     # print(found)
     # print(found_type)
     # print("url_f " , found_url)
-
     ref = database.child('Lost').get()
+    print()
     choice = 2
     # lost_arr = []
     # key_arr_l = []

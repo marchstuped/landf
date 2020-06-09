@@ -16,7 +16,9 @@
           position: static;
         }
         body {
-          background: lightpink !important;
+          /* background: lightpink !important; */
+          background-image: url('https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-10-full.jpg');
+          overflow-x: hidden;
         }
         .right {
           position : absolute;
@@ -177,7 +179,7 @@
         {
 
         	float: left;
-        	background: lightpink;
+        	background: none;
         	overflow-y: scroll;
         	margin-bottom: 25px;
         }
@@ -185,12 +187,12 @@
 
         .scrollbar::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-        background-color: lightpink;
+        background-color: transparent;
         border-radius: 10px; }
 
         .scrollbar::-webkit-scrollbar {
         width: 12px;
-        background-color: lightpink;
+        background-color: transparent;
         overflow: scroll;
         }
 
@@ -209,16 +211,19 @@
         .scrollbar::-webkit-scrollbar-thumb {
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-        background-image: -webkit-gradient(linear, left bottom, left top, from(#30cfd0), to(#330867));
+        background-image: -webkit-gradient(linear, left bottom, left top, from(#FF99FF), to(#FF0033));
+        background-image: -webkit-linear-gradient(bottom, #FF99FF 0%, #FF0033 100%);
+        background-image: linear-gradient(to top, #FF99FF 0%, #FF0033 100%); }
+        /* background-image: -webkit-gradient(linear, left bottom, left top, from(#30cfd0), to(#330867));
         background-image: -webkit-linear-gradient(bottom, #30cfd0 0%, #330867 100%);
-        background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
+        background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); } */
 
 
 
         ::-webkit-scrollbar-track
         {
         	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-        	background-color: lightpink;
+        	background-color: #ffe6d8;
         }
 
         ::-webkit-scrollbar
@@ -317,7 +322,7 @@
     <!-- </div> -->
     <!-- <button type="button" class="btn btn-primary" name="button" onclick="goBack()">back</button> -->
       <!-- <h1>History</h1> -->
-      <div class="scrollbar" schroll-bottom="messages" style="height: 450px;width: 80%; margin-left: 10%; margin-top: 3%" id="data">
+      <div class="scrollbar" schroll-bottom="messages" style="height: 600px;width: 80%; margin-left: 10%; margin-top: 3%" id="data">
 
       </div>
       <br>
@@ -328,7 +333,7 @@
             <div class="modal-dialog modal-lg" >
                 <div class="modal-content text-left">
                   <div class="modal-header" style="background-color: rgb(42,138,234)">
-                    <h5>ของหาย</h5>
+                    <h5>แก้ไขโพสต์</h5>
                   </div>
                     <div class="modal-body" style="background-color: rgb(136,215,241)">
                         <!-- <form action="/post_create_lost/" method="post" style=> -->
@@ -338,7 +343,7 @@
                               <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
                               หัวข้อ:
                               <input type="text" name="work" lign="left" value="" id="topic" required><br>
-                              ประเภท:
+                              <!-- ประเภท:
                                 <select name="item" id="type" required>
                                   <option value="" disabled selected hidden>เลือกประเภท</option>
                                   <option value="โทรศัพท์">โทรศัพท์</option>
@@ -348,7 +353,7 @@
                                   <option value="นาฬิกา">นาฬิกา</option>
                                   <option value="ปากกา">ปากกา</option>
                                   <option value="อื่นๆ">อื่นๆ</option>
-                                </select><br>
+                                </select><br> -->
                               รายละเอียด:
                               <br><textarea rows="5" cols="40" maxlength="300" name="progress" id="desc" required></textarea>
                               <br><br>
@@ -547,7 +552,7 @@
       // var Ref_f = firebase.database().ref("Found/" + s_id);
       var tp = document.getElementById("topic").value;
       var dc = document.getElementById("desc").value;
-      var ty = document.getElementById("type").value;
+      // var ty = document.getElementById("type").value;
       var ur;
       if (url == "") {
           ur = document.getElementById("url").value;
@@ -558,12 +563,12 @@
 
       console.log(tp);
       console.log(dc);
-      console.log(ty);
+      // console.log(ty);
       console.log(ur);
       Ref_gb.update({
           description: dc,
           topic: tp,
-          type: ty,
+          // type: ty,
           url: ur,
       });
       window.location.reload();
@@ -579,7 +584,7 @@
                   desc = data.description;
                   email = data.email
                   topic = data.topic;
-                  type = data.type;
+                  // type = data.type;
                   url = data.url;
                   s_id = thisid;
                   // console.log(desc);
@@ -589,20 +594,20 @@
                   console.log("ur " + url);
                   var modal = document.getElementById("Lost");
                   var btn = document.getElementById("editLost");
-                  var set;
-                  if (type == "โทรศัพท์") {set = 1;}
-                  else if(type == "กระเป๋าสะพาย"){set = 2;}
-                  else if(type == "กระเป๋าเงิน"){set = 3;}
-                  else if(type == "นาฬิกา"){set = 4;}
-                  else if(type == "อื่นๆ"){set = 5;}
+                  // var set;
+                  // if (type == "โทรศัพท์") {set = 1;}
+                  // else if(type == "กระเป๋าสะพาย"){set = 2;}
+                  // else if(type == "กระเป๋าเงิน"){set = 3;}
+                  // else if(type == "นาฬิกา"){set = 4;}
+                  // else if(type == "อื่นๆ"){set = 5;}
                   s_topic = document.getElementById("topic")
                   document.getElementById("topic").value = topic;
                   document.getElementById("desc").value = desc;
                   // document.getElementById("files_f").value = url;
-                  document.getElementById("type").selectedIndex = set;
+                  // document.getElementById("type").selectedIndex = set;
                   s_topic = document.getElementById("topic")
                   s_desc = document.getElementById("desc")
-                  s_type = document.getElementById("type")
+                  // s_type = document.getElementById("type")
                   s_url = document.getElementById("files_l")
 
                   btn.onclick = function() {
@@ -634,25 +639,25 @@
                   desc = data.description;
                   email = data.email
                   topic = data.topic;
-                  type = data.type;
+                  // type = data.type;
                   url = data.url;
-                  console.log(desc);
-                  console.log(email);
-                  console.log(topic);
-                  console.log(type);
-                  console.log(url);
+                  // console.log(desc);
+                  // console.log(email);
+                  // console.log(topic);
+                  // console.log(type);
+                  // console.log(url);
                   var modal = document.getElementById("Lost");
                   var btn = document.getElementById("editLost");
-                  var set;
-                  if (type == "โทรศัพท์") {set = 1;}
-                  else if(type == "กระเป๋าสะพาย"){set = 2;}
-                  else if(type == "กระเป๋าเงิน"){set = 3;}
-                  else if(type == "นาฬิกา"){set = 4;}
-                  else if(type == "อื่นๆ"){set = 5;}
+                  // var set;
+                  // if (type == "โทรศัพท์") {set = 1;}
+                  // else if(type == "กระเป๋าสะพาย"){set = 2;}
+                  // else if(type == "กระเป๋าเงิน"){set = 3;}
+                  // else if(type == "นาฬิกา"){set = 4;}
+                  // else if(type == "อื่นๆ"){set = 5;}
                   document.getElementById("topic").value = topic;
                   document.getElementById("desc").value = desc;
                   // document.getElementById("files_f").value = url;
-                  document.getElementById("type").selectedIndex = set;
+                  // document.getElementById("type").selectedIndex = set;
 
                   btn.onclick = function() {
                     modal.style.display = "block";
@@ -669,7 +674,7 @@
   var btn_confirmed;
   var btn;
       function deleteData($this,type) {
-        var thisid = $this.nextSibling.value;
+        var thisid = $this.nextSibling.nextSibling.value;
         btn_confirmed = document.getElementById("Confirmed");
         btn = document.getElementById("confirmDel");
           if (type == 1) {
@@ -882,7 +887,7 @@
   }
 
 function finish($this,type) {
-    var thisid = $this.previousElementSibling.previousElementSibling.previousElementSibling.value;
+    var thisid = $this.nextSibling.value;
     if (type == 1)
     {
         console.log(thisid);
@@ -1223,10 +1228,10 @@ function finish($this,type) {
                           content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
                           content += "<div class='dropdown-menu'>"
                           content += "<a type='button' class='dropdown-item' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,1)' id='confirmDel'>&#128465; ลบ</a>"
+                          content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,1)'>&#9745; พบแล้ว</a>"
                           content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                           content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='print(this,1)'>&#128214; ดูเพิ่ม</a>"
                           content += "<a onclick='EditData(this,1)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000; แก้ไข</a>"
-                          content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,1)'>&#9745; พบแล้ว</a>"
                           content += "</div>"
                           content += "</div>"
                           content += "</div>"
@@ -1371,10 +1376,10 @@ function finish($this,type) {
                     content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
                     content += "<div class='dropdown-menu'>"
                     content += "<a class='dropdown-item' type='button' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,2)' id='confirmDel'>&#128465;ลบ</a>"
+                    content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,2)'>&#9745; พบแล้ว</a>"
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
                     content += "<a class='dropdown-item' type='button' data-toggle='modal' onclick='print(this,2)'>&#128214;ดูเพิ่ม</a>"
                     content += "<a onclick='EditData(this,2)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000;แก้ไข</a>"
-                    content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,2)'>&#9745; พบแล้ว</a>"
                     content += "</div>"
                     content += "</div>";
                       // content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";

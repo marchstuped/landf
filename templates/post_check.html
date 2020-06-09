@@ -20,7 +20,9 @@
     <style>
 
       body {
-        background: lightblue !important;
+        /* background: lightblue !important; */
+        background-image : url('https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-11-full.jpg');
+        overflow-x: hidden;
       }
       /* h4 {
          margin: 0 0 5px 20px
@@ -105,7 +107,7 @@ textarea
         margin-left:auto;
 
         max-width: 70%;
-        background: #f7ebbb;
+        background: #FFCC99;
         border: 1px solid black;
         border-collapse: collapse;
         /* display: flex;
@@ -117,7 +119,7 @@ textarea
       {
 
         float: left;
-        background: lightblue;
+        background: none;
         overflow-y: scroll;
         margin-bottom: 25px;
       }
@@ -129,12 +131,12 @@ textarea
       }
       .scrollbar::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-      background-color: lightblue;
+      background-color: transparent;
       border-radius: 10px; }
 
       .scrollbar::-webkit-scrollbar {
       width: 12px;
-      background-color: lightblue;
+      background-color: transparent;
       overflow: scroll;
       }
 
@@ -153,9 +155,9 @@ textarea
       .scrollbar::-webkit-scrollbar-thumb {
       border-radius: 10px;
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-      background-image: -webkit-gradient(linear, left bottom, left top, from(#30cfd0), to(#330867));
-      background-image: -webkit-linear-gradient(bottom, #30cfd0 0%, #330867 100%);
-      background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
+      background-image: -webkit-gradient(linear, left bottom, left top, from(#FFFFCC), to(#FFFF00));
+      background-image: -webkit-linear-gradient(bottom, #FFFFCC 0%, #FFFF00 100%);
+      background-image: linear-gradient(to top,#FFFFCC 0%, #FFFF00 100%); }
 
 
 
@@ -229,6 +231,12 @@ textarea
         width: 25%;
         padding-left: 60px;
       }
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -290,7 +298,8 @@ textarea
     </div>
 
     <div class="column" style=" width: 46%;">
-      <div><h3 style="margin:2%;text-align: center;">ของที่ใกล้เคียงกับของคุณ</h3> </div>
+      <img src="https://sv1.picz.in.th/images/2020/05/27/qZB6IZ.png" alt="" style="margin-top:3%" class="center">
+      <!-- <div><h3 style="margin:2%;text-align: center;">ของที่ใกล้เคียงกับของคุณ</h3> </div> -->
       <div class="scrollbar" schroll-bottom="messages" style="height: 450px;width: 95%; margin-top: 3%" id="data"/>
     </div>
     </div>
@@ -328,6 +337,7 @@ textarea
       window.onload = function() {
           // console.log("ddd " + "{{id}}");
           // console.log("to " + '{{t}}');
+          // console.log("{{id}}");
 
           console.log("result " + result.split("#")[0]);
           console.log("status " + status);
@@ -474,102 +484,103 @@ textarea
           $("#data").empty()
           // g_id = id;
 
-          tmp = "";
+          // tmp = "";
           tmp = result.split("#");
           console.log(tmp.length);
-          var i = 1;
-          var j = 1;
-          tmp_new = tmp.sort();
+          var i;
+          // tmp_new = tmp.sort();
+          console.log(tmp);
 
           var firebaseRef = firebase.database().ref("Lost").orderByChild("work");
           firebaseRef.once('value').then(function(dataSnapshot) {
-            dataSnapshot.forEach(function(childSnapshot){
-              var childKey = childSnapshot.key;
-              var childData = childSnapshot.val();
-              var c_email = childData.email;
-              var c_topic = childData.topic;
-              var c_desc = childData.description;
-              var c_url = childData.url;
-              var $mainContainer = $("#mainContainer");
-              var content = "";
-              var temp = childKey;
-              // var l_btn = document.getElementById("l_btn");
-              // var f_btn = document.getElementById("f_btn");
-              //
-              // l_btn.classList.add("active");
-              // f_btn.classList.remove("active");
-              // console.log(dataSnapshot);
-              // console.log(childSnapshot);
+            for(i = 1; i < tmp.length-1; i++) {
+              dataSnapshot.forEach(function(childSnapshot){
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                var c_email = childData.email;
+                var c_topic = childData.topic;
+                var c_desc = childData.description;
+                var c_url = childData.url;
+                var $mainContainer = $("#mainContainer");
+                var content = "";
+                var temp = childKey;
+                // var l_btn = document.getElementById("l_btn");
+                // var f_btn = document.getElementById("f_btn");
+                //
+                // l_btn.classList.add("active");
+                // f_btn.classList.remove("active");
+                // console.log(dataSnapshot);
+                // console.log(childSnapshot);
 
-              // console.log("F_childkey " + childKey);
+                // console.log("F_childkey " + childKey);
 
-              // console.log("url: " + c_url);
+                // console.log("url: " + c_url);
 
-              // var num = 1;
-              // $("#topic").html(c_topic)
-              // $("#desc").html(c_desc.slice(0,50) + "...")
-              // document.getElementById("myPic").src = c_url;
-              // console.log(c_desc.slice(0,50));
-              // console.log(c_topic);
-              // console.log(c_email);
+                // var num = 1;
+                // $("#topic").html(c_topic)
+                // $("#desc").html(c_desc.slice(0,50) + "...")
+                // document.getElementById("myPic").src = c_url;
+                // console.log(c_desc.slice(0,50));
+                // console.log(c_topic);
+                // console.log(c_email);
 
-              if (childSnapshot.exists()) {   //check data exist
-                  // console.log("result " + tmp[i] + " " + childKey);
-                  // console.log(i);
-                  if (tmp[i] == childKey) {
-                    console.log("result " + tmp[i] + " " + childKey);
-                    // console.log("OK");
-                    console.log("topic " + c_topic);
-                    console.log(i);
-                    content += "<ul class='list-group' ng-repeat='data in messages' >";
-                    content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                    content += "<div class='row'>";
-                    content += "<div class='column-img' style='background:#9999FF'>";
-                    content += "<div class='picture'>";
-                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
-                    content += "</div>";
-                    content += "</div>";
-                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
-                    content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
-                    content += "<br>";
-                    content += "<b>รายละเอียด :</b>";
-                    content += "<br>";
-                    content += "<em>" + c_desc + "</em>";
-                    content += "</div>";
-                    content += "<div class='column-but' style='background:#9999FF'>";
-                    content += "<div class='row' style='background:#9999FF;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
-                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                    content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,1)'>&#128214; ดูเพิ่ม </button>"
-                    content += "</div>";
-                    content += "</div>";
-                    content += "</div>";
-                    content += "</ul>";
-                    i = i+j;
-                  }
+                if (childSnapshot.exists()) {   //check data exist
+                    // console.log("result " + tmp[i] + " " + childKey);
+                    // console.log(i);
+                    if (tmp[i] == childKey) {
+                      console.log("result " + tmp[i] + " " + childKey);
+                      // console.log("OK");
+                      console.log("topic " + c_topic);
+                      console.log(i);
+                      content += "<ul class='list-group' ng-repeat='data in messages' >";
+                      content += "<li class='list-group-item' style='height: 150px; background:	#FFCCCC'>";
+                      content += "<div class='row'>";
+                      content += "<div class='column-img' style='background:	#FFCCCC'>";
+                      content += "<div class='picture'>";
+                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "<div class='column-desc' style='text-align:left;background:	#FFCCCC'>";
+                      content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                      content += "<br>";
+                      content += "<b>รายละเอียด :</b>";
+                      content += "<br>";
+                      content += "<em>" + c_desc + "</em>";
+                      content += "</div>";
+                      content += "<div class='column-but' style='background:	#FFCCCC'>";
+                      content += "<div class='row' style='background:	#FFCCCC;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                      content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,1)'>&#128214; ดูเพิ่ม </button>"
+                      content += "</div>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "</ul>";
+                    }
 
-                  // console.log("Found have");
-                  // console.log(num);
-                  // num=num+1;
-                  // $("#topic").html(c_topic)
-                  // $("#desc").html(c_desc.slice(0,50) + "...")
-                  // document.getElementById("myPic").src = c_url;
-                  // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
-                  $("#topic").html(c_topic)
-                  // $("#desc").html(c_desc.slice(0,50) + "...")
-                  $("#desc").html(c_desc)
-                  // document.getElementById("myPic").src = c_url;
-                  // $mainContainer.append(newDiv);
-              }
-              $('#data').append(content)
+                    // console.log("Found have");
+                    // console.log(num);
+                    // num=num+1;
+                    // $("#topic").html(c_topic)
+                    // $("#desc").html(c_desc.slice(0,50) + "...")
+                    // document.getElementById("myPic").src = c_url;
+                    // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
+                    $("#topic").html(c_topic)
+                    // $("#desc").html(c_desc.slice(0,50) + "...")
+                    $("#desc").html(c_desc)
+                    // document.getElementById("myPic").src = c_url;
+                    // $mainContainer.append(newDiv);
+                }
+                $('#data').append(content)
 
-              // document.getElementById("myPic").src = c_url;;
-              // $('#ex-table').append(content);
-              // else {
-              //   console.log("null");
-              // }
-              // console.log(c_topic);
-              // console.log(c_desc);
-            });
+                // document.getElementById("myPic").src = c_url;;
+                // $('#ex-table').append(content);
+                // else {
+                //   console.log("null");
+                // }
+                // console.log(c_topic);
+                // console.log(c_desc);
+              });
+            }
           });
       }
 
@@ -577,102 +588,103 @@ textarea
           $("#data").empty()
           // g_id = id;
 
-          tmp = "";
+          // tmp = "";
           tmp = result.split("#");
           console.log(tmp.length);
-          tmp_new = tmp.sort();
-          var i = 1;
-          var j = 1;
+          var i;
+          // tmp_new = tmp.sort();
+          console.log(tmp);
 
           var firebaseRef = firebase.database().ref("Found").orderByChild("work");
           firebaseRef.once('value').then(function(dataSnapshot) {
-            dataSnapshot.forEach(function(childSnapshot){
-              var childKey = childSnapshot.key;
-              var childData = childSnapshot.val();
-              var c_email = childData.email;
-              var c_topic = childData.topic;
-              var c_desc = childData.description;
-              var c_url = childData.url;
-              var $mainContainer = $("#mainContainer");
-              var content = "";
-              var temp = childKey;
-              // var l_btn = document.getElementById("l_btn");
-              // var f_btn = document.getElementById("f_btn");
-              //
-              // l_btn.classList.add("active");
-              // f_btn.classList.remove("active");
-              // console.log(dataSnapshot);
-              // console.log(childSnapshot);
+            for(i = 1; i < tmp.length-1; i++) {
+              dataSnapshot.forEach(function(childSnapshot){
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                var c_email = childData.email;
+                var c_topic = childData.topic;
+                var c_desc = childData.description;
+                var c_url = childData.url;
+                var $mainContainer = $("#mainContainer");
+                var content = "";
+                var temp = childKey;
+                // var l_btn = document.getElementById("l_btn");
+                // var f_btn = document.getElementById("f_btn");
+                //
+                // l_btn.classList.add("active");
+                // f_btn.classList.remove("active");
+                // console.log(dataSnapshot);
+                // console.log(childSnapshot);
 
-              // console.log("F_childkey " + childKey);
+                // console.log("F_childkey " + childKey);
 
-              // console.log("url: " + c_url);
+                // console.log("url: " + c_url);
 
-              // var num = 1;
-              // $("#topic").html(c_topic)
-              // $("#desc").html(c_desc.slice(0,50) + "...")
-              // document.getElementById("myPic").src = c_url;
-              // console.log(c_desc.slice(0,50));
-              // console.log(c_topic);
-              // console.log(c_email);
+                // var num = 1;
+                // $("#topic").html(c_topic)
+                // $("#desc").html(c_desc.slice(0,50) + "...")
+                // document.getElementById("myPic").src = c_url;
+                // console.log(c_desc.slice(0,50));
+                // console.log(c_topic);
+                // console.log(c_email);
 
-              if (childSnapshot.exists()) {   //check data exist
-                  // console.log("result " + tmp[i] + " " + childKey);
-                  // console.log(i);
-                  if (tmp[i] == childKey) {
-                    console.log("result " + tmp[i] + " " + childKey);
-                    // console.log("OK");
-                    console.log("topic " + c_topic);
-                    console.log(i);
-                    content += "<ul class='list-group' ng-repeat='data in messages' >";
-                    content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
-                    content += "<div class='row'>";
-                    content += "<div class='column-img' style='background:#9999FF'>";
-                    content += "<div class='picture'>";
-                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
-                    content += "</div>";
-                    content += "</div>";
-                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
-                    content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
-                    content += "<br>";
-                    content += "<b>รายละเอียด :</b>";
-                    content += "<br>";
-                    content += "<em>" + c_desc + "</em>";
-                    content += "</div>";
-                    content += "<div class='column-but' style='background:#9999FF'>";
-                    content += "<div class='row' style='background:#9999FF;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
-                    content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                    content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,2)'>&#128214; ดูเพิ่ม </button>"
-                    content += "</div>";
-                    content += "</div>";
-                    content += "</div>";
-                    content += "</ul>";
-                    i = i+j;
-                  }
+                if (childSnapshot.exists()) {   //check data exist
+                    // console.log("result " + tmp[i] + " " + childKey);
+                    // console.log(i);
+                    if (tmp[i] == childKey) {
+                      console.log("result " + tmp[i] + " " + childKey);
+                      // console.log("OK");
+                      console.log("topic " + c_topic);
+                      console.log(i);
+                      content += "<ul class='list-group' ng-repeat='data in messages' >";
+                      content += "<li class='list-group-item' style='height: 150px; background:	#FFCCCC'>";
+                      content += "<div class='row'>";
+                      content += "<div class='column-img' style='background:	#FFCCCC'>";
+                      content += "<div class='picture'>";
+                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "<div class='column-desc' style='text-align:left;background:	#FFCCCC'>";
+                      content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
+                      content += "<br>";
+                      content += "<b>รายละเอียด :</b>";
+                      content += "<br>";
+                      content += "<em>" + c_desc + "</em>";
+                      content += "</div>";
+                      content += "<div class='column-but' style='background:	#FFCCCC'>";
+                      content += "<div class='row' style='background:	#FFCCCC;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
+                      content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,2)'>&#128214; ดูเพิ่ม </button>"
+                      content += "</div>";
+                      content += "</div>";
+                      content += "</div>";
+                      content += "</ul>";
+                    }
 
-                  // console.log("Found have");
-                  // console.log(num);
-                  // num=num+1;
-                  // $("#topic").html(c_topic)
-                  // $("#desc").html(c_desc.slice(0,50) + "...")
-                  // document.getElementById("myPic").src = c_url;
-                  // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
-                  $("#topic").html(c_topic)
-                  // $("#desc").html(c_desc.slice(0,50) + "...")
-                  $("#desc").html(c_desc)
-                  // document.getElementById("myPic").src = c_url;
-                  // $mainContainer.append(newDiv);
-              }
-              $('#data').append(content)
+                    // console.log("Found have");
+                    // console.log(num);
+                    // num=num+1;
+                    // $("#topic").html(c_topic)
+                    // $("#desc").html(c_desc.slice(0,50) + "...")
+                    // document.getElementById("myPic").src = c_url;
+                    // var newDiv = $("<div class='ex2'><div class='container'><div class='row'><div class='col-md-3'><div class='picture'><a href='/post_check/'> <img height='120' width='120' id='myPic'> </a></div></div><div class='col-md-9'><div class=''><b>Topic : </b><em id='topic'></em><br><b>Description :</b><br><em id='desc'></em></div></div></div></div></div>");
+                    $("#topic").html(c_topic)
+                    // $("#desc").html(c_desc.slice(0,50) + "...")
+                    $("#desc").html(c_desc)
+                    // document.getElementById("myPic").src = c_url;
+                    // $mainContainer.append(newDiv);
+                }
+                $('#data').append(content)
 
-              // document.getElementById("myPic").src = c_url;;
-              // $('#ex-table').append(content);
-              // else {
-              //   console.log("null");
-              // }
-              // console.log(c_topic);
-              // console.log(c_desc);
-            });
+                // document.getElementById("myPic").src = c_url;;
+                // $('#ex-table').append(content);
+                // else {
+                //   console.log("null");
+                // }
+                // console.log(c_topic);
+                // console.log(c_desc);
+              });
+            }
           });
       }
       // console.log("key: " + key);
