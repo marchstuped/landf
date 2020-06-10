@@ -57,20 +57,29 @@
   </head>
   <body>
     <!-- <div class="" style="margin-top:15%"> -->
-      <div class="container">
+      <div class="container" style="border-radius: 40px;border-style: outset;border-color: aqua;">
         <div align="center" style="margin-top:5%">
           <img src="https://s3-ap-southeast-1.amazonaws.com/img-in-th/29222c36637e91673442fb4433ce68af.png" alt="" height="30%" width="50%">
           <form action="/postsignup/" method="post" style="margin-top:10%">
-                {% csrf_token %}
-                ชื่อผู้ใช้:
-                <input type="text" name="name" style="margin-left:2%" class="inputField"><br><br>
-                อีเมล:
-                <input type="email" name="email" style="margin-left:4%" class="inputField"><br><br>
-                รหัสผ่าน:
-                <input type="password" name="pass" style="margin-left:1%" class="inputField"><br><br>
-                <input type="submit" value="ยืนยัน" style="margin-top:2%" class="myButton">
-                <input type="button" value="ย้อนกลับ" onclick="history.back()" style="margin-top:2%" class="myButton">
-                <br><br>
+                <div align="center">
+                  {% csrf_token %}
+                  ชื่อผู้ใช้:
+                  <input type="text" name="name" style="margin-left:2%" class="inputField"><br><br>
+                </div>
+                <div align="center">
+                  อีเมล:
+                  <input type="email" name="email" style="margin-left:3.5%" class="inputField"><br><br>
+                </div>
+                <div align="center">
+                  รหัสผ่าน:
+                  <input type="password" name="pass" style="margin-left:1%" class="inputField"><br><br>
+                </div>
+                <div align="center">
+                  <input type="submit" value="ยืนยัน" style="margin-top:2%" class="myButton">
+                  <input type="button" value="ย้อนกลับ" onclick="history.back()" style="margin-top:2%" class="myButton">
+                  <br><br>
+                </div>
+
           </form>
         </div>
       </div>

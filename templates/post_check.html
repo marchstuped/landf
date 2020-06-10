@@ -20,7 +20,6 @@
     <style>
 
       body {
-        /* background: lightblue !important; */
         background-image : url('https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-11-full.jpg');
         overflow-x: hidden;
       }
@@ -64,15 +63,7 @@ form{
   ::-webkit-input-placeholder
     color: #ccc
 }
-input[type="text"], textarea {
-  margin: 5px 10px
-  outline: none
-  border-radius: 5px
-  border: 1px solid #ddd
-  padding: 7px
-  box-shadow: inset 0px 1px 1px #ddd
-}
-textarea
+
 {
   resize: none
 } */
@@ -183,12 +174,13 @@ textarea
       .list-group-item{
          word-wrap: break-word;
          border: 2.5px solid black;
-         background: lightblue;
+         background-color: #ffffcc;
       }
 
       .topnav {
         overflow: hidden;
         background-color: #333;
+        width:100%;
       }
 
       .topnav a {
@@ -218,8 +210,12 @@ textarea
       }
       .column-img{
         float: left;
-        width: 23%;
         padding-left: 6px;
+        border-radius: 8px;
+        max-height: 95%;
+        max-width: 95%;
+        width: 100px;
+        height: 100px;
       }
       .column-desc{
         float: left;
@@ -227,15 +223,34 @@ textarea
         padding-left: 10px;
       }
       .column-but{
-        float: left;
-        width: 25%;
-        padding-left: 60px;
+        position: absolute;
+        bottom: 10px;
+        right: 25px;
       }
       .center {
         display: block;
         margin-left: auto;
         margin-right: auto;
         width: 100%;
+      }
+      textarea{
+        margin-top: 0px;
+        margin-bottom: 0px;
+        max-width: 100%;
+        width: 100%;
+        min-height: 70px;
+        border-radius: 8px;
+        border-style: outset;
+        border-color: darkorange;
+      }
+      #myPic{
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        border-radius: 8px;
+        border-style: outset;
+        border-color: yellow;
       }
     </style>
   </head>
@@ -263,8 +278,8 @@ textarea
     <!-- <div class="container"> -->
     <div class="row">
     <div class="column" style=" width: 52%;">
-      <div class="container" style="text-align:center;">
-          <img src="{{i}}" width="50%" height="50%" style="margin-top:5%"><br><br>
+      <div id="content1" class="container" style="text-align:center;border-radius: 8px;">
+          <img src="{{i}}" style="margin-top:5%;border-radius: 8px;max-width: 200px;max-height: 180px;width: 90%;height: 55%;border-style: solid;border-color: darkorange;"><br><br>
           <!-- Image : <br> -->
         <div style="text-align: left;padding-left:2%;margin-bottom:2%;width: fit-content;">
             โพสต์โดย : {{e}}<br>
@@ -274,7 +289,7 @@ textarea
       </div>
       <!-- </div> -->
       <!-- <button type="button" name="button" onclick="clear()">clear</button> -->
-      <div class="container">
+      <div class="container" style="border-radius: 8px;">
         <div class="comment-box">
          <div class="comment-area">
            <p class="header" style="margin-top:2%">แสดงความคิดเห็น</p>
@@ -285,9 +300,9 @@ textarea
                <!-- <input type="้hidden" id="name"> -->
              </div>
              <div>
-               <textarea id="comment" rows="3" cols="30" placeholder="ความคิดเห็น"></textarea>
+               <textarea id="comment"  placeholder="ความคิดเห็น"></textarea>
              </div>
-             <button style='border-radius: 8px;' type="submit">ยืนยัน</button>
+             <button style='border-radius: 8px;border-style: outset;border-color: darkorange;' type="submit">ยืนยัน</button>
            </form>
          </div>
          <br>
@@ -405,7 +420,6 @@ textarea
               console.log("id " + g_id);
               console.log("email " + g_email);
             });
-
       }
 
       function print($this,type) {
@@ -533,24 +547,24 @@ textarea
                       console.log("topic " + c_topic);
                       console.log(i);
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
-                      content += "<li class='list-group-item' style='height: 150px; background:	#FFCCCC'>";
+                      content += "<li class='list-group-item' style='min-height: 150px;'>";
                       content += "<div class='row'>";
-                      content += "<div class='column-img' style='background:	#FFCCCC'>";
+                      content += "<div class='column-img' '>";
                       content += "<div class='picture'>";
-                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                      content += "<img id='myPic' src='" + c_url + "'>";
                       content += "</div>";
                       content += "</div>";
-                      content += "<div class='column-desc' style='text-align:left;background:	#FFCCCC'>";
+                      content += "<div class='column-desc' style='text-align:left;'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
                       content += "<b>รายละเอียด :</b>";
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
-                      content += "<div class='column-but' style='background:	#FFCCCC'>";
-                      content += "<div class='row' style='background:	#FFCCCC;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<div class='column-but' '>";
+                      content += "<div class='row'>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,1)'>&#128214; ดูเพิ่ม </button>"
+                      content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print(this,1)'>&#128214; ดูเพิ่ม </button>"
                       content += "</div>";
                       content += "</div>";
                       content += "</div>";
@@ -637,24 +651,24 @@ textarea
                       console.log("topic " + c_topic);
                       console.log(i);
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
-                      content += "<li class='list-group-item' style='height: 150px; background:	#FFCCCC'>";
+                      content += "<li class='list-group-item' style='min-height: 150px;'>";
                       content += "<div class='row'>";
-                      content += "<div class='column-img' style='background:	#FFCCCC'>";
+                      content += "<div class='column-img' '>";
                       content += "<div class='picture'>";
-                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                      content += "<img id='myPic' src='" + c_url + "'>";
                       content += "</div>";
                       content += "</div>";
-                      content += "<div class='column-desc' style='text-align:left;background:	#FFCCCC'>";
+                      content += "<div class='column-desc' style='text-align:left;'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
                       content += "<b>รายละเอียด :</b>";
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
                       content += "</div>";
-                      content += "<div class='column-but' style='background:	#FFCCCC'>";
-                      content += "<div class='row' style='background:	#FFCCCC;position:absolute;bottom:0;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<div class='column-but' '>";
+                      content += "<div class='row'>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      content += "<button type='button' name='button' style='border-radius: 8px;' onclick='print(this,2)'>&#128214; ดูเพิ่ม </button>"
+                      content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print(this,2)'>&#128214; ดูเพิ่ม </button>"
                       content += "</div>";
                       content += "</div>";
                       content += "</div>";
@@ -811,5 +825,6 @@ textarea
       function clear() {
         document.getElementById("com").innerHTML = "";
     }
+
   </script>
 </html>
