@@ -178,6 +178,7 @@ def post_create_lost(request):
 
     #print("info" + str(a))
     type = find_keyword(work)
+    idP = {'id':millis}
     data = {
             'email':email,
             'topic':work,
@@ -189,6 +190,7 @@ def post_create_lost(request):
     }
     # database.child('users').child(a).child('reports').child(millis).set(data)
     database.child('Lost').child(millis).set(data)
+    database.child('CategoryL').child(type).child(millis).set(idP)
     # name = database.child('users').child(a).child('details').child('name').get().val()
 
     return render(request,"welcome.html",{'e':email , 'g_id':id , 'g_name':name , 'g_email':now_em})
@@ -222,6 +224,7 @@ def post_create_found(request):
 
     #print("info" + str(a))
     type = find_keyword(work)
+    idP = {'id':millis}
     data = {
             'email':email,
             'topic':work,
@@ -234,6 +237,7 @@ def post_create_found(request):
     # database.child('users').child(a).child('reports').child(millis).set(data)
     if(save == 0):
         database.child('Found').child(millis).set(data)
+        database.child('CategoryF').child(type).child(millis).set(idP)
         save = 1
     # name = database.child('users').child(a).child('details').child('name').get().val()
 
@@ -340,7 +344,7 @@ def topfive(inputma , listRatios):
         txt = "X#"
         for i in range(5):
             # print(i)
-            txt += listRatios[i]["keyDB"] + "#"
+            txt += str(listRatios[i]["keyDB"]) + "#"
             print("A")
             # print(inputma[0]['topic'],"\tmatching with\t",listRatios[i]['topic'] , "\t",listRatios[i]['per'])
             print(txt)
@@ -348,7 +352,7 @@ def topfive(inputma , listRatios):
         txt = "X#"
         for i in range(len(listRatios)):
             # print(i)
-            txt += listRatios[i]["keyDB"] + "#"
+            txt += str(listRatios[i]["keyDB"]) + "#"
             print("B")
             # print(inputma[0]['topic'],"\tmatching with\t",listRatios[i]['topic'] , "\t",listRatios[i]['per'])
             print(txt)
@@ -586,34 +590,49 @@ def match_post_L(id):
     # print(found)
     # print(found_type)
     # print("url_f " , found_url)
-    ref = database.child('Lost').get()
-    print()
+
+    # database.child('Lost').child(millis).set(data)
+
+
+    ref = database.child('CategoryL').child(found_type).get()
+    # aaa = database.child('/Lost/..').order_by_child('type').equal_to(found_type).get()
+    # print(aaa.val()['topic'])
+    # l_ref = database.child('category').child('lost').child(found_type)
+    # ref2 = database.child('users').order_by_key().get()
+    # print("delooooooooooooooooo " , ref2.val()['type'])
     choice = 2
     # lost_arr = []
     # key_arr_l = []
     i=0
     for data in ref.each():
-        lost_type = data.val()['type']
-        if(found_type == lost_type):
-            # print(data.key()) # Morty
-            # print(data.val()['topic']) # {name": "Mortimer 'Morty' Smith"}
-            topic_lost = data.val()['topic']
-            desc_lost = data.val()['description']
-            url_lost = data.val()['url']
-            print(topic_lost, " ", desc_lost, " ", url_lost)
-            # img4 = imread(url_lost, as_gray=True)
-            # img5 = resize(img4, (224, 224))
-            # img6 = img_as_ubyte(img5)
-            # imshow(img6)
-            # picRe = url_lost
+        idcat = data.val()['id']
+        refcat = database.child('Lost').child(str(idcat)).get()
+        # lost_type = data.val()['type']
+        # if(found_type == lost_type):
+        # print(data.key()) # Morty
+        # print(data.val()['topic']) # {name": "Mortimer 'Morty' Smith"}
+        # topic_lost = data.val()['topic']
+        # desc_lost = data.val()['description']
+        # url_lost = data.val()['url']
+        topic_lost = refcat.val()['topic']
+        desc_lost = refcat.val()['description']
+        url_lost = refcat.val()['url']
+        print(topic_lost, " ", desc_lost, " ", url_lost)
+        # img4 = imread(url_lost, as_gray=True)
+        # img5 = resize(img4, (224, 224))
+        # img6 = img_as_ubyte(img5)
+        # imshow(img6)
+        # picRe = url_lost
 
-            # print("url_l " , url_lost)
+        # print("url_l " , url_lost)
 
-            key = data.key()
-            # lost_arr.append(topic_lost.strip())
-            # key_arr_l.append(data.key())
-            listLost[i]={'key' : key, 'topic' : topic_lost , 'description' : desc_lost , 'img' : visualize_predictions(model,url_lost)}
-            i+=1
+        # key = data.key()
+        key = idcat
+        # lost_arr.append(topic_lost.strip())
+        # key_arr_l.append(data.key())
+        # l_ref.set(key)
+        listLost[i]={'key' : key, 'topic' : topic_lost , 'description' : desc_lost , 'img' : visualize_predictions(model,url_lost)}
+        i+=1
         # print(1)
     # print(lost_arr)
     comp = compare2thing(listLost, found , choice)
@@ -638,32 +657,33 @@ def match_post_F(id):
     # print(lost_type)
     # print("url_l " , lost_url)
 
-    ref = database.child('Found').get()
+    ref = database.child('CategoryF').child(lost_type).get()
     choice = 1
     # found_arr = []
     # key_arr_f = []
     i=0
     for data in ref.each():
-        found_type = data.val()['type']
-        if(lost_type == found_type):
-            # print(data.key()) # Morty
-            # print(data.val()['topic']) # {name": "Mortimer 'Morty' Smith"}
-            topic_found = data.val()['topic']
-            desc_found = data.val()['description']
-            url_found =data.val()['url']
-            print(topic_found, " ", desc_found, " ", url_found)
-            # img4 = imread(url_found, as_gray=True)
-            # img5 = resize(img4, (224, 224))
-            # img6 = img_as_ubyte(img5)
-            # imshow(img6)
+        idcat = data.val()['id']
+        refcat = database.child('Found').child(str(idcat)).get()
+        # if(lost_type == found_type):
+        # print(data.key()) # Morty
+        # print(data.val()['topic']) # {name": "Mortimer 'Morty' Smith"}
+        topic_found = refcat.val()['topic']
+        desc_found = refcat.val()['description']
+        url_found = refcat.val()['url']
+        print(topic_found, " ", desc_found, " ", url_found)
+        # img4 = imread(url_found, as_gray=True)
+        # img5 = resize(img4, (224, 224))
+        # img6 = img_as_ubyte(img5)
+        # imshow(img6)
 
-            # print("url_f " , url_found)
+        # print("url_f " , url_found)
 
-            key = data.key()
-            # found_arr.append(topic_found.strip())
-            # key_arr_f.append(data.key())
-            listFound[i]={'key' : key, 'topic' : topic_found , 'description' : desc_found , 'img' : visualize_predictions(model,url_found)}
-            i+=1
+        key = idcat
+        # found_arr.append(topic_found.strip())
+        # key_arr_f.append(data.key())
+        listFound[i]={'key' : key, 'topic' : topic_found , 'description' : desc_found , 'img' : visualize_predictions(model,url_found)}
+        i+=1
         # print(2)
     # print(found_arr)
     comp = compare2thing(lost, listFound , choice)
