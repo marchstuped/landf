@@ -26,12 +26,12 @@ import time
 import pytz
 import os, random, shutil
 import matplotlib.pyplot as plt
-import numpy as np
 import os, sys
 import glob
 import tkinter
 import base64
 import requests
+import json
 
 import keras.backend.tensorflow_backend as tb
 tb._SYMBOLIC_SCOPE.value = True
@@ -165,10 +165,12 @@ def post_create_lost(request):
     statusPost = request.POST.get("statusPost")
     statusNoti = request.POST.get("statusNoti")
     # print(type)
-
     if(url==""):
         url = "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"
-
+        type = find_keyword(work)
+    listPic = (visualize_predictions(model,url))
+    if(url!="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
+        type = pdPic(list(listPic).index(max(listPic)))
 
     idtoken = request.session['uid']
     a = authen.get_account_info(idtoken)
@@ -177,7 +179,6 @@ def post_create_lost(request):
     a = a['localId']
 
     #print("info" + str(a))
-    type = find_keyword(work)
     idP = {'id':millis}
     data = {
             'email':email,
@@ -188,9 +189,13 @@ def post_create_lost(request):
             'statusPost':statusPost,
             'statusNoti':statusNoti,
     }
+    dicPic = {}
+    dicPic['id']=millis
+    dicPic['listPic'] = listPic.tolist()
     # database.child('users').child(a).child('reports').child(millis).set(data)
     database.child('Lost').child(millis).set(data)
     database.child('CategoryL').child(type).child(millis).set(idP)
+    database.child('PicCategoryL').child(type).child(millis).set(dicPic)
     # name = database.child('users').child(a).child('details').child('name').get().val()
 
     return render(request,"welcome.html",{'e':email , 'g_id':id , 'g_name':name , 'g_email':now_em})
@@ -215,6 +220,10 @@ def post_create_found(request):
 
     if(url==""):
         url = "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"
+        type = find_keyword(work)
+    listPic = (visualize_predictions(model,url))
+    if(url!="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
+        type = pdPic(list(listPic).index(max(listPic)))
 
     idtoken = request.session['uid']
     a = authen.get_account_info(idtoken)
@@ -223,7 +232,6 @@ def post_create_found(request):
     a = a['localId']
 
     #print("info" + str(a))
-    type = find_keyword(work)
     idP = {'id':millis}
     data = {
             'email':email,
@@ -234,10 +242,14 @@ def post_create_found(request):
             'statusPost':statusPost,
             'statusNoti':statusNoti,
     }
+    dicPic = {}
+    dicPic['id']=millis
+    dicPic['listPic'] = listPic.tolist()
     # database.child('users').child(a).child('reports').child(millis).set(data)
     if(save == 0):
         database.child('Found').child(millis).set(data)
         database.child('CategoryF').child(type).child(millis).set(idP)
+        database.child('PicCategoryF').child(type).child(millis).set(dicPic)
         save = 1
     # name = database.child('users').child(a).child('details').child('name').get().val()
 
@@ -336,29 +348,29 @@ def check(request):
 
         return render(request,'check.html', {'comb_lis':comb_lis, 'e':email, 'uid':a})
 
-def topfive(inputma , listRatios):
+def topTen(inputma , listRatios):
     # print("top5")
     listRatios = [v for k, v in sorted(listRatios.items(), key=lambda item: item[1]["per"],reverse=True)]
-    print("list:",listRatios)
+    # print("list:",listRatios)
     try:
         txt = "X#"
-        for i in range(5):
+        for i in range(10):
             # print(i)
             txt += str(listRatios[i]["keyDB"]) + "#"
-            print("A")
+            # print("A")
             # print(inputma[0]['topic'],"\tmatching with\t",listRatios[i]['topic'] , "\t",listRatios[i]['per'])
-            print(txt)
+            # print(txt)
     except:
         txt = "X#"
         for i in range(len(listRatios)):
             # print(i)
             txt += str(listRatios[i]["keyDB"]) + "#"
-            print("B")
+            # print("B")
             # print(inputma[0]['topic'],"\tmatching with\t",listRatios[i]['topic'] , "\t",listRatios[i]['per'])
-            print(txt)
+            # print(txt)
     if(len(listRatios)==0):
         txt= "ไม่พบสิ่งที่ค้นหา"
-        print(txt)
+        # print(txt)
     return txt
 
 def compare2thing(lost , found , choice):
@@ -369,7 +381,6 @@ def compare2thing(lost , found , choice):
         topic_lost = lost[0]["topic"]
         desc_lost = lost[0]["description"]
         key_lost = lost[0]['key']
-        img_lost = lost[0]['img']
         for i in range(0, len(found) ,1):
             # print("in for 1")
             tmp = ""
@@ -378,16 +389,14 @@ def compare2thing(lost , found , choice):
             desc_found = found[i]["description"]
             key_found = found[i]['key']
             img_found = found[i]['img']
+
             sorted1 =fuzz._process_and_sort(topic_lost, force_ascii=True, full_process=0)
             sorted2 =fuzz._process_and_sort(topic_found, force_ascii=True, full_process=0)
             sorted3 =fuzz._process_and_sort(desc_lost, force_ascii=True, full_process=0)
             sorted4 =fuzz._process_and_sort(desc_found, force_ascii=True, full_process=0)
-            sorted5 =fuzz._process_and_sort(img_lost, force_ascii=True, full_process=0)
-            sorted6 =fuzz._process_and_sort(img_found, force_ascii=True, full_process=0)
 
             s1, s2 = utils.make_type_consistent(sorted1,sorted2)
             s3, s4 = utils.make_type_consistent(sorted3,sorted4)
-            s5, s6 = utils.make_type_consistent(sorted5,sorted6)
 
             #1 topic
             if len(s1) <= len(s2):
@@ -414,16 +423,7 @@ def compare2thing(lost , found , choice):
             b = list(seq2.get_matching_blocks())
 
             # print(b)
-
-            if len(s5) <= len(s6):
-                shorter = s5
-                longer = s6
-            else:
-                shorter = s6
-                longer = s5
-
-            seq3 = SequenceMatcher(None,shorter,longer)
-            c = list(seq3.get_matching_blocks())
+            seq3 = float(1-img_found)
 
             # print(c)
 
@@ -433,25 +433,24 @@ def compare2thing(lost , found , choice):
             Ratio_desc = seq2.ratio()
             Ratios_desc = utils.intr(100 * Ratio_desc)
 
-            Ratio_img = seq3.ratio()
-            Ratios_img = utils.intr(100 * Ratio_desc)
+
+            Ratios_img = utils.intr(100 * seq3)
 
             # print("img per " , Ratios_img)
 
-            Ratios_2 = utils.intr(((Ratios_topic*2) + (Ratios_desc*1) + (Ratios_img*1))/3)
+            Ratios_2 = utils.intr(((Ratios_topic*2) + (Ratios_desc*1) + (Ratios_img))/3)
             # print("key_f" , key_found)
 
             # print(Ratios)
             listRatios[i]={'keyDB' : key_found , "topic": topic_found,"per" : Ratios_2}
         # print("choice 1")
-        top = topfive(lost , listRatios)
+        top = topTen(lost , listRatios)
         return top
 
     elif(choice == 2):
         topic_found = found[0]["topic"]
         desc_found = found[0]["description"]
         key_found = found[0]['key']
-        img_found = found[0]['img']
         for i in range(0, len(lost) ,1):
             # print("in for 2")
             tmp = ""
@@ -465,12 +464,9 @@ def compare2thing(lost , found , choice):
             sorted2 =fuzz._process_and_sort(topic_found, force_ascii=True, full_process=0)
             sorted3 =fuzz._process_and_sort(desc_lost, force_ascii=True, full_process=0)
             sorted4 =fuzz._process_and_sort(desc_found, force_ascii=True, full_process=0)
-            sorted5 =fuzz._process_and_sort(img_lost, force_ascii=True, full_process=0)
-            sorted6 =fuzz._process_and_sort(img_found, force_ascii=True, full_process=0)
 
             s1, s2 = utils.make_type_consistent(sorted1,sorted2)
             s3, s4 = utils.make_type_consistent(sorted3,sorted4)
-            s5, s6 = utils.make_type_consistent(sorted5,sorted6)
 
             #1 topic
             if len(s1) <= len(s2):
@@ -498,15 +494,7 @@ def compare2thing(lost , found , choice):
 
             # print(b)
 
-            if len(s5) <= len(s6):
-                shorter = s5
-                longer = s6
-            else:
-                shorter = s6
-                longer = s5
-
-            seq3 = SequenceMatcher(None,shorter,longer)
-            c = list(seq3.get_matching_blocks())
+            seq3 = float(1-img_lost)
 
             # print(c)
 
@@ -516,32 +504,35 @@ def compare2thing(lost , found , choice):
             Ratio_desc = seq2.ratio()
             Ratios_desc = utils.intr(100 * Ratio_desc)
 
-            Ratio_img = seq3.ratio()
-            Ratios_img = utils.intr(100 * Ratio_desc)
+            Ratios_img = utils.intr(100 * seq3)
 
             # print("img per " , Ratios_img)
 
-            Ratios_2 = utils.intr(((Ratios_topic*2) + (Ratios_desc*1) + (Ratios_img*1))/3)
+            Ratios_2 = utils.intr(((Ratios_topic*2) + (Ratios_desc*1) + (Ratios_img))/3)
 
             # print(Ratios)
             listRatios[i]={'keyDB' : key_lost , "topic": topic_lost,"per" : Ratios_2}
         # print("choice 2")
-        top = topfive(found,listRatios)
+        top = topTen(found,listRatios)
         return top
 
 def pdPic(dd):
-    switcher = {
-        0: "bag",
-        1: "backpack",
-        2: "iphone",
-        3: "huawei",
-        4: "samsung",
-        5: "wallet",
-        6: "pen",
-        7: "watch",
-        8: "other",
-    }
-    return switcher.get(dd,"?")
+    if(dd==2 or dd==3 or dd==4):
+        tyP = "โทรศัพท์"
+    else:
+        switcher = {
+            0: "กระเป๋าถือ",
+            1: "กระเป๋าสะพาย",
+            2: "iphone",
+            3: "huawei",
+            4: "samsung",
+            5: "กระเป๋าเงิน",
+            6: "ปากกา",
+            7: "นาฬิกา",
+            8: "อื่นๆ",
+        }
+        tyP=switcher.get(dd,"?")
+    return tyP
 
 def visualize_predictions(classifier,img_path):
 
@@ -565,27 +556,45 @@ def visualize_predictions(classifier,img_path):
     # Show picture
     #plt.imshow(img_tensor)
     #plt.show()
-    #print(prediction[0])
+    return (prediction[0])
     #print( (max(prediction[0])) )
+    #typePredic=pdPic(list(prediction[0]).index(max(prediction[0])))
+    #return (str(typePredic))
 
-    typePredic=pdPic(list(prediction[0]).index(max(prediction[0])))
-    return (str(typePredic))
+def calculate_predicPic(firstList,secondList):
+    resultList=[]
+    for i in range(9):
+        resultList.append(float(firstList[i])/float(secondList[i]))
+    result=(float(resultList[0])+float(resultList[1])+float(resultList[2])+float(resultList[3])+float(resultList[4])+float(resultList[5])+float(resultList[6])+float(resultList[7])+float(resultList[8]))/(float(9))
+    Ans=abs(result-1)
+    return Ans
 
 def match_post_L(id):
     listLost={}
     found={}
+    listFoundPic=[]
+    listLostPic=[]
     # key = request.GET.get('key')
     # id = request.GET.get('id')
     found_topic = database.child('Found').child(id).child('topic').get().val()
     found_desc = database.child('Found').child(id).child('description').get().val()
-    found_url = database.child('Found').child(id).child('url').get().val()
-
-    # print(type(found_url))
-    # print(found_url)
-
-    found[0] = {'key' : id, 'topic' : found_topic , 'description' : found_desc , 'img' : visualize_predictions(model,found_url)}
-
     found_type = database.child('Found').child(id).child('type').get().val()
+    # t9=time.time()
+    # t6=time.time()
+    found_ListPic = database.child('PicCategoryF').child(found_type).child(id).child('listPic').get().val()
+    listFoundPic.append(found_ListPic[0])
+    listFoundPic.append(found_ListPic[1])
+    listFoundPic.append(found_ListPic[2])
+    listFoundPic.append(found_ListPic[3])
+    listFoundPic.append(found_ListPic[4])
+    listFoundPic.append(found_ListPic[5])
+    listFoundPic.append(found_ListPic[6])
+    listFoundPic.append(found_ListPic[7])
+    listFoundPic.append(found_ListPic[8])
+    found[0] = {'key' : id, 'topic' : found_topic , 'description' : found_desc }
+    # t5=time.time()
+    print("List1 ",t6-t5)
+
 
     # print(found)
     # print(found_type)
@@ -616,8 +625,8 @@ def match_post_L(id):
         # url_lost = data.val()['url']
         topic_lost = refcat.val()['topic']
         desc_lost = refcat.val()['description']
-        url_lost = refcat.val()['url']
-        print(topic_lost, " ", desc_lost, " ", url_lost)
+        # url_lost = refcat.val()['url']
+        # print(topic_lost, " ", desc_lost, " ", url_lost)
         # img4 = imread(url_lost, as_gray=True)
         # img5 = resize(img4, (224, 224))
         # img6 = img_as_ubyte(img5)
@@ -631,11 +640,30 @@ def match_post_L(id):
         # lost_arr.append(topic_lost.strip())
         # key_arr_l.append(data.key())
         # l_ref.set(key)
-        listLost[i]={'key' : key, 'topic' : topic_lost , 'description' : desc_lost , 'img' : visualize_predictions(model,url_lost)}
+        # t3=time.time()
+        lost_ListPic = database.child('PicCategoryL').child(found_type).child(key).child('listPic').get().val()
+        listLostPic.append(lost_ListPic[0])
+        listLostPic.append(lost_ListPic[1])
+        listLostPic.append(lost_ListPic[2])
+        listLostPic.append(lost_ListPic[3])
+        listLostPic.append(lost_ListPic[4])
+        listLostPic.append(lost_ListPic[5])
+        listLostPic.append(lost_ListPic[6])
+        listLostPic.append(lost_ListPic[7])
+        listLostPic.append(lost_ListPic[8])
+        # t4=time.time()
+        # print("List2 ",t4-t3)
+        # t1=time.time()
+        PredicPic=calculate_predicPic(listFoundPic,listLostPic)
+        # t2=time.time()
+        # print("calculate_predicPic ",t2-t1)
+        listLost[i]={'key' : key, 'topic' : topic_lost , 'description' : desc_lost , 'img' : PredicPic}
         i+=1
         # print(1)
     # print(lost_arr)
     comp = compare2thing(listLost, found , choice)
+    # t10=time.time()
+    # print("รวม ",t10-t9)
 
     # return render(request,'history.html',{"re":comp,'g_id':id,'key':key , "sta":0})
     return comp
@@ -643,21 +671,31 @@ def match_post_L(id):
 def match_post_F(id):
     listFound={}
     lost={}
+    listLostPic=[]
+    listFoundPic=[]
     # key = request.GET.get('key')
     # id = request.GET.get('id')
     lost_topic = database.child('Lost').child(id).child('topic').get().val()
     lost_desc = database.child('Lost').child(id).child('description').get().val()
     lost_url = database.child('Lost').child(id).child('url').get().val()
-
-    lost[0] = {'key' : id, 'topic' : lost_topic , 'description' : lost_desc , 'img' : visualize_predictions(model,lost_url)}
-
     lost_type = database.child('Lost').child(id).child('type').get().val()
 
-    # print(lost)
-    # print(lost_type)
-    # print("url_l " , lost_url)
 
-    ref = database.child('CategoryF').child(lost_type).get()
+    Lost_ListPic = database.child('PicCategoryL').child(lost_type).child(id).child('listPic').get().val()
+    listLostPic.append(Lost_ListPic['0'])
+    listLostPic.append(Lost_ListPic['1'])
+    listLostPic.append(Lost_ListPic['2'])
+    listLostPic.append(Lost_ListPic['3'])
+    listLostPic.append(Lost_ListPic['4'])
+    listLostPic.append(Lost_ListPic['5'])
+    listLostPic.append(Lost_ListPic['6'])
+    listLostPic.append(Lost_ListPic['7'])
+    listLostPic.append(Lost_ListPic['8'])
+
+    lost[0] = {'key' : id, 'topic' : lost_topic , 'description' : lost_desc }
+
+
+    ref = database.child('CategoryL').child(lost_type).get()
     choice = 1
     # found_arr = []
     # key_arr_f = []
@@ -670,8 +708,8 @@ def match_post_F(id):
         # print(data.val()['topic']) # {name": "Mortimer 'Morty' Smith"}
         topic_found = refcat.val()['topic']
         desc_found = refcat.val()['description']
-        url_found = refcat.val()['url']
-        print(topic_found, " ", desc_found, " ", url_found)
+
+        # print(topic_found, " ", desc_found, " ", url_found)
         # img4 = imread(url_found, as_gray=True)
         # img5 = resize(img4, (224, 224))
         # img6 = img_as_ubyte(img5)
@@ -682,7 +720,22 @@ def match_post_F(id):
         key = idcat
         # found_arr.append(topic_found.strip())
         # key_arr_f.append(data.key())
-        listFound[i]={'key' : key, 'topic' : topic_found , 'description' : desc_found , 'img' : visualize_predictions(model,url_found)}
+
+        found_ListPic = database.child('PicCategoryF').child(lost_type).child(key).child('listPic').get().val()
+
+        listFoundPic.append(found_ListPic['0'])
+        listFoundPic.append(found_ListPic['1'])
+        listFoundPic.append(found_ListPic['2'])
+        listFoundPic.append(found_ListPic['3'])
+        listFoundPic.append(found_ListPic['4'])
+        listFoundPic.append(found_ListPic['5'])
+        listFoundPic.append(found_ListPic['6'])
+        listFoundPic.append(found_ListPic['7'])
+        listFoundPic.append(found_ListPic['8'])
+
+        PredicPic=calculate_predicPic(listLostPic,listFoundPic)
+
+        listFound[i]={'key' : key, 'topic' : topic_found , 'description' : desc_found , 'img' : PredicPic}
         i+=1
         # print(2)
     # print(found_arr)
@@ -799,3 +852,68 @@ def post_check_on_we_F(request):
 def history(request):
     # id = request.GET.get('g_id')
     return render(request,'history.html')
+
+
+
+
+# def createPicFound(request):
+#     firebaseRe = database.child("Found").get()
+#     for childSnapshot in firebaseRe.each():
+#         childKey = childSnapshot.key()
+#         childData = childSnapshot.val();
+#         c_type = childData['type']
+#         c_topic = childData['topic']
+#         c_url = childData['url'];
+#
+#         Ref_CategoryF=database.child('CategoryF').child(c_type).child(childKey)
+#         Ref_CategoryF.remove()
+#         print("remove")
+#         if(c_url == "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
+#             type = find_keyword(c_topic)
+#         listPic = (visualize_predictions(model,c_url))
+#         if(c_url!="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
+#             type = pdPic(list(listPic).index(max(listPic)))
+#         dicPic = {}
+#         dicPic['id']=childKey
+#         dicPic['listPic'] = listPic.tolist()
+#         database.child('PicCategoryF').child(type).child(childKey).set(dicPic)
+#         print("set PicCategoryF")
+#         Ref_st = database.child("Found/" + childKey)
+#         Ref_st.update({
+#             'type': type
+#         });
+#         print("set type")
+#         database.child('CategoryF').child(type).child(childKey).set({'id': childKey})
+#         print("set CategoryF")
+#     return render(request,'createPicFound.html')
+
+# def createPicFound(request):
+#     firebaseRe = database.child("Lost").get()
+#     for childSnapshot in firebaseRe.each():
+#         childKey = childSnapshot.key()
+#         childData = childSnapshot.val();
+#         c_type = childData['type']
+#         c_topic = childData['topic']
+#         c_url = childData['url'];
+#
+#         Ref_CategoryF=database.child('CategoryL').child(c_type).child(childKey)
+#         Ref_CategoryF.remove()
+#         print("remove")
+#         if(c_url == "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
+#             type = find_keyword(c_topic)
+#         listPic = (visualize_predictions(model,c_url))
+#         if(c_url!="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
+#             type = pdPic(list(listPic).index(max(listPic)))
+#         dicPic = {}
+#         dicPic['id']=childKey
+#         dicPic['listPic'] = listPic.tolist()
+#         database.child('PicCategoryL').child(type).child(childKey).set(dicPic)
+#         print("set PicCategoryL")
+#         Ref_st = database.child("Lost/" + childKey)
+#         Ref_st.update({
+#             'type': type
+#         });
+#         print("set type")
+#         database.child('CategoryL').child(type).child(childKey).set({'id': childKey})
+#         print("set CategoryL")
+#     return render(request,'createPicFound.html')
