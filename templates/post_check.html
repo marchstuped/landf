@@ -244,13 +244,13 @@ form{
         border-color: darkorange;
       }
       #myPic{
-        max-height: 100%;
-        max-width: 100%;
-        width: auto;
-        height: auto;
         border-radius: 8px;
         border-style: outset;
         border-color: yellow;
+        height: 100%;
+        width: 100%;
+        max-width: 90px;
+        max-height: 90px;
       }
     </style>
   </head>
@@ -354,8 +354,8 @@ form{
           // console.log("to " + '{{t}}');
           // console.log("{{id}}");
 
-          console.log("result " + result.split("#")[0]);
-          console.log("status " + status);
+          // console.log("result " + result.split("#")[0]);
+          // console.log("status " + status);
 
           // console.log(window.location.href);
           // console.log("id " + id);
@@ -376,7 +376,7 @@ form{
               var id = url.searchParams.get("id");
               g_id = id;
               document.getElementById("getId").value = g_id;
-              console.log(3);
+              // console.log(3);
 
           }
           // console.log(window.location.href);

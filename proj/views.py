@@ -574,98 +574,34 @@ def match_post_L(id):
     found={}
     listFoundPic=[]
     listLostPic=[]
-    # key = request.GET.get('key')
-    # id = request.GET.get('id')
-    found_topic = database.child('Found').child(id).child('topic').get().val()
-    found_desc = database.child('Found').child(id).child('description').get().val()
-    found_type = database.child('Found').child(id).child('type').get().val()
-    # t9=time.time()
-    # t6=time.time()
+    found_post=database.child('Found').child(id).get().val()
+    found_topic = found_post['topic']
+    found_desc = found_post['description']
+    found_type = found_post['type']
+
     found_ListPic = database.child('PicCategoryF').child(found_type).child(id).child('listPic').get().val()
-    listFoundPic.append(found_ListPic[0])
-    listFoundPic.append(found_ListPic[1])
-    listFoundPic.append(found_ListPic[2])
-    listFoundPic.append(found_ListPic[3])
-    listFoundPic.append(found_ListPic[4])
-    listFoundPic.append(found_ListPic[5])
-    listFoundPic.append(found_ListPic[6])
-    listFoundPic.append(found_ListPic[7])
-    listFoundPic.append(found_ListPic[8])
+    listFoundPic=found_ListPic
     found[0] = {'key' : id, 'topic' : found_topic , 'description' : found_desc }
-    # t5=time.time()
-    # print("List1 ",t6-t5)
-
-
-    # print(found)
-    # print(found_type)
-    # print("url_f " , found_url)
-
-    # database.child('Lost').child(millis).set(data)
-
 
     ref = database.child('CategoryL').child(found_type).get()
-    # aaa = database.child('/Lost/..').order_by_child('type').equal_to(found_type).get()
-    # print(aaa.val()['topic'])
-    # l_ref = database.child('category').child('lost').child(found_type)
-    # ref2 = database.child('users').order_by_key().get()
-    # print("delooooooooooooooooo " , ref2.val()['type'])
     choice = 2
-    # lost_arr = []
-    # key_arr_l = []
     i=0
+    refLost=database.child('Lost').get().val()
+    refLost_ListPic=database.child('PicCategoryL').child(found_type).get().val()
+
     for data in ref.each():
-        idcat = data.val()['id']
-        refcat = database.child('Lost').child(str(idcat)).get()
-        # lost_type = data.val()['type']
-        # if(found_type == lost_type):
-        # print(data.key()) # Morty
-        # print(data.val()['topic']) # {name": "Mortimer 'Morty' Smith"}
-        # topic_lost = data.val()['topic']
-        # desc_lost = data.val()['description']
-        # url_lost = data.val()['url']
-        topic_lost = refcat.val()['topic']
-        desc_lost = refcat.val()['description']
-        # url_lost = refcat.val()['url']
-        # print(topic_lost, " ", desc_lost, " ", url_lost)
-        # img4 = imread(url_lost, as_gray=True)
-        # img5 = resize(img4, (224, 224))
-        # img6 = img_as_ubyte(img5)
-        # imshow(img6)
-        # picRe = url_lost
+        key = data.val()['id']
+        topic_lost = refLost[str(key)]['topic']
+        desc_lost = refLost[str(key)]['description']
 
-        # print("url_l " , url_lost)
+        lost_ListPic = refLost_ListPic[key]['listPic']
+        listLostPic=lost_ListPic
 
-        # key = data.key()
-        key = idcat
-        # lost_arr.append(topic_lost.strip())
-        # key_arr_l.append(data.key())
-        # l_ref.set(key)
-        # t3=time.time()
-        lost_ListPic = database.child('PicCategoryL').child(found_type).child(key).child('listPic').get().val()
-        listLostPic.append(lost_ListPic[0])
-        listLostPic.append(lost_ListPic[1])
-        listLostPic.append(lost_ListPic[2])
-        listLostPic.append(lost_ListPic[3])
-        listLostPic.append(lost_ListPic[4])
-        listLostPic.append(lost_ListPic[5])
-        listLostPic.append(lost_ListPic[6])
-        listLostPic.append(lost_ListPic[7])
-        listLostPic.append(lost_ListPic[8])
-        # t4=time.time()
-        # print("List2 ",t4-t3)
-        # t1=time.time()
         PredicPic=calculate_predicPic(listFoundPic,listLostPic)
-        # t2=time.time()
-        # print("calculate_predicPic ",t2-t1)
         listLost[i]={'key' : key, 'topic' : topic_lost , 'description' : desc_lost , 'img' : PredicPic}
         i+=1
-        # print(1)
-    # print(lost_arr)
     comp = compare2thing(listLost, found , choice)
-    # t10=time.time()
-    # print("รวม ",t10-t9)
 
-    # return render(request,'history.html',{"re":comp,'g_id':id,'key':key , "sta":0})
     return comp
 
 def match_post_F(id):
@@ -673,75 +609,35 @@ def match_post_F(id):
     lost={}
     listLostPic=[]
     listFoundPic=[]
-    # key = request.GET.get('key')
-    # id = request.GET.get('id')
-    lost_topic = database.child('Lost').child(id).child('topic').get().val()
-    lost_desc = database.child('Lost').child(id).child('description').get().val()
-    lost_url = database.child('Lost').child(id).child('url').get().val()
-    lost_type = database.child('Lost').child(id).child('type').get().val()
-
+    lost_post = database.child('Lost').child(id).get().val()
+    lost_topic = lost_post['topic']
+    lost_desc = lost_post['description']
+    lost_type = lost_post['type']
 
     Lost_ListPic = database.child('PicCategoryL').child(lost_type).child(id).child('listPic').get().val()
-    listLostPic.append(Lost_ListPic['0'])
-    listLostPic.append(Lost_ListPic['1'])
-    listLostPic.append(Lost_ListPic['2'])
-    listLostPic.append(Lost_ListPic['3'])
-    listLostPic.append(Lost_ListPic['4'])
-    listLostPic.append(Lost_ListPic['5'])
-    listLostPic.append(Lost_ListPic['6'])
-    listLostPic.append(Lost_ListPic['7'])
-    listLostPic.append(Lost_ListPic['8'])
-
+    listLostPic=Lost_ListPic
     lost[0] = {'key' : id, 'topic' : lost_topic , 'description' : lost_desc }
 
 
     ref = database.child('CategoryL').child(lost_type).get()
     choice = 1
-    # found_arr = []
-    # key_arr_f = []
     i=0
+    refFound=database.child('Found').get().val()
+    refFound_ListPic=database.child('PicCategoryF').child(lost_type).get().val()
     for data in ref.each():
-        idcat = data.val()['id']
-        refcat = database.child('Found').child(str(idcat)).get()
-        # if(lost_type == found_type):
-        # print(data.key()) # Morty
-        # print(data.val()['topic']) # {name": "Mortimer 'Morty' Smith"}
-        topic_found = refcat.val()['topic']
-        desc_found = refcat.val()['description']
+        key = data.val()['id']
+        topic_found = refFound[str(key)]['topic']
+        desc_found = refFound[str(key)]['description']
 
-        # print(topic_found, " ", desc_found, " ", url_found)
-        # img4 = imread(url_found, as_gray=True)
-        # img5 = resize(img4, (224, 224))
-        # img6 = img_as_ubyte(img5)
-        # imshow(img6)
-
-        # print("url_f " , url_found)
-
-        key = idcat
-        # found_arr.append(topic_found.strip())
-        # key_arr_f.append(data.key())
-
-        found_ListPic = database.child('PicCategoryF').child(lost_type).child(key).child('listPic').get().val()
-
-        listFoundPic.append(found_ListPic['0'])
-        listFoundPic.append(found_ListPic['1'])
-        listFoundPic.append(found_ListPic['2'])
-        listFoundPic.append(found_ListPic['3'])
-        listFoundPic.append(found_ListPic['4'])
-        listFoundPic.append(found_ListPic['5'])
-        listFoundPic.append(found_ListPic['6'])
-        listFoundPic.append(found_ListPic['7'])
-        listFoundPic.append(found_ListPic['8'])
+        found_ListPic = refFound_ListPic[key]['listPic']
+        listFoundPic=found_ListPic
 
         PredicPic=calculate_predicPic(listLostPic,listFoundPic)
 
         listFound[i]={'key' : key, 'topic' : topic_found , 'description' : desc_found , 'img' : PredicPic}
         i+=1
-        # print(2)
-    # print(found_arr)
     comp = compare2thing(lost, listFound , choice)
 
-    # return render(request,'history.html',{"re":comp,'g_id':id,'key':key, "sta":1})
     return comp
 
 def post_check_L(request):
@@ -756,7 +652,9 @@ def post_check_L(request):
     # a = a['localId']
     # print(id)
     match = match_post_L(id)
-    print(match)
+    # print(match)
+
+
     topic = database.child('Found').child(id).child('topic').get().val()
     desc = database.child('Found').child(id).child('description').get().val()
     img_url = database.child('Found').child(id).child('url').get().val();
