@@ -593,7 +593,7 @@ def match_post_L(id):
     listFoundPic.append(found_ListPic[8])
     found[0] = {'key' : id, 'topic' : found_topic , 'description' : found_desc }
     # t5=time.time()
-    print("List1 ",t6-t5)
+    # print("List1 ",t6-t5)
 
 
     # print(found)
