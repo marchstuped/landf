@@ -86,7 +86,7 @@
 
        span {
         white-space: wrap;
-      text-overflow: ellipsis;
+        text-overflow: ellipsis;
        }
 
       .border-top { border-top: 1px solid #e5e5e5; }
@@ -186,6 +186,7 @@
       	background: none;
       	overflow-y: scroll;
       	margin-bottom: 25px;
+        max-height: 650px;
       }
 
 
@@ -243,10 +244,10 @@
       .list-group-item{
          word-wrap: break-word;
          border: 2px solid black;
-         background-image : url('https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-12-full.jpg');
+         /* background-image : url('https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-12-full.jpg'); */
          background-repeat: no-repeat;
 
-         /* background: lightblue; */
+         background: lightblue;
       }
 
       .topnav {
@@ -371,126 +372,273 @@
       }
       .column-img{
         float: left;
-        width: 20%;
+        /* width: 20%; */
         padding-left: 15px;
+        border-radius: 8px;
+        max-height: 95%;
+        max-width: 95%;
+        width: 100px;
+        height: 100px;
       }
       .column-desc{
         float: left;
+        margin-left: 5%;
         width: 55%;
       }
       .column-but{
-        float: left;
+        /* float: left;
         width: 25%;
-        padding: 10px;
+        padding: 10px; */
+        position: absolute;
+        bottom: 30px;
+        right: 25px;
 
       }
-      .img-bg{
-
+      textarea{
+        margin-top: 0px;
+        margin-bottom: 0px;
+        max-width: 100%;
+        width: 100%;
+        min-height: 70px;
+        border-radius: 8px;
+        border-style: outset;
+        border-color: darkorange;
       }
+      #myPic{
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        border-radius: 8px;
+        border-style: outset;
+        border-color: blue;
+      }
+      #sidebar-wrapper {
+        min-height: 100vh;
+        margin-left: -15rem;
+        -webkit-transition: margin .25s ease-out;
+        -moz-transition: margin .25s ease-out;
+        -o-transition: margin .25s ease-out;
+        transition: margin .25s ease-out;
+        position: -webkit-sticky;
+        position: sticky;
+      }
+
+      #sidebar-wrapper .sidebar-heading {
+        padding: 0.875rem 1.25rem;
+        font-size: 1.2rem;
+      }
+
+      #sidebar-wrapper .list-group {
+        width: 15rem;
+      }
+
+      #page-content-wrapper {
+        min-width: 100vw;
+      }
+
+      #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0;
+      }
+
+      @media (min-width: 768px) {
+        #sidebar-wrapper {
+          margin-left: 0;
+        }
+
+        #page-content-wrapper {
+          min-width: 0;
+          width: 100%;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+          margin-left: -15rem;
+        }
+      }
+      #sidebar-wrapper a {
+        color: white;
+        font-size: 20px;
+      }
+      .navbar {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        padding: 5px;
+        z-index: 1;
+      }
+      .navbar-collapse a:hover {
+        background-color: #ddd;
+        /* color: black; */
+      }
+      .navbar-collapse a:active {
+        background-color: #3c48f2;
+        /* color: black; */
+      }
+
+
     </style>
   <!-- </head> -->
   <body>
-      <!-- {{e}}
-      {{id}} -->
-      <!-- <div class="container" align="center"> -->
-        <div class="topnav">
+    <div class="d-flex" id="wrapper">
 
-          <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" style="width:fit-content; text-align:right;"class="closebtn" onclick="closeNav()">&#9776;</a>
-            <a onclick="checknum( tp , 'All')" id="bt1">ทั้งหมด</a>
-            <a onclick="checknum( tp , 'โทรศัพท์')" id="bt2">โทรศัพท์</a>
-            <a onclick="checknum( tp , 'กระเป๋าสะพาย')" id="bt3">กระเป๋าสะพาย</a>
-            <a onclick="checknum( tp , 'กระเป๋าถือ')" id="bt4">กระเป๋าถือ</a>
-            <a onclick="checknum( tp , 'กระเป๋าเงิน')" id="bt5">กระเป๋าเงิน</a>
-            <a onclick="checknum( tp , 'นาฬิกา')" id="bt6">นาฬิกา</a>
-            <a onclick="checknum( tp , 'ปากกา')" id="bt6">ปากกา</a>
-            <a onclick="checknum( tp , 'อื่นๆ')" id="bt7">อื่นๆ</a>
-            <input type="hidden" name="" value="1" id="typePage">
-          </div>
-          <a style="font-size:18px;cursor:pointer" onclick="openNav()">&#9776</a>
+    <!-- Sidebar -->
+    <div class="bg-dark border-right" id="sidebar-wrapper">
 
-          <div class="">
-              <a class="active" onclick="welcome_lost('All')" id="l_btn" type="button">รวมของที่เจอ</a>
-          </div>
-          <div class="">
-            <a class="" onclick="welcome_found('All')" id="f_btn" type="button">รวมของที่ทำหาย</a>
-          </div>
+      <div class="sidebar-heading" style="color: white; border-bottom: 2px solid white; font-size: 25px;">ของหายได้คืน</div>
+      <div class="list-group list-group-flush">
+        <a onclick="checknum( tp , 'All')" id="bt1" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">ทั้งหมด</a>
+        <a onclick="checknum( tp , 'โทรศัพท์')" id="bt2" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">โทรศัพท์</a>
+        <a onclick="checknum( tp , 'กระเป๋าสะพาย')" id="bt3" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">กระเป๋าสะพาย</a>
+        <a onclick="checknum( tp , 'กระเป๋าถือ')" id="bt4" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">กระเป๋าถือ</a>
+        <a onclick="checknum( tp , 'กระเป๋าเงิน')" id="bt5" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">กระเป๋าเงิน</a>
+        <a onclick="checknum( tp , 'นาฬิกา')" id="bt6" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">นาฬิกา</a>
+        <a onclick="checknum( tp , 'ปากกา')" id="bt6" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">ปากกา</a>
+        <a onclick="checknum( tp , 'อื่นๆ')" id="bt7" class="list-group-item list-group-item-action bg-dark" style="border-style: hidden;">อื่นๆ</a>
+        <input type="hidden" name="" value="1" id="typePage">
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
-          <div class="right">
-            <!-- <button type="button" name="button">history</button> -->
-              <input type="hidden" name="" value="" id="getEmail">
-              <input type="hidden" name="" value="" id="getId">
-              <div class="row">
-                <p style="text-align:center;color:white;margin:14px" value="" id="NameUser"></p>
-                <a href="{% url 'history' %}?id={{g_id}}" id="history" class="notification">โพสต์ของฉัน
-                    <!-- <span class="badge" id="noti"></span> -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom" navbar-inverse" data-spy="affix" data-offset-top="197">
+        <!-- <button class="btn btn-primary" id="menu-toggle">Toggle</button> -->
+        <a class="btn2" id="menu-toggle" style="color: white; text-align: left" type="button">&#9776</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" onclick="welcome_lost('All')" id="l_btn" type="button" style="width: fit-content;">รวมของที่พบ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="welcome_found('All')" id="f_btn" type="button" style="width: fit-content;">รวมของสูญหาย</a>
+              </li>
+              <!-- <li>
+                <a class="active" onclick="welcome_lost('All')" id="l_btn" type="button">รวมของที่เจอ</a>
+              </li>
+              <li>
+                <a class="" onclick="welcome_found('All')" id="f_btn" type="button">รวมของที่ทำหาย</a>
+              </li> -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <b value="" id="NameUser" style="text-align:right;"></b>
                 </a>
-                <a href="{% url 'logout' %}">ออกจากระบบ</a>
-              </div>
-
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a href="{% url 'history' %}?id={{g_id}}" id="history" class="dropdown-item ">โพสต์ของฉัน</a>
+                  <a href="{% url 'logout' %}"  class="dropdown-item">ออกจากระบบ</a>
+                  <input type="hidden" name="" value="" id="getEmail">
+                  <input type="hidden" name="" value="" id="getId">
+              </li>
+            </ul>
           </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="scrollbar" schroll-bottom="messages" style="width: 80%; margin-left: 10%; margin-top: 3%" id="data">
+
+            </div>
         </div>
-      	<!-- <h1>Test</h1> -->
-      	<!-- <div ng-app="app">
-      		<div ng-controller="chatCtrl" > -->
-      			<div class="scrollbar" schroll-bottom="messages" style="height: 450px;width: 80%; margin-left: 10%; margin-top: 3%" id="data">
-      				<!-- <ul class="list-group" ng-repeat="data in messages">
-                <li class="list-group-item" style="height: 150px;">
-                  <div class="row">
-                      <div class="col-md-3">
-                        <div class="picture">
-                            <img height="120" width="120" id="myPic">
-                        </div>
-                      </div>
-                      <div class="col-md-9">
-                          <div class="" style="text-align:left">
-                            <b>Topic : </b><em id="topic"></em>
-                            <br>
-                            <b>Description :</b>
-                            <br>
-                            <em id="desc"></em>
+        <div class="dropup" align="right" style="margin-top:30% ; margin-right:3%">
+          <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Post
+          </button> -->
+          <img class="btn dropdown-toggle" data-toggle="dropdown" src="https://cdn.onlinewebfonts.com/svg/img_24506.png" style="width:72px; height:72px; margin-top:5%;">
+
+          <div class="dropdown-menu">
+
+            <a href="#Lost" class="dropdown-item" data-toggle="modal" data-target="#Lost"">ของหาย</a>
+            <a href="#Found" class="dropdown-item" data-toggle="modal" data-target="#Found"">ของเจอ</a>
+
+            <!-- <a class="dropdown-item" href="{% url 'create_lost' %}">Lost</a>
+            <a class="dropdown-item" href="{% url 'create_found' %}">Found</a> -->
+          </div>
+
+          <div class="modal fade" id="Lost" role="dialog" >
+              <div class="modal-dialog modal-lg" style="max-height: 750px">
+                  <div class="modal-content text-left">
+                    <div class="modal-header" style="background-color: rgb(42,138,234)">
+                      <h5>ของหาย</h5>
+                    </div>
+                      <div class="modal-body" style="background-color: rgb(136,215,241)">
+                      <div class="row">
+                        <div class="column">
+                          <form action="/post_create_lost/" method="post" runat="server" id="lost-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
+                                <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
+                                <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
+                                หัวข้อ:
+                                <input type="text" name="work" lign="left" required placeholder="ระบุสิ่งของ / รุ่น" maxlength="200"><br>
+                                <!-- ประเภท:
+                                  <select name="item" required>
+                                    <option value="" disabled selected hidden>เลือกประเภท</option>
+                                    <option value="โทรศัพท์">โทรศัพท์</option>
+                                    <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
+                                    <option value="กระเป๋าถือ">กระเป๋าถือ</option>
+                                    <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
+                                    <option value="นาฬิกา">นาฬิกา</option>
+                                    <option value="ปากกา">ปากกา</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                  </select><br> -->
+                                รายละเอียด:
+                                <br><textarea rows="5" cols="40" maxlength="300" name="progress" required placeholder="ระบุรายละเอียด / สถานที่หาย ของสิ่งของ"></textarea>
+                                <br>
+                                <label for="times">เลือกเวลา:</label>
+                                <input type="time" id="times" name="times" required>
+                                <br>
+                                <label for="dates">เลือกวันที่:</label>
+                                <input type="date" data-date-format="DD MMMM YYYY" id="dates" name="dates"required>
+                                <br>
+                                อัพโหลดรูป:
+                                <input type="file" name="file[]" id="files_l" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
+                                <!-- <label for="file">Choose file</label> -->
+                                <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบของ">
+                                <input type="hidden" name="statusNoti" id="statusNoti" value="seen">
+                                <input type="hidden" name="url" id="url">
+                                <input type="hidden" name="email" id="email" value="{{g_email}}">
+
+                                <!-- <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br> -->
+
+                            </form>
+                          </div>
+                          <div class="column">
+                              <img src="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e" id="img_l" alt=""width="60%" height="60%" style="margin-left:20%">
+                              <div align="right" style="margin-left:15%; margin-top:20%">
+                                  <!-- <input type="submit" value="ยืนยัน" class="btn btn-primary" required> -->
+                                  <button name="button" form="lost-form" class="btn btn-primary" required>ยืนยัน</button>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ยกเลิก</button>
+                              </div>
                           </div>
                       </div>
-
                   </div>
-      				</ul> -->
-      			</div>
-      		<!-- </div>
-      	</div> -->
-        <br>
-          <div class="dropup" align="right" style="margin-top:30% ; margin-right:3%">
-            <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-              Post
-            </button> -->
-            <img class="btn dropdown-toggle" data-toggle="dropdown" src="https://cdn.onlinewebfonts.com/svg/img_24506.png" style="width:72px; height:72px; margin-top:5%">
+              </div>
+          </div>
+        </div>
 
-            <div class="dropdown-menu">
-
-              <a href="#Lost" class="dropdown-item" data-toggle="modal" data-target="#Lost"">ของหาย</a>
-              <a href="#Found" class="dropdown-item" data-toggle="modal" data-target="#Found"">ของเจอ</a>
-
-              <!-- <a class="dropdown-item" href="{% url 'create_lost' %}">Lost</a>
-              <a class="dropdown-item" href="{% url 'create_found' %}">Found</a> -->
-            </div>
-
-            <div class="modal fade" id="Lost" role="dialog" >
-                <div class="modal-dialog modal-lg" >
-                    <div class="modal-content text-left">
-                      <div class="modal-header" style="background-color: rgb(42,138,234)">
-                        <h5>ของหาย</h5>
-                      </div>
-                        <div class="modal-body" style="background-color: rgb(136,215,241)">
+          <div class="modal fade" id="Found" role="dialog" >
+              <div class="modal-dialog modal-lg" style="max-height: 750px">
+                  <div class="modal-content text-left">
+                    <div class="modal-header" style="background-color: rgb(42,138,234)">
+                      <h5>ของเจอ</h5>
+                    </div>
+                      <div class="modal-body" style="background-color: rgb(136,215,241)">
                         <div class="row">
                           <div class="column">
-                            <form action="/post_create_lost/" method="post" runat="server" id="lost-form">
-                                  {% csrf_token %}
-                                  <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
-                                  <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
-                                  <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
+                            <form action="/post_create_found/" method="post" runat="server" id="found-form">
+                                {% csrf_token %}
+                                  <input type="hidden" name="now_id" id="now_id2" value="{{g_id}}">
+                                  <!-- <input type="hidden" name="now_name" id="now_name2" value="{{g_name}}">
+                                  <input type="hidden" name="now_email" id="now_email2" value="{{g_email}}"> -->
                                   หัวข้อ:
-                                  <input type="text" name="work" lign="left" required placeholder="ระบุสิ่งของ / รุ่น" maxlength="200"><br>
+                                  <input type="text" name="work" lign="left" required placeholder="ระบุสิ่งของ / รุ่น"><br>
                                   <!-- ประเภท:
-                                    <select name="item" required>
+                                    <select name="item" id="item" require>
                                       <option value="" disabled selected hidden>เลือกประเภท</option>
                                       <option value="โทรศัพท์">โทรศัพท์</option>
                                       <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
@@ -501,73 +649,23 @@
                                       <option value="อื่นๆ">อื่นๆ</option>
                                     </select><br> -->
                                   รายละเอียด:
-                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required placeholder="ระบุรายละเอียด / สถานที่หาย ของสิ่งของ"></textarea>
-                                  <br><br>
+                                  <br><textarea rows="5" cols="40" maxlength="300" name="progress" required placeholder="ระบุรายละเอียด / สถานที่เจอ ของสิ่งของ"></textarea>
+                                  <br>
+                                  <label for="times">เลือกเวลา:</label>
+                                  <input type="time" id="times" name="times" required>
+                                  <br>
+                                  <label for="dates">เลือกวันที่:</label>
+                                  <input type="date" data-date-format="DD MMMM YYYY" id="dates" name="dates"required>
+                                  <br>
                                   อัพโหลดรูป:
-                                  <input type="file" name="file[]" id="files_l" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
+                                  <input type="file" name="file[]" id="files_f" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
                                   <!-- <label for="file">Choose file</label> -->
-                                  <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบของ">
+                                  <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบเจ้าของ">
                                   <input type="hidden" name="statusNoti" id="statusNoti" value="seen">
-                                  <input type="hidden" name="url" id="url">
-                                  <input type="hidden" name="email" id="email" value="{{g_email}}">
+                                  <input type="hidden" name="url" id="url_f">
+                                  <input type="hidden" name="email" id="email2" value="{{g_email}}">
 
-                                  <!-- <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br> -->
-
-                              </form>
-                            </div>
-                            <div class="column">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e" id="img_l" alt=""width="60%" height="60%" style="margin-left:20%">
-                                <div align="right" style="margin-left:15%; margin-top:20%">
-                                    <!-- <input type="submit" value="ยืนยัน" class="btn btn-primary" required> -->
-                                    <button name="button" form="lost-form" class="btn btn-primary" required>ยืนยัน</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ยกเลิก</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-
-            <div class="modal fade" id="Found" role="dialog" >
-                <div class="modal-dialog modal-lg" >
-                    <div class="modal-content text-left">
-                      <div class="modal-header" style="background-color: rgb(42,138,234)">
-                        <h5>ของเจอ</h5>
-                      </div>
-                        <div class="modal-body" style="background-color: rgb(136,215,241)">
-                          <div class="row">
-                            <div class="column">
-                              <form action="/post_create_found/" method="post" runat="server" id="found-form">
-                                  {% csrf_token %}
-                                    <input type="hidden" name="now_id" id="now_id2" value="{{g_id}}">
-                                    <!-- <input type="hidden" name="now_name" id="now_name2" value="{{g_name}}">
-                                    <input type="hidden" name="now_email" id="now_email2" value="{{g_email}}"> -->
-                                    หัวข้อ:
-                                    <input type="text" name="work" lign="left" required placeholder="ระบุสิ่งของ / รุ่น"><br>
-                                    <!-- ประเภท:
-                                      <select name="item" id="item" require>
-                                        <option value="" disabled selected hidden>เลือกประเภท</option>
-                                        <option value="โทรศัพท์">โทรศัพท์</option>
-                                        <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
-                                        <option value="กระเป๋าถือ">กระเป๋าถือ</option>
-                                        <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
-                                        <option value="นาฬิกา">นาฬิกา</option>
-                                        <option value="ปากกา">ปากกา</option>
-                                        <option value="อื่นๆ">อื่นๆ</option>
-                                      </select><br> -->
-                                    รายละเอียด:
-                                    <br><textarea rows="5" cols="40" maxlength="300" name="progress" required placeholder="ระบุรายละเอียด / สถานที่เจอ ของสิ่งของ"></textarea>
-                                    <br><br>
-                                    อัพโหลดรูป:
-                                    <input type="file" name="file[]" id="files_f" value="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e">
-                                    <!-- <label for="file">Choose file</label> -->
-                                    <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบเจ้าของ">
-                                    <input type="hidden" name="statusNoti" id="statusNoti" value="seen">
-                                    <input type="hidden" name="url" id="url_f">
-                                    <input type="hidden" name="email" id="email2" value="{{g_email}}">
-
-                                    <!-- <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br> -->
+                                  <!-- <button type="button" onclick="uploadImage_found()">อัพโหลด</button><br><br> -->
 
                               </form>
                           </div>
@@ -585,29 +683,20 @@
                 </div>
             </div>
 
-          </div>
+           </div>
+        <!-- /#page-content-wrapper -->
 
-      <!-- </div> -->
+      </div>
+      <!-- /#wrapper -->
+</body>
 
-
-
-        <!-- <button type="button" name="button" onclick="print()"> click</button> -->
-
-        <!-- <table style="width:100%" id="ex-table">
-          <tr id="tr">
-            <th>Topic:</th>
-            <th>Description:</th>
-            <th>Url:</th>
-         </table> -->
-
-      <!-- <button type="button" onclick="location.href='{% url 'check' %}'">See your post</button> -->
-  </body>
   <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-database.js"></script>
   <script>
 
+    //real
     var config = {
         apiKey: "AIzaSyBPIHPOE2LWIPCDMU8STeMcm8G5CEKyjOA",
         authDomain: "landf-d7d76.firebaseapp.com",
@@ -618,6 +707,16 @@
         appId: "1:664909858615:web:2959130b838ad023b0bcb2",
         measurementId: "G-LK1FPK8MVG"
     };
+    // var config = {
+    //   apiKey: "AIzaSyBbr2UGii9sxV_692JctUSskljtpzlPmbU",
+    //   authDomain: "testtest-1f226.firebaseapp.com",
+    //   databaseURL: "https://testtest-1f226.firebaseio.com",
+    //   projectId: "testtest-1f226",
+    //   storageBucket: "testtest-1f226.appspot.com",
+    //   messagingSenderId: "1003948527976",
+    //   appId: "1:1003948527976:web:57a0b9684d4d8660fe46dd",
+    //   measurementId: "G-1XEV0QR09F"
+    // };
     firebase.initializeApp(config);
 
     var g_email,e;
@@ -639,6 +738,11 @@
         // console.log("not url");
     }
 
+
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
 
     window.onload = function() {
       tp = document.getElementById("typePage").value;
@@ -736,13 +840,13 @@
         // console.log("de " + de_name);
         document.getElementById("history").href="{% url 'history' %}?id=" + g_id;
     }
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
+// function openNav() {
+//   document.getElementById("mySidenav").style.width = "250px";
+// }
+//
+// function closeNav() {
+//   document.getElementById("mySidenav").style.width = "0";
+// }
 
 function setWithExpiry(key, value, ttl) {
     var now = new Date()
@@ -842,11 +946,11 @@ function getWithExpiry(key) {
    function checknum(num,typeItem) {
       console.log("num " + num + " tp " + typeItem);
       if (num == 1) {
-        closeNav()
+        // closeNav()
         welcome_lost(typeItem)
       }
       else if (num == 2) {
-        closeNav()
+        // closeNav()
         welcome_found(typeItem)
       }
    }
@@ -869,6 +973,8 @@ function getWithExpiry(key) {
                 var c_desc = childData.description;
                 var c_url = childData.url;
                 var c_status = childData.statusPost;
+                var c_time = childData.time;
+                var c_place = childData.place;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -880,27 +986,31 @@ function getWithExpiry(key) {
                 if (childSnapshot.exists()) {   //check data exist
                     if (t == "All") {
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
-                      content += "<li class='list-group-item' style='height: 150px; background:#9999FF;'>";
+                      content += "<li class='list-group-item' style='min-height: 150px;'>";
                       content += "<div class='row'>";
-                      content += "<div class='column-img' style=''>";
-                      content += "<div class='picture'>";
-                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
-                      content += "</div>";
-                      content += "</div>";
+                      // content += "<div class='column-img' '>";
+                      // content += "<div class='picture'>";
+                      // content += "<img id='myPic' src='" + c_url + "'>";
+                      // content += "</div>";
+                      // content += "</div>";
                       content += "<div class='column-desc' style='text-align:left;'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
-                      content += "<b>รายละเอียด :</b>";
+                      // content += "<b>รายละเอียด :</b>";
+                      // content += "<br>";
+                      // content += "<em>" + c_desc + "</em>";
+                      // content += "<br>";
+                      content += "<b>เวลาที่พบ: </b>";
+                      content += "<em>" + c_time + "</em>";
                       content += "<br>";
-                      content += "<em>" + c_desc + "</em>";
+                      content += "<b>สถานที่พบ : </b>";
+                      content += "<em>" + c_place + "</em>";
                       content += "</div>";
-                      content += "<div class='column-but' style=''>";
-                      content += "<div class='row' style='padding-left:50px'>"
+                      content += "<div class='column-but'>";
                       content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                      content += "</div>";
-                      content += "<div class='row' style='position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<div class='row' style='margin-left:50%'>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
+                      content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print(this,1)'>&#128214; ดูเพิ่ม </button>"
                       content += "</div>";
                       content += "</div>";
                       content += "</div>";
@@ -908,27 +1018,31 @@ function getWithExpiry(key) {
                     }
                     else if(t == c_type){
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
-                      content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                      content += "<li class='list-group-item' style='min-height: 150px;'>";
                       content += "<div class='row'>";
-                      content += "<div class='column-img' style='background:#9999FF'>";
-                      content += "<div class='picture'>";
-                      content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
-                      content += "</div>";
-                      content += "</div>";
-                      content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
+                      // content += "<div class='column-img' '>";
+                      // content += "<div class='picture'>";
+                      // content += "<img id='myPic' src='" + c_url + "'>";
+                      // content += "</div>";
+                      // content += "</div>";
+                      content += "<div class='column-desc' style='text-align:left;'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
-                      content += "<b>รายละเอียด :</b>";
+                      // content += "<b>รายละเอียด : </b>";
+                      // content += "<br>";
+                      // content += "<em>" + c_desc + "</em>";
+                      // content += "<br>";
+                      content += "<b>เวลาที่พบ : </b>";
+                      content += "<em>" + c_time + "</em>";
                       content += "<br>";
-                      content += "<em>" + c_desc + "</em>";
+                      content += "<b>สถานที่พบ : </b>";
+                      content += "<em>" + c_place + "</em>";
                       content += "</div>";
-                      content += "<div class='column-but' style='background:#9999FF'>";
-                      content += "<div class='row' style='padding-left:50px'>"
+                      content += "<div class='column-but' '>";
                       content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                      content += "</div>";
-                      content += "<div class='row' style='background:#9999FF;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                      content += "<div class='row' style='margin-left:50%'>";
                       content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                      content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,1)'> &#128214;ดูเพิ่ม </button>"
+                      content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print(this,1)'>&#128214; ดูเพิ่ม </button>"
                       content += "</div>";
                       content += "</div>";
                       content += "</div>";
@@ -965,6 +1079,8 @@ function getWithExpiry(key) {
               var c_desc = childData.description;
               var c_url = childData.url;
               var c_status = childData.statusPost;
+              var c_time = childData.time;
+              var c_place = childData.place;
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -977,27 +1093,31 @@ function getWithExpiry(key) {
               if (childSnapshot.exists()) {   //check data exist
                   if (t == "All") {
                     content += "<ul class='list-group' ng-repeat='data in messages'>";
-                    content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                    content += "<li class='list-group-item' style='min-height: 150px;'>";
                     content += "<div class='row'>";
-                    content += "<div class='column-img' style='background:#9999FF'>";
+                    content += "<div class='column-img' '>";
                     content += "<div class='picture'>";
-                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "<img id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
-                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
+                    content += "<div class='column-desc' style='text-align:left;'>";
                     content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                     content += "<br>";
-                    content += "<b>รายละเอียด :</b>";
+                    content += "<b>รายละเอียด : </b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
+                    content += "<br>";
+                    content += "<b>เวลาที่หาย : </b>";
+                    content += "<em>" + c_time + "</em>";
+                    content += "<br>";
+                    content += "<b>สถานที่พบ :</b>";
+                    content += "<em>" + c_place + "</em>";
                     content += "</div>";
-                    content += "<div class='column-but' style='background:#9999FF'>";
-                    content += "<div class='row' style='padding-left:50px'>"
+                    content += "<div class='column-but' '>";
                     content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                    content += "</div>";
-                    content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                    content += "<div class='row' style='margin-left:50%'>";
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                    content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
+                    content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print(this,2)'>&#128214; ดูเพิ่ม </button>"
                     content += "</div>";
                     content += "</div>";
                     content += "</div>";
@@ -1005,27 +1125,31 @@ function getWithExpiry(key) {
                   }
                   else if(t == c_type){
                     content += "<ul class='list-group' ng-repeat='data in messages' >";
-                    content += "<li class='list-group-item' style='height: 150px; background:#9999FF'>";
+                    content += "<li class='list-group-item' style='min-height: 150px;'>";
                     content += "<div class='row'>";
-                    content += "<div class='column-img' style='background:#9999FF'>";
+                    content += "<div class='column-img' '>";
                     content += "<div class='picture'>";
-                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "<img id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
-                    content += "<div class='column-desc' style='text-align:left;background:#9999FF'>";
+                    content += "<div class='column-desc' style='text-align:left;'>";
                     content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                     content += "<br>";
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
+                    content += "<br>";
+                    content += "<b>เวลาที่หาย :</b>";
+                    content += "<em>" + c_time + "</em>";
+                    content += "<br>";
+                    content += "<b>สถานที่พบ :</b>";
+                    content += "<em>" + c_place + "</em>";
                     content += "</div>";
-                    content += "<div class='column-but' style='background:#9999FF'>";
-                    content += "<div class='row' style='padding-left:50px'>"
+                    content += "<div class='column-but' '>";
                     content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                    content += "</div>";
-                    content += "<div class='row' style='background:#9999FF;;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                    content += "<div class='row' style='margin-left:50%'>";
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                    content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print(this,2)'> &#128214;ดูเพิ่ม </button>"
+                    content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print(this,2)'>&#128214; ดูเพิ่ม </button>"
                     content += "</div>";
                     content += "</div>";
                     content += "</div>";

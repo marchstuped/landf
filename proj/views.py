@@ -20,6 +20,7 @@ from skimage.io import imread, imshow
 from skimage.transform import resize
 from skimage.util import img_as_ubyte
 from collections import Counter
+from datetime import datetime
 import numpy as np
 import pyrebase
 import time
@@ -41,7 +42,7 @@ translator = Translator(service_urls=[
       'translate.google.com',
       'translate.google.co.th',
     ])
-
+#real
 config = {
     'apiKey': "AIzaSyBPIHPOE2LWIPCDMU8STeMcm8G5CEKyjOA",
     'authDomain': "landf-d7d76.firebaseapp.com",
@@ -53,16 +54,37 @@ config = {
     'measurementId': "G-LK1FPK8MVG"
 }
 
+# config = {
+#     'apiKey': "AIzaSyBbr2UGii9sxV_692JctUSskljtpzlPmbU",
+#     'authDomain': "testtest-1f226.firebaseapp.com",
+#     'databaseURL': "https://testtest-1f226.firebaseio.com",
+#     'projectId': "testtest-1f226",
+#     'storageBucket': "testtest-1f226.appspot.com",
+#     'messagingSenderId': "1003948527976",
+#     'appId': "1:1003948527976:web:57a0b9684d4d8660fe46dd",
+#     'measurementId': "G-1XEV0QR09F"
+# }
+
 keyword_processor = KeywordProcessor()
+keyword_processor2 = KeywordProcessor()
 keyword_dict = {
     "โทรศัพท์": ["iphone","phone","i-phone","huawei","samsung","iphonex","โทรศัพท์","มือถือ","mobile"],
-    "กระเป๋าสะพาย": ["backpack","กระเป๋าสะพาย","กระเป๋าเป้","เป้","anello","adidas","nike","kanken","herschel","troopers","longchamp","david jones","puma"],
+    "กระเป๋าสะพาย": ["backpack","กระเป๋า","กระเป๋าสะพาย","กระเป๋าเป้","เป้","anello","adidas","nike","kanken","herschel","troopers","longchamp","david jones","puma"],
     "กระเป๋าถือ": ["bag","กระเป๋าถือ","coach","prada","gucci","chanel","fendi","dior","louis vuitton","ysl"],
     "กระเป๋าเงิน": ["wallet","กระเป๋าเงิน","กระเป๋าตัง","jacob","guy laroach","playboy","lacoste","supreme"],
     "นาฬิกา": ["watch","นาฬิกา","g-shock","gshock","baby-g","citizen","seiko","casio","rolex","hamilton"],
     "ปากกา": ["pen","ปากกา","lamy","ม้า","quantum","parker","sailor","montblanc","horse","faber castel","pentel"]
 }
+keyword_place = {
+   "ตึก 23" : ["ตึก 23","ตึก23"],"โรงอาหาร" : ["โรงอาหาร"],"ห้องพยาบาล" : ["ห้องพยาบาล"], "หอพักนิสิต" : ["หอพัก","หอใน","หอพักนิสิต"],
+   "ตึก 17" : ["ตึก 17","ตึก17"], "ตึก 15" : ["ตึก 15","ตึก15"], "เซเว่น" : ["seven eleven","เซเว่น"], "สนามฟุตบอล" : ["สนามฟุตบอล","สนามบอล"],
+   "สนามบาสเกตบอล" : ["สนามบาส","สนามบาสเกตบอล"], "ถนนดำ" : ["ถนนดำ"], "ลานพระพิรุณ" : ["ลานพระพิรุณ"], "ตึก 1" : ["ตึก 1","ตึก1"], "ตึก 2" : ["ตึก 2","ตึก2"],
+   "ตึก 5" : ["ตึก 5","ตึก5"], "ตึก 6" : ["ตึก 6","ตึก6"], "ห้องโปรเจค" : ["ห้องโปรเจค"], "ตึก 10" : ["ตึก 10","ตึก10"], "อาคารพละ" : ["อาคารพละ","ตึก 13", "ตึก13"],
+   "สนามวอลเลย์บอล" : ["สนามวอลเลย์บอล","สนามวอลเลย์"], "สนามเปตอง" : ["สนามเปตอง"], "ห้องสมุด" : ["ห้องสมุด","อาคาร 14", "อาคาร14"], "ร้านเครื่องเขียน" : ["ร้านเครื่องเขียน"],
+   "สระว่ายน้ำ" : ["สระว่ายน้ำ"],
+}
 keyword_processor.add_keywords_from_dict(keyword_dict)
+keyword_processor2.add_keywords_from_dict(keyword_place)
 
 firebase = pyrebase.initialize_app(config)
 authen = firebase.auth()
@@ -157,13 +179,21 @@ def post_create_lost(request):
     name = request.POST.get('now_name')
     now_em = request.POST.get('now_email')
 
-
+    dates = request.POST.get('dates')
+    times = request.POST.get('times')
     work = request.POST.get('work')
     progress = request.POST.get('progress')
     url = request.POST.get('url')
     # type = request.POST.get('item')
     statusPost = request.POST.get("statusPost")
     statusNoti = request.POST.get("statusNoti")
+
+    # print(type(dates))
+    # print(type(times))
+
+    now = dates + " " + times
+    # dt_string = now.strftime("%d/%m/%Y %H:%M")
+    # print("date and time =", dt_string)
     # print(type)
     if(url==""):
         url = "https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"
@@ -172,6 +202,7 @@ def post_create_lost(request):
     if(url!="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
         type = pdPic(list(listPic).index(max(listPic)))
 
+    place = find_place(progress)
     idtoken = request.session['uid']
     a = authen.get_account_info(idtoken)
     a = a['users']
@@ -188,6 +219,8 @@ def post_create_lost(request):
             'type':type,
             'statusPost':statusPost,
             'statusNoti':statusNoti,
+            'place':place,
+            'time':now,
     }
     dicPic = {}
     dicPic['id']=millis
@@ -210,12 +243,21 @@ def post_create_found(request):
     name = request.POST.get('now_name')
     now_em = request.POST.get('now_email')
 
+    dates = request.POST.get('dates')
+    times = request.POST.get('times')
     work = request.POST.get('work')
     progress = request.POST.get('progress')
     url = request.POST.get('url')
     # type = request.POST.get('item')
     statusPost = request.POST.get("statusPost")
     statusNoti = request.POST.get("statusNoti")
+
+    # print(type(dates))
+    # print(type(times))
+
+    now = dates + " " + times
+    # dt_string = now.strftime("%d/%m/%Y %H:%M")
+    # print("date and time =", dt_string)
     save = 0
 
     if(url==""):
@@ -225,6 +267,7 @@ def post_create_found(request):
     if(url!="https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/nopic.png?alt=media&token=46f9cfff-5158-48c6-8c81-8b67b5a8520e"):
         type = pdPic(list(listPic).index(max(listPic)))
 
+    place = find_place(progress)
     idtoken = request.session['uid']
     a = authen.get_account_info(idtoken)
     a = a['users']
@@ -241,6 +284,8 @@ def post_create_found(request):
             'type':type,
             'statusPost':statusPost,
             'statusNoti':statusNoti,
+            'place':place,
+            'time':now,
     }
     dicPic = {}
     dicPic['id']=millis
@@ -277,6 +322,11 @@ def find_keyword(text):
     print("keyword is ", mykey)
     return mykey
 
+def find_place(text):
+    proc = word_tokenize(text.lower() , keep_whitespace=False)
+    listToStr = ' '.join(map(str, proc))
+    keyplace = keyword_processor2.extract_keywords(listToStr)
+    return keyplace[0]
 
 def check(request):
     if request.method == 'GET' and 'csrfmiddlewaretoken' in request.GET:
@@ -619,7 +669,7 @@ def match_post_F(id):
     lost[0] = {'key' : id, 'topic' : lost_topic , 'description' : lost_desc }
 
 
-    ref = database.child('CategoryL').child(lost_type).get()
+    ref = database.child('CategoryF').child(lost_type).get()
     choice = 1
     i=0
     refFound=database.child('Found').get().val()

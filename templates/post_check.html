@@ -282,9 +282,9 @@ form{
           <img src="{{i}}" style="margin-top:5%;border-radius: 8px;max-width: 200px;max-height: 180px;width: 90%;height: 55%;border-style: solid;border-color: darkorange;"><br><br>
           <!-- Image : <br> -->
         <div style="text-align: left;padding-left:2%;margin-bottom:2%;width: fit-content;">
-            โพสต์โดย : {{e}}<br>
-            หัวข้อ : {{t}}<br>
-            รายละเอียด : {{d}}<br>
+            <b>โพสต์โดย</b> : {{e}}<br>
+            <b>หัวข้อ</b> : {{t}}<br>
+            <b>รายละเอียด</b> : {{d}}<br>
         </div>
       </div>
       <!-- </div> -->
@@ -515,6 +515,8 @@ form{
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
+                var c_time = childData.time;
+                var c_place = childData.place;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -560,6 +562,11 @@ form{
                       content += "<b>รายละเอียด :</b>";
                       content += "<br>";
                       content += "<em>" + c_desc + "</em>";
+                      content += "<b>เวลาที่พบ: </b>";
+                      content += "<em>" + c_time + "</em>";
+                      content += "<br>";
+                      content += "<b>สถานที่พบ : </b>";
+                      content += "<em>" + c_place + "</em>";
                       content += "</div>";
                       content += "<div class='column-but' '>";
                       content += "<div class='row'>";
@@ -619,6 +626,8 @@ form{
                 var c_topic = childData.topic;
                 var c_desc = childData.description;
                 var c_url = childData.url;
+                var c_time = childData.time;
+                var c_place = childData.place;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -653,17 +662,22 @@ form{
                       content += "<ul class='list-group' ng-repeat='data in messages' >";
                       content += "<li class='list-group-item' style='min-height: 150px;'>";
                       content += "<div class='row'>";
-                      content += "<div class='column-img' '>";
-                      content += "<div class='picture'>";
-                      content += "<img id='myPic' src='" + c_url + "'>";
-                      content += "</div>";
-                      content += "</div>";
+                      // content += "<div class='column-img' '>";
+                      // content += "<div class='picture'>";
+                      // content += "<img id='myPic' src='" + c_url + "'>";
+                      // content += "</div>";
+                      // content += "</div>";
                       content += "<div class='column-desc' style='text-align:left;'>";
                       content += "<b>หัวข้อ : </b><em>" + c_topic + "</em>";
                       content += "<br>";
-                      content += "<b>รายละเอียด :</b>";
+                      content += "<b>เวลาที่พบ: </b>";
+                      content += "<em>" + c_time + "</em>";
                       content += "<br>";
-                      content += "<em>" + c_desc + "</em>";
+                      content += "<b>สถานที่พบ : </b>";
+                      content += "<em>" + c_place + "</em>";
+                      // content += "<b>รายละเอียด :</b>";
+                      // content += "<br>";
+                      // content += "<em>" + c_desc + "</em>";
                       content += "</div>";
                       content += "<div class='column-but' '>";
                       content += "<div class='row'>";

@@ -182,6 +182,7 @@
         	background: none;
         	overflow-y: scroll;
         	margin-bottom: 25px;
+          max-height: 650px;
         }
 
 
@@ -242,12 +243,13 @@
         .list-group-item{
            word-wrap: break-word;
            border: 2.5px solid black;
-           background: lightpink;
+           background: #FBD8F2;
         }
 
         .topnav {
           overflow: hidden;
           background-color: #333;
+          width:100%;
         }
 
         .topnav a {
@@ -277,17 +279,103 @@
         }
         .column-img{
           float: left;
-          width: 20%;
+          /* width: 20%; */
           padding-left: 15px;
+          border-radius: 8px;
+          max-height: 95%;
+          max-width: 95%;
+          width: 100px;
+          height: 100px;
         }
         .column-desc{
           float: left;
+          margin-left: 5%;
           width: 55%;
         }
         .column-but{
-          float: left;
-          width: 25%;
-          padding: 10px;
+          position: absolute;
+          bottom: 30px;
+          right: 25px;
+        }
+        textarea{
+          margin-top: 0px;
+          margin-bottom: 0px;
+          max-width: 100%;
+          width: 100%;
+          min-height: 70px;
+          border-radius: 8px;
+          border-style: outset;
+          border-color: darkorange;
+        }
+        #myPic{
+          max-height: 100%;
+          max-width: 100%;
+          width: auto;
+          height: auto;
+          border-radius: 8px;
+          border-style: outset;
+          border-color: pink;
+        }
+        #sidebar-wrapper {
+          min-height: 100vh;
+          margin-left: -15rem;
+          -webkit-transition: margin .25s ease-out;
+          -moz-transition: margin .25s ease-out;
+          -o-transition: margin .25s ease-out;
+          transition: margin .25s ease-out;
+          position: -webkit-sticky;
+          position: sticky;
+        }
+
+        #sidebar-wrapper .sidebar-heading {
+          padding: 0.875rem 1.25rem;
+          font-size: 1.2rem;
+        }
+
+        #sidebar-wrapper .list-group {
+          width: 15rem;
+        }
+
+        #page-content-wrapper {
+          min-width: 100vw;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+          margin-left: 0;
+        }
+
+        @media (min-width: 768px) {
+          #sidebar-wrapper {
+            margin-left: 0;
+          }
+
+          #page-content-wrapper {
+            min-width: 0;
+            width: 100%;
+          }
+
+          #wrapper.toggled #sidebar-wrapper {
+            margin-left: -15rem;
+          }
+        }
+        #sidebar-wrapper a {
+          color: white;
+          font-size: 20px;
+        }
+        .navbar {
+          position: -webkit-sticky;
+          position: sticky;
+          top: 0;
+          padding: 5px;
+          z-index: 1;
+        }
+        .navbar-collapse a:hover {
+          background-color: #ddd;
+          /* color: black; */
+        }
+        .navbar-collapse a:active {
+          background-color: #3c48f2;
+          /* color: black; */
         }
     </style>
   </head>
@@ -322,7 +410,7 @@
     <!-- </div> -->
     <!-- <button type="button" class="btn btn-primary" name="button" onclick="goBack()">back</button> -->
       <!-- <h1>History</h1> -->
-      <div class="scrollbar" schroll-bottom="messages" style="height: 600px;width: 80%; margin-left: 10%; margin-top: 3%" id="data">
+      <div class="scrollbar" schroll-bottom="messages" style="width: 80%; margin-left: 10%; margin-top: 3%" id="data">
 
       </div>
       <br>
@@ -933,6 +1021,8 @@ function finish($this,type) {
             var c_topic = childData.topic;
             var c_desc = childData.description;
             var c_url = childData.url;
+            var c_time = childData.time;
+            var c_place = childData.place;
             // var c_status = childData.statusPost;
             var $mainContainer = $("#mainContainer");
             var content = "";
@@ -1043,6 +1133,10 @@ function finish($this,type) {
             var c_topic = childData.topic;
             var c_desc = childData.description;
             var c_url = childData.url;
+            var c_time = childData.time;
+            var c_place = childData.place;
+            var c_time = childData.time;
+            var c_place = childData.place;
             // var c_status = childData.statusPost;
             var $mainContainer = $("#mainContainer");
             var content = "";
@@ -1167,6 +1261,8 @@ function finish($this,type) {
                 var c_url = childData.url;
                 var c_status = childData.statusPost;
                 var c_statusNoti = childData.statusNoti;
+                var c_time = childData.time;
+                var c_place = childData.place;
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -1198,11 +1294,11 @@ function finish($this,type) {
                         // if (c_url != "") {
                           // content += "<a href='https://www.w3schools.com'>"
                           content += "<ul class='list-group' ng-repeat='data in messages' >";
-                          content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                          content += "<li class='list-group-item' style='min-height: 150px;'>";
                           content += "<div class='row'>";
-                          content += "<div class='column-img' style='background:#ffe6d8'>";
+                          content += "<div class='column-img'>";
                           content += "<div class='picture'>";
-                          content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                          content += "<img id='myPic' src='" + c_url + "'>";
                           content += "</div>";
                           content += "</div>";
                           content += "<div class='column-desc' style='text-align:left'>";
@@ -1211,8 +1307,14 @@ function finish($this,type) {
                           content += "<b>รายละเอียด :</b>";
                           content += "<br>";
                           content += "<em>" + c_desc + "</em>";
+                          content += "<br>";
+                          content += "<b>เวลาที่พบ: </b>";
+                          content += "<em>" + c_time + "</em>";
+                          content += "<br>";
+                          content += "<b>สถานที่พบ : </b>";
+                          content += "<em>" + c_place + "</em>";
                           content += "</div>";
-                          content += "<div class='column-but' style='background:#ffe6d8'>";
+                          content += "<div class='column-but'>";
                           content += "<div class='row'>"
                           if(c_statusNoti=="seen")
                           {
@@ -1223,9 +1325,9 @@ function finish($this,type) {
                             content += "<img style='margin-right:10px' height='45px' width='45px' src='https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/red-notification.png?alt=media&token=711f6cbd-93c6-4bad-bad0-0906ea566588'>"
                           }
                           content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                          content += "</div>";
-                          content += "<div class='row' style='background:#ffe6d8; position:absolute; bottom:0; padding-left:200px; margin-bottom:1%; margin-right:2%'>";
-                          content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
+                          content += "</div>"
+                          content += "<div class='row' style='margin-left:75%;'>"
+                          content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'style='margin-left:50%;'>&#9868;</button>"
                           content += "<div class='dropdown-menu'>"
                           content += "<a type='button' class='dropdown-item' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,1)' id='confirmDel'>&#128465; ลบ</a>"
                           content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,1)'>&#9745; พบแล้ว</a>"
@@ -1316,6 +1418,8 @@ function finish($this,type) {
               var c_url = childData.url;
               var c_status = childData.statusPost;
               var c_statusNoti = childData.statusNoti;
+              var c_time = childData.time;
+              var c_place = childData.place;
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -1346,11 +1450,11 @@ function finish($this,type) {
                   // if (c_url != "") {
                     // content += "<a href='https://www.w3schools.com'>"
                     content += "<ul class='list-group' ng-repeat='data in messages' >";
-                    content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                    content += "<li class='list-group-item' style='min-height: 150px;'>";
                     content += "<div class='row'>";
-                    content += "<div class='column-img' style='background:#ffe6d8'>";
+                    content += "<div class='column-img'>";
                     content += "<div class='picture'>";
-                    content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                    content += "<img id='myPic' src='" + c_url + "'>";
                     content += "</div>";
                     content += "</div>";
                     content += "<div class='column-desc' style='text-align:left'>";
@@ -1359,8 +1463,14 @@ function finish($this,type) {
                     content += "<b>รายละเอียด :</b>";
                     content += "<br>";
                     content += "<em>" + c_desc + "</em>";
+                    content += "<br>";
+                    content += "<b>เวลาที่พบ: </b>";
+                    content += "<em>" + c_time + "</em>";
+                    content += "<br>";
+                    content += "<b>สถานที่พบ : </b>";
+                    content += "<em>" + c_place + "</em>";
                     content += "</div>";
-                    content += "<div class='column-but' style='background:#ffe6d8'>";
+                    content += "<div class='column-but'>";
                     content += "<div class='row'>"
                     if(c_statusNoti=="seen")
                     {
@@ -1371,14 +1481,14 @@ function finish($this,type) {
                       content += "<img style='margin-right:10px' height='45px' width='45px' src='https://firebasestorage.googleapis.com/v0/b/landf-d7d76.appspot.com/o/red-notification.png?alt=media&token=711f6cbd-93c6-4bad-bad0-0906ea566588'>"
                     }
                     content += "<b>สถานะ : </b><em>" + c_status + "</em>";
-                    content += "</div>";
-                    content += "<div class='row' style='background:#ffe6d8; position:absolute; bottom:0; padding-left:200px; margin-bottom:1%; margin-right:2%'>";
+                    content += "</div>"
+                    content += "<div class='row' style='margin-left:75%;'>";
                     content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
                     content += "<div class='dropdown-menu'>"
                     content += "<a class='dropdown-item' type='button' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,2)' id='confirmDel'>&#128465;ลบ</a>"
                     content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,2)'>&#9745; พบแล้ว</a>"
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
-                    content += "<a class='dropdown-item' type='button' data-toggle='modal' onclick='print(this,2)'>&#128214;ดูเพิ่ม</a>"
+                    content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='print(this,2)'>&#128214; ดูเพิ่ม</a>"
                     content += "<a onclick='EditData(this,2)' type='button' class='dropdown-item' data-toggle='modal' data-target='#Lost' id='editLost'>&#10000;แก้ไข</a>"
                     content += "</div>"
                     content += "</div>";
@@ -1452,14 +1562,16 @@ function finish($this,type) {
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
                             let c_status = dataSnap.val()['statusPost']
+                            let c_time = dataSnap.val()['time'];
+                            let c_place = dataSnap.val()['place'];
                             let c_key =  dataSnap.key
 
                             content += "<ul class='list-group' ng-repeat='data in messages' >";
-                            content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                            content += "<li class='list-group-item' style='min-height: 150px;'>";
                             content += "<div class='row'>";
-                            content += "<div class='column-img' style='background:#ffe6d8'>";
+                            content += "<div class='column-img'>";
                             content += "<div class='picture'>";
-                            content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                            content += "<img id='myPic' src='" + c_url + "'>";
                             content += "</div>";
                             content += "</div>";
                             content += "<div class='column-desc' style='text-align:left'>";
@@ -1468,14 +1580,20 @@ function finish($this,type) {
                             content += "<b>รายละเอียด :</b>";
                             content += "<br>";
                             content += "<em>" + c_desc + "</em>";
+                            content += "<br>";
+                            content += "<b>เวลาที่พบ: </b>";
+                            content += "<em>" + c_time + "</em>";
+                            content += "<br>";
+                            content += "<b>สถานที่พบ : </b>";
+                            content += "<em>" + c_place + "</em>";
                             content += "</div>";
-                            content += "<div class='column-but' style='background:#ffe6d8'>";
-                            content += "<div class='row' style='padding-left:50px'>"
+                            content += "<div class='column-but'>";
                             content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                            content += "<div class='row' style='padding-left:50px'>"
                             content += "</div>";
-                            content += "<div class='row' style='background:#ffe6d8;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                            content += "<div class='row' style='margin-left: 50%;'>";
                             content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
-                            content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print2(this,2)'> &#128214;ดูเพิ่ม </button>"
+                            content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print2(this,2)'>&#128214; ดูเพิ่ม </button>"
                             content += "</div>";
                             content += "</div>";
                             content += "</div>";
@@ -1497,14 +1615,16 @@ function finish($this,type) {
                             let c_topic = dataSnap.val()['topic']
                             let c_desc = dataSnap.val()['description']
                             let c_status = dataSnap.val()['statusPost']
+                            let c_time = dataSnap.val()['time'];
+                            let c_place = dataSnap.val()['place'];
                             let c_key =  dataSnap.key
 
                             content += "<ul class='list-group' ng-repeat='data in messages' >";
-                            content += "<li class='list-group-item' style='height: 150px; background:#ffe6d8'>";
+                            content += "<li class='list-group-item' style='min-height: 150px;'>";
                             content += "<div class='row'>";
-                            content += "<div class='column-img' style='background:#ffe6d8'>";
+                            content += "<div class='column-img'>";
                             content += "<div class='picture'>";
-                            content += "<img style='border-radius: 8px;' height='120' width='120' id='myPic' src='" + c_url + "'>";
+                            content += "<img id='myPic' src='" + c_url + "'>";
                             content += "</div>";
                             content += "</div>";
                             content += "<div class='column-desc' style='text-align:left'>";
@@ -1513,14 +1633,20 @@ function finish($this,type) {
                             content += "<b>รายละเอียด :</b>";
                             content += "<br>";
                             content += "<em>" + c_desc + "</em>";
+                            content += "<br>";
+                            content += "<b>เวลาที่พบ: </b>";
+                            content += "<em>" + c_time + "</em>";
+                            content += "<br>";
+                            content += "<b>สถานที่พบ : </b>";
+                            content += "<em>" + c_place + "</em>";
                             content += "</div>";
-                            content += "<div class='column-but' style='background:#ffe6d8'>";
-                            content += "<div class='row' style='padding-left:50px'>"
+                            content += "<div class='column-but'>";
                             content += "<b>สถานะ : </b><em>" + c_status + "</em>";
+                            content += "<div class='row' style='padding-left:50px'>"
                             content += "</div>";
-                            content += "<div class='row' style='background:#ffe6d8;position:absolute;bottom:0;padding-left:120px;margin-bottom: 2%;margin-right:2%;'>";
+                            content += "<div class='row' style='margin-left: 50%'>";
                             content += "<input type='hidden' id='key' name='key' value='" + c_key + "'>";
-                            content += "<button style='border-radius: 8px;' type='button' name='button' onclick='print2(this,1)'> &#128214;ดูเพิ่ม </button>"
+                            content += "<button type='button' name='button' style='border-radius: 8px;border-style: outset;border-color: yellowgreen;' onclick='print2(this,1)'>&#128214; ดูเพิ่ม </button>"
                             content += "</div>";
                             content += "</div>";
                             content += "</div>";
