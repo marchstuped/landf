@@ -29,7 +29,6 @@ import os, random, shutil
 import matplotlib.pyplot as plt
 import os, sys
 import glob
-import tkinter
 import base64
 import requests
 import json
