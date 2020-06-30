@@ -21,6 +21,7 @@ from skimage.transform import resize
 from skimage.util import img_as_ubyte
 from collections import Counter
 from datetime import datetime
+from Tkinter import *
 import numpy as np
 import pyrebase
 import time
@@ -29,8 +30,6 @@ import os, random, shutil
 import matplotlib.pyplot as plt
 import os, sys
 import glob
-import tkinter
-import _tkinter
 import base64
 import requests
 import json
