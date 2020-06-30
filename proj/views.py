@@ -14,7 +14,7 @@ from keras.preprocessing import image
 from keras.applications import VGG16
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
-from PIL import Image, ImageTk
+from PIL import Image
 from io import StringIO
 from skimage.io import imread, imshow
 from skimage.transform import resize

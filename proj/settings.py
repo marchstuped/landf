@@ -26,7 +26,7 @@ SECRET_KEY = 'h)@t!e^p+ivsz53@)m(z=x_ppb5-8g0-7sc)7kkm(xi=5jnnh='
 DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = ['*','https://landf3.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 
