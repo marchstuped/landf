@@ -440,55 +440,57 @@ def compare2thing(lost , found , choice):
             key_found = found[i]['key']
             img_found = found[i]['img']
 
-            sorted1 =fuzz._process_and_sort(topic_lost, force_ascii=True, full_process=0)
-            sorted2 =fuzz._process_and_sort(topic_found, force_ascii=True, full_process=0)
-            sorted3 =fuzz._process_and_sort(desc_lost, force_ascii=True, full_process=0)
-            sorted4 =fuzz._process_and_sort(desc_found, force_ascii=True, full_process=0)
-
-            s1, s2 = utils.make_type_consistent(sorted1,sorted2)
-            s3, s4 = utils.make_type_consistent(sorted3,sorted4)
-
-            #1 topic
-            if len(s1) <= len(s2):
-                shorter = s1
-                longer = s2
-            else:
-                shorter = s2
-                longer = s1
-
-            seq1 = SequenceMatcher(None,shorter,longer)
-            a = list(seq1.get_matching_blocks())
-
-            # print(a)
-
-            #2 description
-            if len(s3) <= len(s4):
-                shorter = s3
-                longer = s4
-            else:
-                shorter = s4
-                longer = s3
-
-            seq2 = SequenceMatcher(None,shorter,longer)
-            b = list(seq2.get_matching_blocks())
-
-            # print(b)
-            seq3 = float(1-img_found)
-
+            # sorted1 =fuzz._process_and_sort(topic_lost, force_ascii=True, full_process=0)
+            # sorted2 =fuzz._process_and_sort(topic_found, force_ascii=True, full_process=0)
+            # sorted3 =fuzz._process_and_sort(desc_lost, force_ascii=True, full_process=0)
+            # sorted4 =fuzz._process_and_sort(desc_found, force_ascii=True, full_process=0)
+            #
+            # s1, s2 = utils.make_type_consistent(sorted1,sorted2)
+            # s3, s4 = utils.make_type_consistent(sorted3,sorted4)
+            #
+            # #1 topic
+            # if len(s1) <= len(s2):
+            #     shorter = s1
+            #     longer = s2
+            # else:
+            #     shorter = s2
+            #     longer = s1
+            #
+            # seq1 = SequenceMatcher(None,shorter,longer)
+            # a = list(seq1.get_matching_blocks())
+            #
+            # # print(a)
+            #
+            # #2 description
+            # if len(s3) <= len(s4):
+            #     shorter = s3
+            #     longer = s4
+            # else:
+            #     shorter = s4
+            #     longer = s3
+            #
+            # seq2 = SequenceMatcher(None,shorter,longer)
+            # b = list(seq2.get_matching_blocks())
             # print(c)
 
-            Ratio_topic = seq1.ratio()
-            Ratios_topic = utils.intr(100 * Ratio_topic)
+            # Ratio_topic = seq1.ratio()
+            # Ratios_topic = utils.intr(100 * Ratio_topic)
+            #
+            # Ratio_desc = seq2.ratio()
+            # Ratios_desc = utils.intr(100 * Ratio_desc)
 
-            Ratio_desc = seq2.ratio()
-            Ratios_desc = utils.intr(100 * Ratio_desc)
 
-
-            Ratios_img = utils.intr(100 * seq3)
 
             # print("img per " , Ratios_img)
 
-            Ratios_2 = utils.intr(((Ratios_topic*2) + (Ratios_desc*1) + (Ratios_img))/3)
+            Ratios_topic=fuzz.partial_token_sort_ratio(topic_lost,topic_found, force_ascii=True, full_process=1)
+            Ratios_desc=fuzz.partial_token_sort_ratio(desc_lost,desc_found, force_ascii=True, full_process=1)
+            # print(b)
+            seq3 = float(1-img_found)
+            Ratios_img = utils.intr(100 * seq3)
+
+
+            Ratios_2 = utils.intr((((Ratios_topic + Ratios_desc)/2)*1 + ((Ratios_img)*1))/2)
             # print("key_f" , key_found)
 
             # print(Ratios)
@@ -510,55 +512,57 @@ def compare2thing(lost , found , choice):
             key_lost = lost[i]['key']
             img_lost = lost[i]['img']
 
-            sorted1 =fuzz._process_and_sort(topic_lost, force_ascii=True, full_process=0)
-            sorted2 =fuzz._process_and_sort(topic_found, force_ascii=True, full_process=0)
-            sorted3 =fuzz._process_and_sort(desc_lost, force_ascii=True, full_process=0)
-            sorted4 =fuzz._process_and_sort(desc_found, force_ascii=True, full_process=0)
-
-            s1, s2 = utils.make_type_consistent(sorted1,sorted2)
-            s3, s4 = utils.make_type_consistent(sorted3,sorted4)
-
-            #1 topic
-            if len(s1) <= len(s2):
-                shorter = s1
-                longer = s2
-            else:
-                shorter = s2
-                longer = s1
-
-            seq1 = SequenceMatcher(None,shorter,longer)
-            a = list(seq1.get_matching_blocks())
-
-            # print(a)
-
-            #2 description
-            if len(s3) <= len(s4):
-                shorter = s3
-                longer = s4
-            else:
-                shorter = s4
-                longer = s3
-
-            seq2 = SequenceMatcher(None,shorter,longer)
-            b = list(seq2.get_matching_blocks())
-
-            # print(b)
+            # sorted1 =fuzz._process_and_sort(topic_lost, force_ascii=True, full_process=0)
+            # sorted2 =fuzz._process_and_sort(topic_found, force_ascii=True, full_process=0)
+            # sorted3 =fuzz._process_and_sort(desc_lost, force_ascii=True, full_process=0)
+            # sorted4 =fuzz._process_and_sort(desc_found, force_ascii=True, full_process=0)
+            #
+            # s1, s2 = utils.make_type_consistent(sorted1,sorted2)
+            # s3, s4 = utils.make_type_consistent(sorted3,sorted4)
+            #
+            # #1 topic
+            # if len(s1) <= len(s2):
+            #     shorter = s1
+            #     longer = s2
+            # else:
+            #     shorter = s2
+            #     longer = s1
+            #
+            # seq1 = SequenceMatcher(None,shorter,longer)
+            # a = list(seq1.get_matching_blocks())
+            #
+            # # print(a)
+            #
+            # #2 description
+            # if len(s3) <= len(s4):
+            #     shorter = s3
+            #     longer = s4
+            # else:
+            #     shorter = s4
+            #     longer = s3
+            #
+            # seq2 = SequenceMatcher(None,shorter,longer)
+            # b = list(seq2.get_matching_blocks())
+            #
+            # # print(b)
+            #
+            #
+            # # print(c)
+            #
+            # Ratio_topic = seq1.ratio()
+            # Ratios_topic = utils.intr(100 * Ratio_topic)
+            #
+            # Ratio_desc = seq2.ratio()
+            # Ratios_desc = utils.intr(100 * Ratio_desc)
+            Ratios_topic=fuzz.partial_token_sort_ratio(topic_found,topic_lost, force_ascii=True, full_process=1)
+            Ratios_desc=fuzz.partial_token_sort_ratio(desc_found,desc_lost, force_ascii=True, full_process=1)
 
             seq3 = float(1-img_lost)
-
-            # print(c)
-
-            Ratio_topic = seq1.ratio()
-            Ratios_topic = utils.intr(100 * Ratio_topic)
-
-            Ratio_desc = seq2.ratio()
-            Ratios_desc = utils.intr(100 * Ratio_desc)
-
             Ratios_img = utils.intr(100 * seq3)
 
             # print("img per " , Ratios_img)
 
-            Ratios_2 = utils.intr(((Ratios_topic*2) + (Ratios_desc*1) + (Ratios_img))/3)
+            Ratios_2 = utils.intr((((Ratios_topic + Ratios_desc)/2)*1 + ((Ratios_img)*1))/2)
 
             # print(Ratios)
             listRatios[i]={'keyDB' : key_lost , "topic": topic_lost,"per" : Ratios_2}
