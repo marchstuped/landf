@@ -21,7 +21,6 @@ from skimage.transform import resize
 from skimage.util import img_as_ubyte
 from collections import Counter
 from datetime import datetime
-from Tkinter import *
 import numpy as np
 import pyrebase
 import time
