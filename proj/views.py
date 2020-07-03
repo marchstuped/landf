@@ -223,7 +223,7 @@ def post_create_lost(request):
             'time':now,
     }
     dicPic = {}
-    dicPic['id']=millis
+    dicPic['id']=str(millis)
     dicPic['listPic'] = listPic.tolist()
     # database.child('users').child(a).child('reports').child(millis).set(data)
     database.child('Lost').child(millis).set(data)
@@ -288,7 +288,7 @@ def post_create_found(request):
             'time':now,
     }
     dicPic = {}
-    dicPic['id']=millis
+    dicPic['id']=str(millis)
     dicPic['listPic'] = listPic.tolist()
     # database.child('users').child(a).child('reports').child(millis).set(data)
     if(save == 0):
@@ -554,7 +554,7 @@ def match_post_L(id):
         topic_lost = refLost[str(key)]['topic']
         desc_lost = refLost[str(key)]['description']
 
-        lost_ListPic = refLost_ListPic[key]['listPic']
+        lost_ListPic = refLost_ListPic[str(key)]['listPic']
         listLostPic=lost_ListPic
 
         PredicPic=calculate_predicPic(listFoundPic,listLostPic)
@@ -589,7 +589,7 @@ def match_post_F(id):
         topic_found = refFound[str(key)]['topic']
         desc_found = refFound[str(key)]['description']
 
-        found_ListPic = refFound_ListPic[key]['listPic']
+        found_ListPic = refFound_ListPic[str(key)]['listPic']
         listFoundPic=found_ListPic
 
         PredicPic=calculate_predicPic(listLostPic,listFoundPic)
