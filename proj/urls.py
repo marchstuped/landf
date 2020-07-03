@@ -41,6 +41,6 @@ urlpatterns = [
     path('match_post_L/',views.match_post_L,name = 'match_post_L'),
     path('match_post_F/',views.match_post_F,name = 'match_post_F'),
     path('history/',views.history,name = 'history'),
-    path('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 
 ]
