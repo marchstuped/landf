@@ -763,9 +763,12 @@
   var btn;
       function deleteData($this,type) {
         var thisid = $this.nextSibling.nextSibling.value;
+        var idtype = $this.previousElementSibling.value;
         btn_confirmed = document.getElementById("Confirmed");
         btn = document.getElementById("confirmDel");
           if (type == 1) {
+              var PicType = firebase.database().ref("PicCategoryF/" + idtype+"/"+thisid);
+              var CateType = firebase.database().ref("CategoryF/" + idtype+"/"+thisid);
               var Ref_f = firebase.database().ref("Found/" + thisid);
               var modal = document.getElementById("Confirm");
               console.log(Ref_f);
@@ -776,6 +779,8 @@
               btn_confirmed.onclick = function() {
                  // console.log(1);
                  Ref_f.remove()
+                 CateType.remove()
+                 PicType.remove()
                  window.location.reload();
               }
               window.onclick = function(event) {
@@ -787,6 +792,8 @@
               // window.location.reload();
           }
           else if (type == 2) {
+              var PicType = firebase.database().ref("PicCategoryL/" + idtype+"/"+thisid);
+              var CateType = firebase.database().ref("CategoryL/" + idtype+"/"+thisid);
               var Ref_l = firebase.database().ref("Lost/" + thisid);
               var modal = document.getElementById("Confirm");
               console.log(Ref_l);
@@ -797,6 +804,8 @@
               btn_confirmed.onclick = function() {
                  // console.log(1);
                  Ref_l.remove()
+                 CateType.remove()
+                 PicType.remove()
                  window.location.reload();
               }
               window.onclick = function(event) {
@@ -1263,6 +1272,8 @@ function finish($this,type) {
                 var c_statusNoti = childData.statusNoti;
                 var c_time = childData.time;
                 var c_place = childData.place;
+                var c_type = childData.type;
+
                 var $mainContainer = $("#mainContainer");
                 var content = "";
                 var temp = childKey;
@@ -1329,6 +1340,7 @@ function finish($this,type) {
                           content += "<div class='row' style='margin-left:75%;'>"
                           content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'style='margin-left:50%;'>&#9868;</button>"
                           content += "<div class='dropdown-menu'>"
+                          content += "<input type='hidden' id='c_type' name='c_type' value='" + c_type + "'>";
                           content += "<a type='button' class='dropdown-item' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,1)' id='confirmDel'>&#128465; ลบ</a>"
                           content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,1)'>&#9745; พบแล้ว</a>"
                           content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
@@ -1420,6 +1432,8 @@ function finish($this,type) {
               var c_statusNoti = childData.statusNoti;
               var c_time = childData.time;
               var c_place = childData.place;
+              var c_type = childData.type;
+              
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -1485,6 +1499,7 @@ function finish($this,type) {
                     content += "<div class='row' style='margin-left:75%;'>";
                     content += "<button style='border-radius: 8px;' data-toggle='dropdown' type='button' name='button'>&#9868;</button>"
                     content += "<div class='dropdown-menu'>"
+                    content += "<input type='hidden' id='c_type' name='c_type' value='" + c_type + "'>";
                     content += "<a class='dropdown-item' type='button' data-toggle='modal' data-target='#Confirm' onclick='deleteData(this,2)' id='confirmDel'>&#128465;ลบ</a>"
                     content += "<a type='button' class='dropdown-item' data-toggle='modal' onclick='finish(this,2)'>&#9745; พบแล้ว</a>"
                     content += "<input type='hidden' id='key' name='key' value='" + childKey + "'>";
