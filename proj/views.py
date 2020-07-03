@@ -33,8 +33,8 @@ import base64
 import requests
 import json
 
-import keras.backend.tensorflow_backend as tb
-tb._SYMBOLIC_SCOPE.value = True
+# import keras.backend.tensorflow_backend as tb
+# tb._SYMBOLIC_SCOPE.value = True
 
 
 translator = Translator(service_urls=[
