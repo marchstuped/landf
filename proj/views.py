@@ -91,7 +91,8 @@ database = firebase.database()
 status = 0
 id = ""
 # model = load_model('../project_lostandfound/proj/model4.h5')
-model = load_model('../proj/model4.h5')
+# model = load_model('../proj/model4.h5')
+model = load_model('/home/site/repository/proj/model4.h5')
 
 
 img_width, img_height = 224, 224
