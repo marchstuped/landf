@@ -204,11 +204,11 @@ def post_create_lost(request):
         type = pdPic(list(listPic).index(max(listPic)))
 
     place = find_place(progress)
-    idtoken = request.session['uid']
-    a = authen.get_account_info(idtoken)
-    a = a['users']
-    a = a[0]
-    a = a['localId']
+    #idtoken = request.session['uid']
+    #a = authen.get_account_info(idtoken)
+    #a = a['users']
+    #a = a[0]
+    #a = a['localId']
 
     #print("info" + str(a))
     idP = {'id':millis}
@@ -269,11 +269,11 @@ def post_create_found(request):
         type = pdPic(list(listPic).index(max(listPic)))
 
     place = find_place(progress)
-    idtoken = request.session['uid']
-    a = authen.get_account_info(idtoken)
-    a = a['users']
-    a = a[0]
-    a = a['localId']
+    #idtoken = request.session['uid']
+    #a = authen.get_account_info(idtoken)
+    #a = a['users']
+    #a = a[0]
+    #a = a['localId']
 
     #print("info" + str(a))
     idP = {'id':millis}
