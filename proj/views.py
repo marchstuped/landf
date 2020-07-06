@@ -90,9 +90,9 @@ authen = firebase.auth()
 database = firebase.database()
 status = 0
 id = ""
-# model = load_model('../project_lostandfound/proj/model4.h5')
+model = load_model('../project_lostandfound/proj/model4.h5')
 # model = load_model('../proj/model4.h5')
-model = load_model('/home/site/repository/proj/model4.h5')
+# model = load_model('/home/site/repository/proj/model4.h5')
 
 
 img_width, img_height = 224, 224
@@ -327,6 +327,8 @@ def find_place(text):
     proc = word_tokenize(text.lower() , keep_whitespace=False)
     listToStr = ' '.join(map(str, proc))
     keyplace = keyword_processor2.extract_keywords(listToStr)
+    if(keyplace==[]):
+        keyplace.append("-")
     return keyplace[0]
 
 def check(request):
