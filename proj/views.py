@@ -204,11 +204,11 @@ def post_create_lost(request):
         type = pdPic(list(listPic).index(max(listPic)))
 
     place = find_place(progress)
-    idtoken = request.session['uid']
-    a = authen.get_account_info(idtoken)
-    a = a['users']
-    a = a[0]
-    a = a['localId']
+    #idtoken = request.session['uid']
+    #a = authen.get_account_info(idtoken)
+    #a = a['users']
+    #a = a[0]
+    #a = a['localId']
 
     #print("info" + str(a))
     idP = {'id':millis}
@@ -269,11 +269,11 @@ def post_create_found(request):
         type = pdPic(list(listPic).index(max(listPic)))
 
     place = find_place(progress)
-    idtoken = request.session['uid']
-    a = authen.get_account_info(idtoken)
-    a = a['users']
-    a = a[0]
-    a = a['localId']
+    #idtoken = request.session['uid']
+    #a = authen.get_account_info(idtoken)
+    #a = a['users']
+    #a = a[0]
+    #a = a['localId']
 
     #print("info" + str(a))
     idP = {'id':millis}
@@ -445,7 +445,7 @@ def compare2thing(lost , found , choice):
             Ratios_desc=fuzz.partial_token_sort_ratio(desc_lost,desc_found, force_ascii=True, full_process=1)
             Ratios_img = (100 * img_found)
 
-            Ratios_2 = utils.intr(((((Ratios_topic+Ratios_desc)/2)*1) + (Ratios_img)*1)/2)
+            Ratios_2 = utils.intr(((((Ratios_topic+Ratios_desc)/2)*1.8) + (Ratios_img)*0.2)/2)
 
             listRatios[i]={'keyDB' : key_found , "topic": topic_found,"per" : Ratios_2}
         # print("choice 1")
@@ -469,7 +469,7 @@ def compare2thing(lost , found , choice):
             Ratios_desc=fuzz.partial_token_sort_ratio(desc_lost,desc_found, force_ascii=True, full_process=1)
             Ratios_img = (100 * img_lost)
 
-            Ratios_2 = utils.intr(((((Ratios_topic+Ratios_desc)/2)*1) + (Ratios_img)*1)/2)
+            Ratios_2 = utils.intr(((((Ratios_topic+Ratios_desc)/2)*1.8) + (Ratios_img)*0.2)/2)
             # print(Ratios)
             listRatios[i]={'keyDB' : key_lost , "topic": topic_lost,"per" : Ratios_2}
         # print("choice 2")
