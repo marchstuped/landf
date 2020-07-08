@@ -277,6 +277,17 @@
           grid-row-start: row1-start;
           grid-row-end: 3;
         }
+        .column {
+          float: left;
+          width: 50%;
+          padding: 10px;
+          height: 300px;
+        }
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
         .column-img{
           float: left;
           /* width: 20%; */
@@ -417,47 +428,54 @@
 
       <div class="dropup" align="right" style="margin-top:30% ; margin-right:3%">
 
-        <div class="modal fade" id="Lost" role="dialog" >
-            <div class="modal-dialog modal-lg" >
+        <div class="modal fade" id="Lost" role="dialog">
+            <div class="modal-dialog modal-lg" style="max-height: 750px">
                 <div class="modal-content text-left">
                   <div class="modal-header" style="background-color: rgb(42,138,234)">
                     <h5>แก้ไขโพสต์</h5>
                   </div>
                     <div class="modal-body" style="background-color: rgb(136,215,241)">
-                        <!-- <form action="/post_create_lost/" method="post" style=> -->
-                              <!-- {% csrf_token %} -->
-                              <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
-                              <!-- <input type="hidden" name="now_name" id="now_name1" value="{{g_name}}">
-                              <input type="hidden" name="now_email" id="now_email1" value="{{g_email}}"> -->
-                              หัวข้อ:
-                              <input type="text" name="work" lign="left" value="" id="topic" required><br>
-                              <!-- ประเภท:
-                                <select name="item" id="type" required>
-                                  <option value="" disabled selected hidden>เลือกประเภท</option>
-                                  <option value="โทรศัพท์">โทรศัพท์</option>
-                                  <option value="กระเป๋าสะพาย">กระเป๋าสะพาย</option>
-                                  <option value="กระเป๋าถือ">กระเป๋าถือ</option>
-                                  <option value="กระเป๋าเงิน">กระเป๋าเงิน</option>
-                                  <option value="นาฬิกา">นาฬิกา</option>
-                                  <option value="ปากกา">ปากกา</option>
-                                  <option value="อื่นๆ">อื่นๆ</option>
-                                </select><br> -->
-                              รายละเอียด:
-                              <br><textarea rows="5" cols="40" maxlength="300" name="progress" id="desc" required></textarea>
-                              <br><br>
-                              อัพโหลดรูป:
-                              <input type="file" name="file[]" id="files_l" value="https://goodwillretail.co.th/wp-content/uploads/2016/01/nopic.png">
-                              <!-- <label for="file">Choose file</label> -->
-                              <input type="hidden" name="url" id="url">
-                              <input type="hidden" name="email" id="email" value="{{g_email}}">
-                              <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br>
+                      <div class="row">
+                        <div class="column">
+                        <!-- <form action="/history_edit/" method="post" runat="server" id="lost-form">
+                              {% csrf_token %} -->
+                            <input type="hidden" name="now_id" id="now_id1" value="{{g_id}}">
+                            หัวข้อ:
+                            <input type="text" name="work" lign="left" value="" id="topic" required><br>
+                            รายละเอียด:
+                            <br><textarea rows="5" cols="40" maxlength="300" name="progress" id="desc" required></textarea>
+                            <br>
+                            <!-- <label for="times">เลือกเวลา:</label>
+                            <input type="time" id="times" name="times" required>
+                            <br>
+                            <label for="dates">เลือกวันที่:</label>
+                            <input type="date" data-date-format="DD MMMM YYYY" id="dates" name="dates"required> -->
+                            <br>
+                            อัพโหลดรูป:
+                            <input type="file" name="file[]" id="files_l" value="https://goodwillretail.co.th/wp-content/uploads/2016/01/nopic.png">
+                            <!-- <label for="file">Choose file</label> -->
+                            <input type="hidden" name="url" id="url">
+                            <input type="hidden" name="email" id="email" value="">
+                            <!-- <input type="hidden" name="type_post" id="type_post" value="">
+                            <input type="hidden" name="id_post" id="id_post" value="">
+                            <input type="hidden" name="statusPost" id="statusPost" value="ยังไม่พบเจ้าของ">
+                            <input type="hidden" name="statusNoti" id="statusNoti" value="seen"> -->
+                            <!-- <button type="button" onclick="uploadImage_lost()">อัพโหลด</button><br><br> -->
+                          <!-- </form> -->
+                          </div>
+                          <div class="column">
+                            <img src="" id="img_l" alt=""width="60%" height="60%" style="margin-left:20%">
+                            <div align="right" style="margin-left:15%; margin-top:20%">
+                              <button type="button" name="button" class="btn btn-primary" onclick="submitEdit()">ยืนยันแก้ไข</button>
+                              <!-- <button name="button" form="lost-form" class="btn btn-primary" required>ยืนยัน</button> -->
+                              <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ปิด</button>
+                            </div>
+                          </div>
+                        </div>
 
-                              <div align="right">
-                                  <!-- <input type="submit" value="ยืนยันแก้ไข" class="btn btn-primary" id="submitEdit" required> -->
-                                  <button type="button" name="button" class="btn btn-primary" onclick="submitEdit()">ยืนยันแก้ไข</button>
-                                  <button type="button" class="btn btn-default" data-dismiss="modal" style="background:white">ปิด</button>
-                              </div>
-                        <!-- </form> -->
+                              <!-- <div align="right"> -->
+
+                              <!-- </div> -->
                     </div>
                 </div>
             </div>
@@ -494,7 +512,7 @@
   <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-database.js"></script>
   <script>
-
+  // real
   var config = {
       apiKey: "AIzaSyBPIHPOE2LWIPCDMU8STeMcm8G5CEKyjOA",
       authDomain: "landf-d7d76.firebaseapp.com",
@@ -505,10 +523,21 @@
       appId: "1:664909858615:web:2959130b838ad023b0bcb2",
       measurementId: "G-LK1FPK8MVG"
   };
+  // var config = {
+  //   apiKey: "AIzaSyBbr2UGii9sxV_692JctUSskljtpzlPmbU",
+  //   authDomain: "testtest-1f226.firebaseapp.com",
+  //   databaseURL: "https://testtest-1f226.firebaseio.com",
+  //   projectId: "testtest-1f226",
+  //   storageBucket: "testtest-1f226.appspot.com",
+  //   messagingSenderId: "1003948527976",
+  //   appId: "1:1003948527976:web:57a0b9684d4d8660fe46dd",
+  //   measurementId: "G-1XEV0QR09F"
+  // };
   firebase.initializeApp(config);
   var g_email,e;
   var g_id;
   var desc,email,topic,type,url,s_id,Ref_gb;
+  var this_type;
   // var g_name;
   // var en_email , en_name , de_email , de_name;
   var b;
@@ -535,7 +564,8 @@
 
       // console.log(window.location.href);
       // console.log("id " + id);
-      g_id = id;
+      // g_id = "{{g_id}}";
+
       // g_name = atob(name);
       // g_email = atob(email);
       // console.log("g_id " + g_id);
@@ -559,6 +589,7 @@
               welcome_lost();
               num = 2;
               // document.getElementById("getEmail").value = g_email;
+
               document.getElementById("getId").value = g_id;
               // document.getElementById("getName").value = g_name;
               // g_id = id;
@@ -571,6 +602,7 @@
               // g_id = localStorage.getItem("g_id");
               // document.getElementById("getEmail").value = g_email;
               // document.getElementById("getId").value = g_id;
+              console.log(g_id);
               console.log(1);
       }
 
@@ -603,23 +635,26 @@
       // g_email = "{{e}}";
       // document.getElementById("getEmail").value = g_email;
       // document.getElementById("getId").value = g_id;
-      var firebaseRef2 = new firebase.database().ref("users").child(g_id);
-      firebaseRef2.once('value').then(function(dataSnapshot) {
-          var childData = dataSnapshot.val()
-          var now_name = childData.name;
-          var now_email = childData.email;
-          // document.getElementById("name").value = now_name;
-          // document.getElementById("email").value = now_email;
-          document.getElementById('NameUser').innerText = now_name;
-          document.getElementById("getEmail").value = now_email;
-          var e = document.getElementById("getEmail").value
-          g_email = now_email
-          // console.log(now_name);
-          // console.log(now_email);
-          console.log("now_e " + now_email);
-          console.log("id " + g_id);
-          console.log("email " + g_email);
-        });
+      console.log("gid is " + g_id);
+      // var firebaseRef2 = new firebase.database().ref("users").child(g_id);
+      // firebaseRef2.once('value').then(function(dataSnapshot) {
+      //     var childData = dataSnapshot.val()
+      //     var now_name = childData.name;
+      //     var now_email = childData.email;
+      //     // document.getElementById("name").value = now_name;
+      //     // document.getElementById("email").value = now_email;
+      //     document.getElementById('NameUser').innerText = now_name;
+      //     document.getElementById("getEmail").value = now_email;
+      //     var e = document.getElementById("getEmail").value
+      //     g_email = now_email
+      //     // console.log(now_name);
+      //     // console.log(now_email);
+      //     console.log("now_e " + now_email);
+      //     console.log("id " + g_id);
+      //     console.log("email " + g_email);
+      //     document.getElementById("now_id1").value = g_id;
+      //     document.getElementById("email").value = g_email;
+      //   });
         // console.log("id " + g_id);
       // console.log(name);
       // de_name = atob(name);
@@ -641,13 +676,13 @@
       var tp = document.getElementById("topic").value;
       var dc = document.getElementById("desc").value;
       // var ty = document.getElementById("type").value;
-      var ur;
-      if (url == "") {
-          ur = document.getElementById("url").value;
-      }
-      else {
-          ur = url;
-      }
+      var ur = document.getElementById("url").value;
+      // if (url == "") {
+      //     ur = document.getElementById("url").value;
+      // }
+      // else {
+      //     ur = url;
+      // }
 
       console.log(tp);
       console.log(dc);
@@ -664,39 +699,39 @@
 
   function EditData($this,type) {
       var thisid = $this.previousElementSibling.previousElementSibling.value;
+      // document.getElementById("id_post").value = thisid;
       if (type == 1) {
           console.log(thisid);
+          // document.getElementById("id_post").value = thisid;
           Ref_gb = firebase.database().ref("Found/" + thisid);
           Ref_gb.once('value').then(function(dataSnapshot){
                   var data = dataSnapshot.val();
                   desc = data.description;
-                  email = data.email
+                  email = data.email;
                   topic = data.topic;
+                  this_type = 1;
                   // type = data.type;
-                  url = data.url;
+                  img_l = data.url;
                   s_id = thisid;
                   // console.log(desc);
                   // console.log(email);
                   // console.log(topic);
                   // console.log(type);
-                  console.log("ur " + url);
+                  console.log("this type " + this_type);
+                  console.log("ur " + img_l);
                   var modal = document.getElementById("Lost");
                   var btn = document.getElementById("editLost");
-                  // var set;
-                  // if (type == "โทรศัพท์") {set = 1;}
-                  // else if(type == "กระเป๋าสะพาย"){set = 2;}
-                  // else if(type == "กระเป๋าเงิน"){set = 3;}
-                  // else if(type == "นาฬิกา"){set = 4;}
-                  // else if(type == "อื่นๆ"){set = 5;}
-                  s_topic = document.getElementById("topic")
                   document.getElementById("topic").value = topic;
                   document.getElementById("desc").value = desc;
-                  // document.getElementById("files_f").value = url;
-                  // document.getElementById("type").selectedIndex = set;
-                  s_topic = document.getElementById("topic")
-                  s_desc = document.getElementById("desc")
-                  // s_type = document.getElementById("type")
-                  s_url = document.getElementById("files_l")
+                  document.getElementById("img_l").value = img_l;
+                  // document.getElementById("type_post").value = this_type;
+                  document.getElementById("now_id1").value = g_id;
+                  document.getElementById("email").value = email;
+                  $('#img_l').attr('src', img_l);
+                  //
+                  // s_topic = document.getElementById("topic")
+                  // s_desc = document.getElementById("desc")
+                  // s_url = document.getElementById("img_l")
 
                   btn.onclick = function() {
                     modal.style.display = "block";
@@ -721,12 +756,14 @@
       }
       else if (type == 2) {
           console.log(thisid);
+          // document.getElementById("id_post").value = thisid;
           Ref_gb = firebase.database().ref("Lost/" + thisid);
           Ref_gb.once('value').then(function(dataSnapshot){
                   var data = dataSnapshot.val();
                   desc = data.description;
                   email = data.email
                   topic = data.topic;
+                  this_type = 2;
                   // type = data.type;
                   url = data.url;
                   // console.log(desc);
@@ -734,18 +771,16 @@
                   // console.log(topic);
                   // console.log(type);
                   // console.log(url);
+                  console.log("this type " + this_type);
                   var modal = document.getElementById("Lost");
                   var btn = document.getElementById("editLost");
-                  // var set;
-                  // if (type == "โทรศัพท์") {set = 1;}
-                  // else if(type == "กระเป๋าสะพาย"){set = 2;}
-                  // else if(type == "กระเป๋าเงิน"){set = 3;}
-                  // else if(type == "นาฬิกา"){set = 4;}
-                  // else if(type == "อื่นๆ"){set = 5;}
                   document.getElementById("topic").value = topic;
                   document.getElementById("desc").value = desc;
-                  // document.getElementById("files_f").value = url;
-                  // document.getElementById("type").selectedIndex = set;
+                  document.getElementById("img_l").value = img_l;
+                  // document.getElementById("type_post").value = this_type;
+                  document.getElementById("now_id1").value = g_id;
+                  document.getElementById("email").value = email;
+                  $('#img_l').attr('src', img_l);
 
                   btn.onclick = function() {
                     modal.style.display = "block";
@@ -1433,7 +1468,7 @@ function finish($this,type) {
               var c_time = childData.time;
               var c_place = childData.place;
               var c_type = childData.type;
-              
+
               var $mainContainer = $("#mainContainer");
               var content = "";
               var temp = childKey;
@@ -1690,22 +1725,57 @@ function finish($this,type) {
       f_btn.classList.remove("active");
       c_btn.classList.add("active");
     }
-    function uploadImage_lost() {
-            var storage = firebase.storage();
-            var file = document.getElementById("files_l").files[0];
-            var storageRef = storage.ref();
-            var thisRef = storageRef.child(file.name).put(file);
-            thisRef.on('state_changed',function(snapshot){
-            console.log("file uplaoded succesfully");
-            },
-            function(error) {
+    // function uploadImage_lost() {
+    //         var storage = firebase.storage();
+    //         var file = document.getElementById("files_l").files[0];
+    //         var storageRef = storage.ref();
+    //         var thisRef = storageRef.child(file.name).put(file);
+    //         thisRef.on('state_changed',function(snapshot){
+    //         console.log("file uplaoded succesfully");
+    //         },
+    //         function(error) {
+    //
+    //         },
+    //         function() {
+    //             thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    //               document.getElementById("url").value = downloadURL;
+    //         });
+    //     })
+    //   }
+    $('#files_l').change(function(){
+      readURL_L(this);
+      var storage = firebase.storage();
+      var file = document.getElementById("files_l").files[0];
+      var storageRef = storage.ref();
+      var thisRef = storageRef.child(file.name).put(file);
 
-            },
-            function() {
-                thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                  document.getElementById("url").value = downloadURL;
-            });
-        })
+      thisRef.on('state_changed',function(snapshot){
+        //   thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        //     document.getElementById("url_f").value = downloadURL;
+        // });
+        console.log("file uplaoded succesfully");
+      },
+      function(error) {
+        console.log("error");
+      },
+      function() {
+        thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+          document.getElementById("url").value = downloadURL;
+        });
+      })
+      return true;
+    });
+      function readURL_L(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+            $('#img_l').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
       }
+
   </script>
 </html>
