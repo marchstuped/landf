@@ -61,7 +61,7 @@ Pyrebase==3.0.27
 pythainlp==2.2.1
 python-crfsuite==0.9.7
 python-dateutil==2.8.1
-python-jwt==2.0.1
+python-jwt==3.3.4
 python-Levenshtein==0.12.0
 pytz==2020.1
 PyWavelets==1.1.1
